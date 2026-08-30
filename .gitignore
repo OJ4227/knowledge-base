@@ -1,0 +1,19 @@
+# Obsidian per-machine UI state
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+.obsidian/appearance.json
+
+# JetBrains IDE
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*~
+
+# Note: sources/_snapshots/ IS committed on purpose — archived source content is
+# part of the provenance guarantee and must survive link rot.
