@@ -4,6 +4,10 @@
 .obsidian/cache
 .obsidian/appearance.json
 
+# Community plugin code — not vendored; install Dataview from the store on each machine
+# (see DESIGN.md §10). Committed config (community-plugins.json) records what to install.
+.obsidian/plugins/
+
 # JetBrains IDE
 .idea/
 

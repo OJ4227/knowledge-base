@@ -8,7 +8,7 @@ updated: 2026-08-30
 
 ```dataview
 TABLE WITHOUT ID file.link AS "Note", type AS "Type", updated AS "Updated", file.mtime AS "File modified"
-FROM ""
+FROM "" AND -"templates" AND -"meta"
 WHERE type AND type != "dashboard" AND type != "meta" AND type != "source"
 SORT file.mtime DESC
 LIMIT 40
@@ -18,7 +18,7 @@ LIMIT 40
 
 ```dataview
 TABLE WITHOUT ID file.link AS "Note", type AS "Type", created AS "Created"
-FROM ""
+FROM "" AND -"templates" AND -"meta"
 WHERE created AND date(created) >= date(today) - dur(30 days) AND type != "source"
 SORT created DESC
 ```

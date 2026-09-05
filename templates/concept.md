@@ -1,15 +1,15 @@
 ---
 type: concept
-name: "<% tp.file.title %>"
+name: "<note name>"
 aliases: []
 category:            # protocol | architecture | technique | infra | eval | primitive | pattern
 related: []
 maturity:            # emerging | established | contested | fading
-created: <% tp.date.now("YYYY-MM-DD") %>
-updated: <% tp.date.now("YYYY-MM-DD") %>
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
 ---
 
-# <% tp.file.title %>
+# <note name>
 
 <!-- curated: this whole note is owner-curated. Agents draft and propose, never edit in place. -->
 

@@ -21,6 +21,13 @@ and the lint rules in the same commit.
 - **Curated blocks** are marked `<!-- curated -->`. Agents never edit these except the
   single designated `## State of the art` / `## Current state` block per tracked note.
 - `created` is set once; `updated` is bumped on every material change.
+- `seed: true` (optional, any tracked type) — the note was created by hand before the
+  collector/enrich pipeline existed. Its facts may be uncited and its `## Timeline` thin.
+  The gardener lists seed notes in the health report for citation backfill; remove the flag
+  once the note has been reconciled against real sources.
+- **Dataview:** every analytics query excludes `templates/` and `meta/` in its `FROM`
+  clause (e.g. `FROM "" AND -"templates" AND -"meta"`). Template files carry real `type:`
+  values and would otherwise be indexed as notes.
 
 ## `concept`
 

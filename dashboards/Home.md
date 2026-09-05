@@ -21,8 +21,8 @@ Design: [[DESIGN]] · Schemas: [[schema]] · Taxonomy: [[taxonomy]] · Agent rul
 ## Counts
 
 ```dataview
-TABLE WITHOUT ID type AS "Type", length(rows) AS "Notes"
-FROM ""
+TABLE WITHOUT ID key AS "Type", length(rows) AS "Notes"
+FROM "" AND -"templates" AND -"meta" AND -"dashboards"
 WHERE type
 GROUP BY type
 SORT length(rows) DESC
@@ -32,7 +32,7 @@ SORT length(rows) DESC
 
 ```dataview
 TABLE WITHOUT ID file.link AS "Note", type AS "Type", updated AS "Updated"
-FROM ""
+FROM "" AND -"templates" AND -"meta"
 WHERE updated AND type != "dashboard" AND type != "meta"
 SORT updated DESC
 LIMIT 15

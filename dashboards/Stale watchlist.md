@@ -11,7 +11,7 @@ missing them. Review periodically.
 
 ```dataview
 TABLE WITHOUT ID file.link AS "Company", priority AS "Priority", updated AS "Last updated", (date(today) - date(updated)).days AS "Days stale"
-FROM ""
+FROM "" AND -"templates"
 WHERE type = "company" AND watchlist = true AND updated AND date(updated) < date(today) - dur(90 days)
 SORT updated ASC
 ```
@@ -20,7 +20,7 @@ SORT updated ASC
 
 ```dataview
 TABLE WITHOUT ID file.link AS "Thread", updated AS "Last updated"
-FROM ""
+FROM "" AND -"templates"
 WHERE type = "moc" AND kind = "thread" AND updated AND date(updated) < date(today) - dur(60 days)
 SORT updated ASC
 ```

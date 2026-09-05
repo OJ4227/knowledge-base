@@ -82,8 +82,8 @@ Read `DESIGN.md` for the full rationale.
 - Maintain `## State of the art` / `## Current state` blocks.
 - Repair dead external links (replacement URL, or `[dead-link]` + archive.org fallback).
 - Rotate timelines per `DESIGN.md` §9.
-- Write `meta/health/report.md` (stats, orphans, stubs, stale entities, concept gaps,
-  coverage gaps).
+- Write `meta/health/report.md` (stats, orphans [see Lint note — excludes concepts and
+  seed notes], stubs, stale entities, concept gaps, coverage gaps).
 
 ### Digest (Stage 5, weekly)
 
@@ -110,3 +110,14 @@ Detection only, fixes nothing. Fails the commit on hard errors:
 
 Warnings (reported, non-blocking): orphans, stubs, stale watchlist entries, dead external
 links (weekly check).
+
+**Orphans** — a note with no inbound links. This is a weak signal, not a defect to fix.
+Exclude from the orphan list:
+
+- `type: concept` — concept notes are lookup targets, reached via search and the
+  `Concepts index` dashboard, not via links. An unlinked concept is normal.
+- `seed: true` notes — the surrounding graph has not been built yet; expected.
+
+Report the remaining orphans (companies, people, technologies, threads with nothing
+pointing at them) so the gardener can consider a link *if a real relationship exists* —
+never add a link solely to clear orphan status.

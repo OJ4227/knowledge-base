@@ -1,13 +1,16 @@
 ---
 type: meta
 name: Templates
-updated: 2026-08-30
+updated: 2026-09-05
 ---
 
 # templates/
 
-Note templates, one per `type` in [[schema]]. They use [Templater](https://silentvoid13.github.io/Templater/)
-syntax (`<% tp.* %>`) — set Templater's template folder to `templates/` after installing.
+Canonical structure for each note `type` in [[schema]]. These are **static skeletons** —
+plain placeholder text (`<note name>`, `YYYY-MM-DD`), no template-engine syntax.
+
+Claude and the pipeline agents copy this structure when creating a note. To make one by
+hand, duplicate the file into the right folder, rename it, and fill it in.
 
 | Template | For |
 |---|---|
@@ -19,3 +22,6 @@ syntax (`<% tp.* %>`) — set Templater's template folder to `templates/` after 
 | `source.md` | `sources/` — provenance notes |
 
 If you change a template, change [[schema]] and the `lint` rules in the same commit.
+
+Dataview excludes `templates/` from its queries (the files carry real `type:` values), so
+these skeletons never show up as notes in dashboards.

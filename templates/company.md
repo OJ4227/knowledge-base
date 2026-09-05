@@ -1,6 +1,6 @@
 ---
 type: company
-name: "<% tp.file.title %>"
+name: "<note name>"
 aliases: []
 status:              # active | stealth | acquired | shut-down
 founded:             # YYYY
@@ -16,11 +16,11 @@ last_round:
 people: []
 watchlist: false
 priority:            # high | medium | low
-created: <% tp.date.now("YYYY-MM-DD") %>
-updated: <% tp.date.now("YYYY-MM-DD") %>
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
 ---
 
-# <% tp.file.title %>
+# <note name>
 
 ## Summary
 
@@ -36,9 +36,9 @@ updated: <% tp.date.now("YYYY-MM-DD") %>
 
 ## Timeline
 
-<!-- Append-only. Newest first. Every bullet: `YYYY-MM-DD — fact. ([[sources/...]])` and tagged `milestone` or `routine`. Never rewrite or delete; rotate old routine entries to companies/_timeline/. -->
+<!-- Append-only. Newest first. Every bullet: `YYYY-MM-DD — fact. ([[sources/...]])` and tagged `#milestone` or `#routine`. Never rewrite or delete; rotate old routine entries to companies/_timeline/. -->
 
-### <% tp.date.now("YYYY") %>
+### YYYY
 
 -
 

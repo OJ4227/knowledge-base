@@ -98,7 +98,7 @@ knowledge-base/
 │   └── _snapshots/        # local archived copies of source content
 ├── digests/              # weekly "what changed" summaries
 ├── dashboards/           # Dataview queries
-├── templates/            # Obsidian / Templater templates
+├── templates/            # static note skeletons (one per type)
 └── meta/                 # schema.md, taxonomy.md, agent-instructions.md,
                           # sources.md, rejected-links.md, health/, review/
 ```
@@ -244,6 +244,10 @@ Broken internal links, frontmatter schema violations, orphans, stubs, dead exter
 (weekly), stale watchlist entries, curated-section tampering, uncited agent-added bullets,
 frontmatter facts with no supporting cited entry. Hard errors fail the commit.
 
+Orphans are a weak signal, not a defect: concept notes (lookup targets) and `seed: true`
+notes are excluded, and a link is never added just to clear orphan status — see
+`meta/agent-instructions.md`.
+
 ### Why the pipeline is shaped this way
 
 - **Split ingest by source modality, never by domain or technical-vs-business.** Sources are
@@ -311,8 +315,19 @@ agent context cost stays flat, and nothing is ever actually lost.
 
 ## 10. Obsidian setup
 
-Plugins: **Dataview** and **Templater** (essential), **Obsidian Git** (pull agent commits),
-QuickAdd. Vault = repo. Commit `.obsidian/`.
+Obsidian is a **read/browse surface** for the owner. Writing is done by Claude Code and the
+pipeline agents (plain markdown, direct to file); the owner pushes manually.
+
+One community plugin: **Dataview** — the dashboards and the threads' "Key entities" blocks
+are Dataview queries. Nothing else is required.
+
+- **Templater** is not used — `templates/` are static skeletons that Claude/agents copy;
+  manual note creation is "duplicate the file".
+- **Obsidian Git** is not used — the owner runs git directly. (Revisit only if mobile
+  editing against the repo ever becomes a need.)
+
+Vault = repo. Commit `.obsidian/` (config only; plugin code is not vendored — install
+Dataview from the community store on each machine).
 
 ---
 

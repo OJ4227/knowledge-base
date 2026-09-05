@@ -30,7 +30,7 @@ SORT file.name ASC
 ## Source mix
 
 ```dataview
-TABLE WITHOUT ID tier AS "Tier", length(rows) AS "Sources"
+TABLE WITHOUT ID key AS "Tier", length(rows) AS "Sources"
 FROM "sources"
 WHERE type = "source"
 GROUP BY tier

@@ -26,20 +26,19 @@ There is intentionally **no `CLAUDE.md` yet** — it is added at the end of the 
 | `sources/` | One note per source item (provenance). `_snapshots/` holds archived copies. |
 | `digests/` | Weekly "what changed" summaries. |
 | `dashboards/` | Dataview queries. |
-| `templates/` | Note templates (Templater). |
+| `templates/` | Static note skeletons, one per type — Claude/agents copy these. |
 | `meta/` | `schema.md`, `taxonomy.md`, `agent-instructions.md`, `sources.md`, `rejected-links.md`, `health/`, `review/`. |
 
 ## Obsidian setup
 
-This vault **is** the git repo. Open the folder directly as an Obsidian vault.
+This vault **is** the git repo. Open the folder directly as an Obsidian vault. Obsidian is
+a read/browse surface — writing is done by Claude Code and the pipeline; you push manually.
 
-Required community plugins (install from Obsidian settings — they are not vendored here):
+One community plugin, installed from Obsidian settings (not vendored here):
 
-- **Dataview** — dashboards and embedded queries
-- **Templater** — note templates in `templates/`
-- **Obsidian Git** — pull agent commits, optionally push
+- **Dataview** — the dashboards and the threads' "Key entities" blocks are Dataview queries.
 
-After installing, point Templater's template folder at `templates/`.
+Templater and Obsidian Git are deliberately not used — see `DESIGN.md` §10.
 
 ## Status
 

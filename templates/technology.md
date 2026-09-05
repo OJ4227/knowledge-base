@@ -1,19 +1,19 @@
 ---
 type: technology
-name: "<% tp.file.title %>"
+name: "<note name>"
 aliases: []
 category:            # model | hardware | robot | framework | benchmark
 status:              # announced | released | deprecated | vaporware
-first_seen: <% tp.date.now("YYYY-MM-DD") %>
+first_seen: YYYY-MM-DD
 key_orgs: []         # [[...]]
 concepts: []         # [[concepts/...]] this implements or depends on
 related: []
 maturity:            # emerging | scaling | mainstream | superseded
-created: <% tp.date.now("YYYY-MM-DD") %>
-updated: <% tp.date.now("YYYY-MM-DD") %>
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
 ---
 
-# <% tp.file.title %>
+# <note name>
 
 ## What it is
 
@@ -29,9 +29,9 @@ updated: <% tp.date.now("YYYY-MM-DD") %>
 
 ## Timeline
 
-<!-- Append-only. Newest first. `YYYY-MM-DD — fact. ([[sources/...]])`, tagged `milestone` or `routine`. -->
+<!-- Append-only. Newest first. `YYYY-MM-DD — fact. ([[sources/...]])`, tagged `#milestone` or `#routine`. -->
 
-### <% tp.date.now("YYYY") %>
+### YYYY
 
 -
 
