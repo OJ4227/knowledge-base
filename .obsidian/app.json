@@ -4,5 +4,6 @@
   "useMarkdownLinks": false,
   "attachmentFolderPath": "sources/_snapshots",
   "showUnsupportedFiles": true,
-  "strictLineBreaks": false
+  "strictLineBreaks": false,
+  "userIgnoreFilters": ["tools/", ".venv/"]
 }

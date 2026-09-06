@@ -1,16 +1,17 @@
 ---
 type: meta
 name: Health reports
-updated: 2026-08-30
+updated: 2026-09-05
 ---
 
 # meta/health/
 
-Agent-generated, not hand-edited.
+Agent- and tool-generated. **Not committed** (git-ignored) — regenerated on demand.
 
-- **`lint-report.md`** — latest output of the `lint` script (broken links, schema
-  violations, orphans, stubs, stale entities, dead external links). Overwritten each run.
+- **`lint-report.md`** — latest output of `tools/lint.py` (errors + warnings). Rewritten
+  every run.
 - **`report.md`** — latest gardener health report (vault stats, coverage gaps, concept-note
-  gaps, stub notes needing enrichment, stale watchlist entries). Overwritten weekly.
+  gaps, stub notes, stale entries, orphans). Rewritten weekly.
 
-Both are working files. History lives in git.
+If a file is missing, run the tool: `.venv/bin/python tools/lint.py` regenerates
+`lint-report.md`.

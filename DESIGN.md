@@ -347,12 +347,13 @@ Dataview from the community store on each machine).
 
 ## 12. Build order
 
-1. Scaffold the vault: folders, `templates/`, `meta/schema.md`, `meta/taxonomy.md`,
+1. ✅ Scaffold the vault: folders, `templates/`, `meta/schema.md`, `meta/taxonomy.md`,
    `meta/agent-instructions.md`, `meta/sources.md`, starter dashboards, README, `.obsidian/`.
-2. Seed by hand: a starter set of concept notes (MCP, inference layer, RAG, agents,
-   context engineering, quantization, …), ~20–40 companies, and core threads. This also
-   validates the schemas.
-3. Write and locally test the `lint` script.
+2. 🚧 Seed by hand: concept notes, ~20–40 companies, core threads. **Vertical slice done**
+   (3 concepts, 3 companies, 2 threads, 1 person, 1 source) and validated in Obsidian —
+   still to scale up to the full set.
+3. ✅ `tools/lint.py` + pytest fixtures. Errors block; warnings inform. Writes
+   `meta/health/lint-report.md`.
 4. Write + prototype the Triage and Enrich prompts against a handful of manually-pasted
    captures.
 5. Resolve the source-delivery decision; build collectors one at a time (RSS first).

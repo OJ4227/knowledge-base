@@ -136,12 +136,16 @@ Body: curated intro, `## Current state` (gardener), `## Timeline` (append-only),
 | `published` | ✓ | date | |
 | `accessed` | ✓ | date | |
 | `url` | ✓ | string | |
-| `archive_url` | ✓ | string | web.archive.org snapshot |
+| `archive_url` | ⚠ | string | web.archive.org snapshot; missing → `missing-archive` warning, not an error |
 | `local_copy` | | string | path under `sources/_snapshots/` |
 | `tier` | ✓ | enum | `primary` \| `secondary` \| `tertiary` |
 | `superseded_by` | | link | set if retracted / corrected |
 
 Body: `## Extract` (quoted passage). **Immutable once written.**
+
+`archive_url` is expected but not blocking — a source can be created before its archival
+step runs (build step 5). The [[Provenance audit]] dashboard and the `missing-archive`
+lint warning track the gap.
 
 ## Timeline entry format
 

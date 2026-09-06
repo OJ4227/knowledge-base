@@ -26,5 +26,7 @@ SORT file.name DESC
 
 ## Latest health report
 
-- [[report]] (in `meta/health/`) — regenerated weekly by the gardener
-- [[lint-report]] (in `meta/health/`) — regenerated every run by the lint script
+Generated files, not versioned — open from the file tree under `meta/health/`:
+
+- `meta/health/report.md` — regenerated weekly by the gardener
+- `meta/health/lint-report.md` — regenerated every run of `tools/lint.py`
