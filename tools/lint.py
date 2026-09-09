@@ -84,6 +84,7 @@ class Schema:
     required: list[str]
     enums: dict[str, set[str]] = field(default_factory=dict)
     list_enums: dict[str, set[str]] = field(default_factory=dict)
+    list_fields: list[str] = field(default_factory=list)   # must be a YAML list (any values)
     full_dates: list[str] = field(default_factory=list)   # YYYY-MM-DD
     year_dates: list[str] = field(default_factory=list)    # YYYY | YYYY-MM | YYYY-MM-DD
     sections: list[str] = field(default_factory=list)
@@ -108,6 +109,7 @@ SCHEMAS: dict[str, Schema] = {
                       "series-d+", "public", "bootstrapped"},
             "priority": {"high", "medium", "low"},
         },
+        list_fields=["sectors"],
         full_dates=["created", "updated"],
         year_dates=["founded"],
         sections=["Summary", "What they do", "Timeline"],
@@ -132,6 +134,7 @@ SCHEMAS: dict[str, Schema] = {
         required=["type", "name", "kind", "created", "updated"],
         enums={"kind": {"thread", "index"}},
         list_enums={"domains": {"ai", "robotics", "hardware/compute", "business"}},
+        list_fields=["domains"],
         full_dates=["created", "updated"],
         sections=[],  # thread sections checked separately
     ),
@@ -158,7 +161,8 @@ VOLATILE_COMPANY_FIELDS = ["total_funding_usd", "last_round", "stage"]
 # only files under these top-level dirs are linted (others may still be link targets)
 LINT_DIRS = {"concepts", "companies", "people", "technologies", "topics", "sources",
              "inbox", "digests", "dashboards", "meta"}
-SKIP_DIRS = {".git", ".obsidian", ".venv", "tools", "templates", "node_modules"}
+SKIP_DIRS = {".git", ".obsidian", ".venv", "tools", "templates", "node_modules",
+             ".pytest_cache", "__pycache__"}
 
 FULL_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 YEAR_DATE_RE = re.compile(r"^\d{4}(-\d{2}(-\d{2})?)?$")
@@ -329,6 +333,20 @@ def check_sections(note: Note) -> list[Finding]:
             for s in required if s.lower() not in present]
 
 
+def check_field_types(note: Note) -> list[Finding]:
+    schema = SCHEMAS.get(note.type)
+    if schema is None:
+        return []
+    out: list[Finding] = []
+    for fld in schema.list_fields:
+        val = note.fm.get(fld)
+        if is_empty(val) or isinstance(val, list):
+            continue
+        out.append(Finding(note.rel, ERROR, "bad-field-type",
+                           f"`{fld}: {val}` should be a YAML list, e.g. `{fld}: [{val}]`"))
+    return out
+
+
 def check_sectors(note: Note) -> list[Finding]:
     if note.type != "company":
         return []
@@ -414,6 +432,22 @@ def check_stale_watchlist(note: Note, today: dt.date) -> list[Finding]:
     return []
 
 
+def check_duplicate_names(by_key: dict[str, list[Note]]) -> list[Finding]:
+    out: list[Finding] = []
+    for key, notes in by_key.items():
+        if len(notes) < 2:
+            continue
+        paths = sorted(n.rel for n in notes)
+        for n in notes:
+            if top_dir(n.rel) not in LINT_DIRS or n.type not in SCHEMAS:
+                continue
+            others = [p for p in paths if p != n.rel]
+            out.append(Finding(n.rel, ERROR, "duplicate-name",
+                               f"name/alias `{key}` also resolves to {others} — "
+                               f"[[{key}]] links will silently pick one"))
+    return out
+
+
 def check_orphans(notes: list[Note], index: dict[str, Note]) -> list[Finding]:
     inbound: dict[str, int] = {n.rel: 0 for n in notes}
     for n in notes:
@@ -446,20 +480,22 @@ def lint_vault(root: Path, only: list[Path] | None = None,
 
     all_notes = [load_note(p, root) for p in iter_markdown(root)]
 
-    index: dict[str, Note] = {}
+    by_key: dict[str, list[Note]] = {}
     for n in all_notes:
         for key in n.names():
-            index.setdefault(key, n)
+            by_key.setdefault(key, []).append(n)
+    index: dict[str, Note] = {key: notes[0] for key, notes in by_key.items()}
 
     linted = [n for n in all_notes if top_dir(n.rel) in LINT_DIRS]
 
-    findings: list[Finding] = []
+    findings: list[Finding] = check_duplicate_names(by_key)
     for n in linted:
         fm = check_frontmatter(n)
         findings += fm
         if any(f.rule == "frontmatter-invalid" for f in fm):
             continue
         findings += check_schema(n)
+        findings += check_field_types(n)
         findings += check_sections(n)
         findings += check_sectors(n)
         findings += check_links(n, index)

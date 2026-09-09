@@ -113,6 +113,41 @@ def test_frontmatter_bad_yaml(tmp_path):
     assert "frontmatter-invalid" in rules(run(tmp_path), lint.ERROR)
 
 
+def test_duplicate_stem_across_types_is_error(tmp_path):
+    person = """---
+type: person
+name: "Acme"
+created: 2026-01-01
+updated: 2026-01-01
+---
+# Acme
+## Summary
+Someone.
+## Timeline
+### 2026
+-
+"""
+    build(tmp_path, {"companies/Acme.md": VALID_COMPANY, "people/Acme.md": person})
+    found = run(tmp_path)
+    dupes = {f.path for f in found if f.rule == "duplicate-name"}
+    assert dupes == {"companies/Acme.md", "people/Acme.md"}
+    assert all(f.severity == lint.ERROR for f in found if f.rule == "duplicate-name")
+
+
+def test_meta_notes_sharing_a_filename_are_not_flagged(tmp_path):
+    meta_note = "---\ntype: meta\nname: Section\nupdated: 2026-01-01\n---\n# Section\n"
+    build(tmp_path, {"inbox/README.md": meta_note, "digests/README.md": meta_note})
+    assert "duplicate-name" not in rules(run(tmp_path))
+
+
+def test_duplicate_alias_is_error(tmp_path):
+    concept_a = VALID_CONCEPT.replace('name: "Widget"', 'name: "Widget"\naliases: [Gizmo]')
+    concept_b = VALID_CONCEPT.replace('name: "Widget"', 'name: "Sprocket"\naliases: [Gizmo]')
+    build(tmp_path, {"concepts/Widget.md": concept_a, "concepts/Sprocket.md": concept_b})
+    dupes = {f.path for f in run(tmp_path) if f.rule == "duplicate-name"}
+    assert dupes == {"concepts/Widget.md", "concepts/Sprocket.md"}
+
+
 # --------------------------------------------------------------------- schema
 
 def test_missing_required_field(tmp_path):
@@ -151,6 +186,32 @@ s
 """
     build(tmp_path, {"topics/T.md": note})
     assert "bad-enum-value" in rules(run(tmp_path), lint.ERROR)
+
+
+def test_bad_field_type_sectors_not_list(tmp_path):
+    note = VALID_COMPANY.replace("sectors: [ai-tooling]", "sectors: ai-tooling")
+    build(tmp_path, {"companies/Acme.md": note})
+    assert "bad-field-type" in rules(run(tmp_path), lint.ERROR)
+
+
+def test_bad_field_type_domains_not_list(tmp_path):
+    note = """---
+type: moc
+name: "T"
+kind: thread
+domains: ai
+created: 2026-01-01
+updated: 2026-01-01
+---
+# T
+## Current state
+s
+## Timeline
+### 2026
+-
+"""
+    build(tmp_path, {"topics/T.md": note})
+    assert "bad-field-type" in rules(run(tmp_path), lint.ERROR)
 
 
 def test_bad_full_date_format(tmp_path):

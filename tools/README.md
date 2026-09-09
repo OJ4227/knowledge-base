@@ -24,11 +24,25 @@ python3 -m venv .venv
 Exit code is 1 if there are errors (or, with `--strict`, any warnings), else 0 —
 suitable for a pre-commit hook or CI.
 
+### Pre-commit hook
+
+A hook that blocks commits on lint errors lives at `tools/hooks/pre-commit`. It's not
+active until each clone opts in (one-time, per machine):
+
+```bash
+git config core.hooksPath tools/hooks
+```
+
+The hook only fails on errors, not warnings, and requires `.venv` to already exist
+(it prints setup instructions instead of guessing).
+
 ### What it checks
 
 **Errors (fail the run):** invalid/missing frontmatter, unknown `type`, missing required
-fields, bad enum values, bad date formats, broken `[[sources/...]]` citations, uncited
-dated `## Timeline` entries (non-`seed` notes).
+fields, bad enum values, bad field types (e.g. `sectors:` not a YAML list), bad date
+formats, broken `[[sources/...]]` citations, uncited dated `## Timeline` entries
+(non-`seed` notes), duplicate names/aliases across content notes (ambiguous `[[link]]`
+resolution).
 
 **Warnings:** unresolved non-source `[[links]]` (markers or typos — reviewed, not fixed
 blindly), missing `## sections`, unknown company sectors, orphans (excluding concepts and
