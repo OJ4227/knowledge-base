@@ -3,11 +3,11 @@
 The design record for this vault. Read it before working on the vault's architecture, its
 agents, or its tooling. If you change the design, update this file in the same commit.
 
-**Status: design agreed, not yet scaffolded (2026-08-30).** See §11 and §12.
+**Status: design agreed; vault scaffolded and vertical slice complete (2026-10-01).**
+See §11 and §12.
 
-No `CLAUDE.md` exists yet — it is deferred to the end of the build (§12 step 7) so its
-operating rules don't interfere with scaffolding. Until then, this file is the entry point;
-read it in full before working on the vault.
+`CLAUDE.md` is the Claude Code entry point. This file remains the permanent source of truth
+for accepted design decisions.
 
 ---
 
@@ -316,7 +316,9 @@ agent context cost stays flat, and nothing is ever actually lost.
 ## 10. Obsidian setup
 
 Obsidian is a **read/browse surface** for the owner. Writing is done by Claude Code and the
-pipeline agents (plain markdown, direct to file); the owner pushes manually.
+pipeline agents (plain markdown, direct to file). The owner pushes ordinary content and
+code changes manually. Claude Code automatically commits and pushes only the shared context
+documents described below.
 
 One community plugin: **Dataview** — the dashboards and the threads' "Key entities" blocks
 are Dataview queries. Nothing else is required.
@@ -329,19 +331,28 @@ are Dataview queries. Nothing else is required.
 Vault = repo. Commit `.obsidian/` (config only; plugin code is not vendored — install
 Dataview from the community store on each machine).
 
+### Cross-session continuity
+
+The repository, rather than any Claude account, holds shared working context:
+
+- `HANDOVER.md` records current implementation state, verification, blockers, and next
+  actions.
+- `meta/ongoing-discussions.md` records unresolved design reasoning without preserving raw
+  transcripts.
+- This file records accepted durable decisions.
+
+`CLAUDE.md` requires these documents to be maintained. Project hooks load current context
+at session start, check for missing updates when a turn stops, and commit/push edits to
+these three allowlisted documents. The synchronization hook never stages unrelated files,
+force-pushes, pulls, or resolves conflicts.
+
 ---
 
 ## 11. Open decisions
 
-- **How sources physically reach the collectors.** Leading option: a dedicated Gmail for
-  email-only newsletters + a self-hosted or hosted RSS aggregator (Miniflux or Feedbin) with
-  an API for everything with a feed + the cloud agent fetching a few known URLs directly.
-  Not yet chosen. **This blocks scaffolding the collectors.**
-- Cloud-routine vs local-schedule for the eventual production cadence (prototype locally
-  regardless).
-- Whether paid DB APIs (Crunchbase / PitchBook) are worth it — defer until deal-sourcing
-  volume justifies the cost.
-- The exact starter set of concepts, threads, and seed companies.
+Active reasoning, alternatives, and next questions live in
+`meta/ongoing-discussions.md`. Once the owner accepts a decision, its durable outcome and
+rationale are incorporated into the relevant section of this document.
 
 ---
 
@@ -358,11 +369,9 @@ Dataview from the community store on each machine).
    captures.
 5. Resolve the source-delivery decision; build collectors one at a time (RSS first).
 6. Add Gardener, then Digest.
-7. Write `CLAUDE.md` — a lean stub: a pointer to this file plus the hard operating rules
-   (append-only timelines, cite every fact, curated blocks off-limits, additive-auto /
-   destructive-propose, "≥2 mentions" for new notes). Deliberately **not** created during
-   scaffolding — those rules are for the operating phase and would interfere with
-   owner-directed build work.
+7. ✅ Write `CLAUDE.md`. Added during scaffolding to provide cross-device continuity while
+   explicitly separating owner-directed build work from the pipeline rules in
+   `meta/agent-instructions.md`.
 8. Migrate the stable pipeline to cloud routines + a GitHub remote.
 
 ---
