@@ -4,17 +4,17 @@ Working notes for picking this up in a fresh session. Delete or trim once you're
 **The design record is [`DESIGN.md`](DESIGN.md)** — read it first; this file is only "where we
 are and what's next".
 
-_Last updated: 2026-09-06._
+_Last updated: 2026-10-01._
 
 ---
 
 ## Repo state
 
-- Branch `main`, in sync with `origin/main` (pushed). Commits:
-  - `5f22616` Initial commit
-  - `d44ec7b` Vertical slice notes
-  - `be5083e` Vault linter + pytest fixtures
-- Working tree clean. `HANDOVER.md` itself is untracked — commit it if you want it to travel.
+- Branch `main` tracks `origin/main`.
+- Latest baseline commit before the cross-session context work:
+  `6b378c7 Harden vault linter and add pre-commit gate`.
+- Project-level Claude Code instructions and hooks now provide shared context across
+  machines and accounts. See `CLAUDE.md` and `.claude/settings.json`.
 - `.venv/` and `meta/health/*.md` are git-ignored; recreate the venv with the commands below.
 
 ## Where we are
@@ -29,8 +29,18 @@ Build order is in `DESIGN.md` §12. Status:
 | 4. Prototype Triage + Enrich prompts | ⬜ not started |
 | 5. Resolve source-delivery decision; build collectors | ⬜ blocked on the open decision |
 | 6. Gardener, then Digest | ⬜ |
-| 7. Write lean `CLAUDE.md` | ⬜ deliberately deferred to end |
+| 7. Write lean `CLAUDE.md` | ✅ done early for cross-session continuity |
 | 8. Migrate to cloud routines (GitHub remote already exists) | ⬜ |
+
+## Cross-session context
+
+- `HANDOVER.md` records implementation progress and next actions.
+- `meta/ongoing-discussions.md` records unresolved reasoning.
+- `DESIGN.md` records accepted durable decisions.
+- A `SessionStart` hook injects the handover, ongoing discussions, and Git state.
+- A `Stop` hook checks that material discussion or implementation progress was recorded.
+- Edits to the three context documents are committed and pushed automatically. The sync
+  hook does not stage unrelated files, pull, force-push, or resolve conflicts.
 
 ## The vertical slice (step 2 so far)
 
@@ -50,6 +60,11 @@ connecting link.
 
 ## Decisions this session (DESIGN.md already updated to match — don't re-litigate)
 
+- **Cross-device Claude context lives in the repository.** Maintain concise working state
+  and unresolved reasoning instead of copying raw session transcripts.
+- **Context synchronization is narrowly scoped.** Only `DESIGN.md`, `HANDOVER.md`, and
+  `meta/ongoing-discussions.md` are automatically committed and pushed after Claude edits
+  them. Ordinary content and code retain the existing Git workflow.
 - **Obsidian plugins → Dataview only.** Templater dropped (templates are static skeletons
   now — plain `<note name>` / `YYYY-MM-DD`, no `<% %>`). Obsidian Git dropped (owner pushes
   manually; Obsidian is a read surface). Plugin code **not vendored** — install Dataview
@@ -85,13 +100,10 @@ concept]]` markers + the seed source's missing archive).
 Not yet implemented (need git-diff or network): curated-block tamper detection, dead
 external-link checking. Add with the pipeline.
 
-## Open decisions (DESIGN.md §11)
+## Open decisions
 
-1. **How sources physically reach the collectors** — dedicated Gmail + RSS aggregator
-   (Miniflux/Feedbin) API + direct URL fetches is the leading option. **Blocks step 5.**
-2. Cloud routine vs local schedule for production cadence.
-3. Paid DB APIs (Crunchbase / PitchBook) — deferred until deal-sourcing volume justifies.
-4. The full starter set of concepts / threads / seed companies.
+See `meta/ongoing-discussions.md` for the live reasoning, status, and next question for
+each unresolved design topic.
 
 ## Recommended next step
 
@@ -102,11 +114,9 @@ Pick one:
   writing to the vault.
 - **(b) Triage + Enrich prompts (step 4)** — write and dry-run against a few hand-pasted
   captures. Tests the pipeline design early; doesn't need the source-delivery decision.
-- **(c) Small: git `pre-commit` hook** running `lint.py` (agent-instructions says "every
-  commit"). ~15 min. Not yet done.
 
-Suggested order: (c) now, then (b), then (a) once note conventions are also exercised by
-the Enrich prompt.
+Suggested order: (b), then (a) once note conventions are also exercised by the Enrich
+prompt.
 
 ## Working style (from this session)
 
