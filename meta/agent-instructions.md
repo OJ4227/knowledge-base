@@ -7,8 +7,8 @@ updated: 2026-08-30
 # Agent instructions
 
 Operating rules for the automated pipeline. These govern the pipeline agents and routine
-maintenance sessions — **not** owner-directed build/scaffolding work. When `CLAUDE.md` is
-added (build step 7) it will be a short pointer to this file plus the hard rules below.
+maintenance sessions — **not** owner-directed build/scaffolding work. `CLAUDE.md` points
+here when a session is operating the pipeline or maintaining vault content.
 
 Read `DESIGN.md` for the full rationale.
 

@@ -1,0 +1,38 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .claude/hooks/load-context.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .claude/hooks/sync-context.py",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Evaluate whether Claude may finish this turn. The repository requires cross-session continuity. Using $ARGUMENTS, decide whether this turn materially changed a conclusion, design direction, considered alternative, uncertainty, implementation status, blocker, verification result, or next action. If nothing material changed, return {\"ok\": true}. If material context changed and Claude's response confirms that it updated the appropriate shared document (meta/ongoing-discussions.md for unresolved design work, DESIGN.md for an explicitly accepted durable decision, or HANDOVER.md for implementation state), return {\"ok\": true}. Otherwise return {\"ok\": false, \"reason\": \"Update the appropriate shared context document before stopping, without recording a raw transcript or treating an unaccepted recommendation as a decision.\"}. When stop_hook_active is true and the latest response reports completion of that context update, allow stopping to avoid a loop.",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

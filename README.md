@@ -10,8 +10,8 @@ plus hand-curated reference material.
 structure, note schemas, the agent pipeline, provenance model, and build order. Read it in
 full before working on the vault's architecture, agents, or tooling.
 
-There is intentionally **no `CLAUDE.md` yet** — it is added at the end of the build
-(`DESIGN.md` §12 step 7) so its operating rules don't interfere with scaffolding.
+Claude Code sessions start with [`CLAUDE.md`](CLAUDE.md), which loads the current handover
+and unresolved design discussions while keeping build work separate from pipeline rules.
 
 ## Structure
 
@@ -32,7 +32,8 @@ There is intentionally **no `CLAUDE.md` yet** — it is added at the end of the 
 ## Obsidian setup
 
 This vault **is** the git repo. Open the folder directly as an Obsidian vault. Obsidian is
-a read/browse surface — writing is done by Claude Code and the pipeline; you push manually.
+a read/browse surface — writing is done by Claude Code and the pipeline. Ordinary changes
+are pushed manually; shared Claude context documents are synchronized by project hooks.
 
 One community plugin, installed from Obsidian settings (not vendored here):
 
