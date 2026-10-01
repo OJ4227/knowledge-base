@@ -25,7 +25,7 @@ Build order is in `DESIGN.md` §12. Status:
 |---|---|
 | 1. Scaffold vault | ✅ done |
 | 2. Seed by hand (concepts, ~20–40 companies, threads) | 🚧 **vertical slice only** — validated in Obsidian; needs scaling up |
-| 3. `tools/lint.py` + tests | ✅ done — 33 tests pass, 0 errors on the vault |
+| 3. `tools/lint.py` + tests | ✅ done — 38 tests pass, 0 errors on the vault |
 | 4. Prototype Triage + Enrich prompts | ⬜ not started |
 | 5. Resolve source-delivery decision; build collectors | ⬜ blocked on the open decision |
 | 6. Gardener, then Digest | ⬜ |
