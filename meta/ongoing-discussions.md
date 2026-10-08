@@ -1,7 +1,7 @@
 ---
 type: meta
 name: Ongoing discussions
-updated: 2026-10-01
+updated: 2026-10-08
 ---
 
 # Ongoing discussions
