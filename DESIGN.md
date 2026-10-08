@@ -206,6 +206,11 @@ Five stages. Target runtime: **Claude cloud routines committing to a GitHub repo
 - `collect-filings` — SEC EDGAR Form D, script
 - No dedicated research-paper pipeline (see §8). Important papers arrive via newsletters
   and one aggregated pre-ranked feed (e.g. HF Papers weekly top).
+- **Twitter/X and Reddit are excluded from Stage 1**, permanently, not just deferred: neither
+  has a free, stable, ban-safe way to answer "what's new since last run" (no free API tier
+  for X; Reddit's free API and scraping are both fragile/rate-limited for an unattended
+  daily job). They remain available as an on-demand web-search tool inside Enrich/Gardener
+  for gap-filling a thin note — never as a scheduled collector.
 
 Collectors also trigger archival: submit the URL to web.archive.org, save a local snapshot
 to `sources/_snapshots/`.
