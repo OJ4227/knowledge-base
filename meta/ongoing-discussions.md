@@ -26,6 +26,36 @@ known pages.
 
 **Next step:** Compare the operational burden and API support of Miniflux and Feedbin.
 
+## Scraping and web-search as collector modalities
+
+**Status:** Leaning resolved — owner has not yet confirmed dropping Twitter/Reddit.
+
+**Current direction:** Do not add Twitter/X or Reddit as recurring Stage 1 collectors, and
+do not use the web-search tool as a Stage 1 collector modality at all. Reasons:
+
+- Twitter/X has no free API tier; scraping is ToS-prohibited and carries account-ban risk.
+- Reddit's free API has tightened and scraping is increasingly rate-limited; both are
+  fragile for an unattended daily job.
+- A web-search call is a point-in-time query, not a subscription — it can't answer "what's
+  new since last run" without an LLM re-deduping every result against the whole vault each
+  time, which reintroduces the cross-agent dedup problem §7 of `DESIGN.md` was designed to
+  avoid.
+- RSS/Atom and documented APIs (already the ~20 sources in `meta/sources.md`, all free)
+  give a stable incremental-fetch contract with no ban risk, at zero cost.
+
+**Where scraping / web-search still fit, outside Stage 1:**
+
+- One-off manual backfill (e.g. pulling historical layoffs.fyi entries), not a scheduled
+  collector.
+- On-demand gap-filling inside Enrich or Gardener — e.g. a web-search call triggered when a
+  company/concept note is flagged thin — rather than a new recurring ingestion stream.
+- Sources with no feed but a stable page structure (YC directory, layoffs.fyi) are already
+  marked `scrape (avoid; only if no alternative and ToS permits)` in `meta/sources.md` —
+  consistent with this reasoning.
+
+**Next step:** Owner to confirm dropping Twitter/Reddit from the source list entirely; if
+confirmed, record in `DESIGN.md` §7 and remove this section.
+
 ## Production scheduling
 
 **Status:** Deferred until the local pipeline is stable.
