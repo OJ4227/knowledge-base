@@ -253,6 +253,16 @@ Orphans are a weak signal, not a defect: concept notes (lookup targets) and `see
 notes are excluded, and a link is never added just to clear orphan status — see
 `meta/agent-instructions.md`.
 
+- **Scraping and the web-search tool are not Stage 1 modalities.** A web-search call is a
+  point-in-time query, not a subscription — it can't cheaply answer "what's new since last
+  run," and using it on a schedule would reintroduce the cross-agent dedup problem this
+  design avoids (see below). RSS/Atom and documented APIs give a free, stable,
+  incremental-fetch contract instead. Scraping is reserved for sources with no feed but a
+  stable page structure (YC directory, layoffs.fyi — see `meta/sources.md`, `scrape (avoid;
+  only if no alternative and ToS permits)`), and only as a last resort. Both scraping and
+  web-search remain available for one-off manual backfill and for on-demand gap-filling
+  inside Enrich/Gardener when a note is flagged thin — just never as a recurring collector.
+
 ### Why the pipeline is shaped this way
 
 - **Split ingest by source modality, never by domain or technical-vs-business.** Sources are
