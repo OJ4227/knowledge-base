@@ -206,6 +206,14 @@ Five stages. Target runtime: **Claude cloud routines committing to a GitHub repo
   pulls every document added since the last run via `withFullContent=true` and writes each
   as a raw capture. Replaces the earlier dedicated-Gmail + Miniflux/Feedbin plan outright —
   one subscription, one API, one auth path for both modalities.
+  - Also covers **curated Twitter/X List subscriptions**: Reader can subscribe to any
+    public X List the same way as an RSS feed, delivering two digests a day (AM/PM) of new
+    posts from that list — fetched by Readwise's infrastructure, not the owner's X account,
+    so none of the ban/scraping risk below applies. Scoped to a small number of
+    purpose-built Lists (e.g. "AI researchers," "robotics founders"), never full-timeline or
+    whole-platform monitoring. Readwise itself flags the underlying Twitter integration as
+    experimental/dependent on X API stability — treat it as a bonus feed, not
+    load-bearing.
 - `collect-tavily` — Tavily news-search API (free tier: 1,000 credits/month). Daily,
   date-bounded (`since: last_run`) queries per tracked thread/domain using `topic=news`;
   covers topics with no dedicated newsletter or feed. Distinct from the generic web-search
