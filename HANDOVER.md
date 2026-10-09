@@ -4,7 +4,7 @@ Working notes for picking this up in a fresh session. Delete or trim once you're
 **The design record is [`DESIGN.md`](DESIGN.md)** — read it first; this file is only "where we
 are and what's next".
 
-_Last updated: 2026-10-01._
+_Last updated: 2026-10-09._
 
 ---
 
