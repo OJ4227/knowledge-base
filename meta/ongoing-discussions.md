@@ -10,22 +10,6 @@ Unresolved design work shared across Claude Code sessions. Update an existing se
 the reasoning develops. Once the owner accepts a decision, record it in `DESIGN.md` (or the
 more specific permanent document) and remove the section from this file.
 
-## Source delivery to collectors
-
-**Status:** Exploring — blocks collector implementation.
-
-**Current direction:** Use a dedicated Gmail account for email-only newsletters, an RSS
-aggregator such as Miniflux or Feedbin for feeds, and direct URL fetching for a small set of
-known pages.
-
-**Unresolved:**
-
-- Hosted versus self-hosted RSS aggregation.
-- How collectors authenticate to Gmail and the aggregator.
-- Where source snapshots and failed captures are queued.
-
-**Next step:** Compare the operational burden and API support of Miniflux and Feedbin.
-
 ## Production scheduling
 
 **Status:** Deferred until the local pipeline is stable.
