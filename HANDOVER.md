@@ -27,7 +27,7 @@ Build order is in `DESIGN.md` §12. Status:
 | 2. Seed by hand (concepts, ~20–40 companies, threads) | 🚧 **vertical slice only** — validated in Obsidian; needs scaling up |
 | 3. `tools/lint.py` + tests | ✅ done — 38 tests pass, 0 errors on the vault |
 | 4. Prototype Triage + Enrich prompts | ⬜ not started |
-| 5. Resolve source-delivery decision; build collectors | ⬜ blocked on the open decision |
+| 5. Resolve source-delivery decision; build collectors | 🚧 **decision made** (Readwise Reader + Tavily + YouTube transcripts, `DESIGN.md` §7) — no collector code written yet |
 | 6. Gardener, then Digest | ⬜ |
 | 7. Write lean `CLAUDE.md` | ✅ done early for cross-session continuity |
 | 8. Migrate to cloud routines (GitHub remote already exists) | ⬜ |
