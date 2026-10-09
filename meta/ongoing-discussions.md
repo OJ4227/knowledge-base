@@ -32,6 +32,10 @@ YouTube transcripts, see `DESIGN.md` §7); these are the remaining before-code q
 - The initial Tavily query list: which threads/domains get a daily date-bounded query, kept
   small enough to stay inside the 1,000-credit/month free tier.
 - The initial YouTube channel/video list to track.
+- Which public Twitter/X Lists to subscribe to via Readwise (see `DESIGN.md` §7) — needs
+  curating (e.g. "AI researchers," "robotics founders"), and owner confirmation that
+  Readwise's Twitter integration (flagged experimental by Readwise itself) behaves as
+  expected before treating it as more than a bonus feed.
 
 **Next step:** Settle these while building the first collector (`collect-readwise`, since it
 covers the most sources).
