@@ -100,6 +100,26 @@ concept]]` markers + the seed source's missing archive).
 Not yet implemented (need git-diff or network): curated-block tamper detection, dead
 external-link checking. Add with the pipeline.
 
+## Source-delivery decision (resolved this session)
+
+Collector tooling is now decided — see `DESIGN.md` §7 and `meta/sources.md`:
+
+- **`collect-readwise`** — a paid Readwise Reader subscription (owner has agreed to pay).
+  Newsletters subscribe directly to the account's `@feed.readwise.io` address; RSS feeds go
+  in the same Reader inbox. One script pulls new documents daily via the Reader API
+  (`withFullContent=true`). Replaces the earlier dedicated-Gmail + Miniflux/Feedbin plan.
+- **`collect-tavily`** — Tavily news-search API, free tier (1,000 credits/month). Daily,
+  date-bounded (`since: last_run`) queries per tracked thread/domain, `topic=news`.
+- **`collect-youtube`** — `youtube-transcript-api` (free, no key) against a curated
+  channel/video list.
+- Twitter/X and Reddit are **excluded from Stage 1 permanently** (no free, ban-safe,
+  incremental-fetch option) but remain available as an on-demand web-search tool inside
+  Enrich/Gardener for gap-filling.
+
+None of these collector scripts are written yet. Remaining before-code questions (API key
+storage, initial Tavily query list, initial YouTube channel list) are in
+`meta/ongoing-discussions.md` under "Collector implementation details".
+
 ## Open decisions
 
 See `meta/ongoing-discussions.md` for the live reasoning, status, and next question for
@@ -113,10 +133,14 @@ Pick one:
   ~6–10 threads. Large review load; draft in batches into a scratch file for review before
   writing to the vault.
 - **(b) Triage + Enrich prompts (step 4)** — write and dry-run against a few hand-pasted
-  captures. Tests the pipeline design early; doesn't need the source-delivery decision.
+  captures. Tests the pipeline design early; doesn't need collector code.
+- **(c) Build `collect-readwise` (step 5)** — now unblocked. Sign up for Readwise Reader,
+  subscribe the AI/robotics/hardware/funding newsletters and RSS feeds from
+  `meta/sources.md` to the feed address, then write the collector script against the Reader
+  API.
 
-Suggested order: (b), then (a) once note conventions are also exercised by the Enrich
-prompt.
+Suggested order: (b) or (c) first — both are now unblocked and independent of each other —
+then (a) once note conventions are exercised by the Enrich prompt.
 
 ## Working style (from this session)
 
