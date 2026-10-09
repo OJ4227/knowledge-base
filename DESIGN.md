@@ -200,8 +200,20 @@ Five stages. Target runtime: **Claude cloud routines committing to a GitHub repo
 
 **Stage 1 — Collectors (one per source modality).** Fetch + light extraction into
 `inbox/` as raw captures, each already linked to a freshly created `sources/` note.
-- `collect-newsletters` — Gmail API, LLM (prose extraction needed)
-- `collect-rss` — RSS/Atom via aggregator API (Miniflux / Feedbin), mostly a script
+- `collect-readwise` — Readwise Reader API (paid subscription). Newsletters subscribe
+  directly to the account's `@feed.readwise.io` address (no Gmail hop, avoids SPF breakage
+  from forwarding); RSS/Atom feeds are added in the same Reader inbox. One daily script
+  pulls every document added since the last run via `withFullContent=true` and writes each
+  as a raw capture. Replaces the earlier dedicated-Gmail + Miniflux/Feedbin plan outright —
+  one subscription, one API, one auth path for both modalities.
+- `collect-tavily` — Tavily news-search API (free tier: 1,000 credits/month). Daily,
+  date-bounded (`since: last_run`) queries per tracked thread/domain using `topic=news`;
+  covers topics with no dedicated newsletter or feed. Distinct from the generic web-search
+  tool excluded below — Tavily's date-range + news-topic filtering gives a real
+  incremental-fetch contract.
+- `collect-youtube` — `youtube-transcript-api` (free, open-source, no API key) against a
+  curated channel/video list. Pulls full transcripts for keynotes, podcasts, and launch
+  videos that exist nowhere else in text form.
 - `collect-github-releases` — script
 - `collect-filings` — SEC EDGAR Form D, script
 - No dedicated research-paper pipeline (see §8). Important papers arrive via newsletters
