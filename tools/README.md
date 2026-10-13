@@ -51,3 +51,28 @@ blindly), missing `## sections`, unknown company sectors, orphans (excluding con
 
 Not yet implemented (needs git diff / network — see `meta/agent-instructions.md`):
 curated-block tamper detection, dead external link checking.
+
+## `collect_readwise.py`
+
+Stage 1 collector for the Readwise Reader API (RSS feeds + email newsletters, including any
+Twitter/X List subscriptions set up in Reader — see `DESIGN.md` §7). Fetches documents
+updated since the last run, writes a `sources/` note + local HTML snapshot per item, and a
+raw `inbox/` capture for Triage.
+
+```bash
+# one-time: copy tools/.env.example to tools/.env and fill in READWISE_TOKEN
+# (get it from https://readwise.io/access_token)
+
+.venv/bin/pip install -r tools/requirements-dev.txt  # installs requests too
+
+source tools/.env && set -a  # or: export $(cat tools/.env | xargs), any way to load it
+.venv/bin/python tools/collect_readwise.py              # real run
+.venv/bin/python tools/collect_readwise.py --dry-run    # report only, writes nothing
+```
+
+State (`meta/collector-state.json`) is **committed to the repo**, not git-ignored — so
+whichever machine or CI runner executes this next picks up exactly where the last run left
+off (see `meta/ongoing-discussions.md` → "Production scheduling / collector hosting").
+
+No web.archive.org submission yet (needs separate archive.org credentials) — `archive_url`
+is left blank, which lint reports as a non-blocking `missing-archive` warning.
