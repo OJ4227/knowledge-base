@@ -10,14 +10,27 @@ Unresolved design work shared across Claude Code sessions. Update an existing se
 the reasoning develops. Once the owner accepts a decision, record it in `DESIGN.md` (or the
 more specific permanent document) and remove the section from this file.
 
-## Production scheduling
+## Production scheduling / collector hosting
 
-**Status:** Deferred until the local pipeline is stable.
+**Status:** Deferred until the local pipeline is stable, but the shape of the eventual
+answer is now clearer.
 
-**Alternatives:** Cloud routines or a local scheduler.
+`collect-readwise` is a batch job (wakes up, fetches what's new, writes files, exits), not
+a long-running service — it does **not** require leaving a laptop plugged in and running.
+Running it locally now (manually, or via `cron`/`launchd` whenever convenient) is fine for
+prototyping: if a run is skipped, nothing is lost, since the watermark just picks up a wider
+window next time. The committed `meta/collector-state.json` watermark (see `HANDOVER.md`)
+was specifically designed so switching from a local machine to an always-on runner later
+doesn't require migrating state — whichever runner does a `git pull` picks up exactly where
+the last run left off.
 
-**Next step:** Revisit after the collectors, Triage, Enrich, Gardener, and Digest stages
-have been exercised locally.
+**Alternatives for the always-on runner:** GitHub Actions (free scheduled workflows; this
+repo already has a GitHub remote) or the "Claude cloud routines" `DESIGN.md` §7/§12 already
+names as the target.
+
+**Next step:** Revisit once the collectors, Triage, Enrich, Gardener, and Digest stages have
+been exercised locally — then choose between GitHub Actions and Claude cloud routines and
+wire up the schedule.
 
 ## Collector implementation details
 
