@@ -155,15 +155,17 @@ Pick one:
 - **(a) Bulk-seed (finish step 2)** — ~10–15 more evergreen concepts, ~20–40 companies,
   ~6–10 threads. Large review load; draft in batches into a scratch file for review before
   writing to the vault.
-- **(b) Triage + Enrich prompts (step 4)** — write and dry-run against a few hand-pasted
-  captures. Tests the pipeline design early; doesn't need collector code.
-- **(c) Build `collect-readwise` (step 5)** — now unblocked. Sign up for Readwise Reader,
-  subscribe the AI/robotics/hardware/funding newsletters and RSS feeds from
-  `meta/sources.md` to the feed address, then write the collector script against the Reader
-  API.
+- **(b) Triage + Enrich prompts (step 4)** — write and dry-run against the 38 real captures
+  `collect-readwise` already produced in `inbox/`. Tests the pipeline design against real
+  data, not hand-pasted examples.
+- **(c) Build `collect-tavily`** — connectivity already confirmed; needs a query list
+  (which threads/domains get a daily date-bounded search — see
+  `meta/ongoing-discussions.md`) before the script itself.
+- **(d) Add `collect-youtube`** — owner wants this added; needs a starter channel/video
+  list first, then the `youtube-transcript-api` script.
 
-Suggested order: (b) or (c) first — both are now unblocked and independent of each other —
-then (a) once note conventions are exercised by the Enrich prompt.
+Suggested order: (b) first — there's now real inbox content to test Triage/Enrich against,
+which is more valuable than more hand-pasted fixtures — then (c) or (d), then (a).
 
 ## Working style (from this session)
 
