@@ -148,6 +148,9 @@ Body: `## What it is` (curated) · `## Why it matters` (curated) ·
 archive_url, local_copy, tier (primary|secondary|tertiary), superseded_by?`.
 Body: `## Extract` with the quoted passage(s). **Immutable once written.**
 
+**capture** (`type: capture`) — raw/classified Stage 1 output living in `inbox/`; no
+required fields beyond `type`, never a link target, removed once Triage processes it.
+
 Conventions: ISO 8601 dates everywhere. `[[wikilinks]]` for every entity mention.
 Frontmatter lists (not tags) for structured facets; tags only for cross-cutting workflow
 state (e.g. `#deal-flow/contacted`). Curated blocks marked `<!-- curated -->`.
