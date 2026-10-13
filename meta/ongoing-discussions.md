@@ -34,24 +34,37 @@ wire up the schedule.
 
 ## Collector implementation details
 
-**Status:** Exploring — source-delivery tooling is now decided (Readwise Reader + Tavily +
-YouTube transcripts, see `DESIGN.md` §7); these are the remaining before-code questions.
+**Status:** Exploring — `collect-readwise` is built and running; these are the remaining
+before-code questions for the other collectors.
 
-**Unresolved:**
+**Resolved (via `collect-readwise`, see `HANDOVER.md`):**
 
-- How `collect-readwise`, `collect-tavily`, and the other collector scripts store API keys
-  (env vars vs. a local secrets file, kept out of Git either way).
-- Where source snapshots and failed captures are queued for review.
+- API keys live in `tools/.env` (git-ignored, Read-denied for Claude in
+  `.claude/settings.json`), loaded as environment variables.
+- Watermark/state storage: `meta/collector-state.json`, committed (see "Production
+  scheduling / collector hosting" above for why).
+- No web.archive.org submission yet — deferred, needs separate S3-style archive.org
+  credentials; `archive_url` stays blank (`missing-archive` warning, already tolerated by
+  schema/lint).
+
+**Still unresolved:**
+
+- Where source snapshots and failed captures are queued for review (not yet needed —
+  `collect-readwise` hasn't hit a failure case).
 - The initial Tavily query list: which threads/domains get a daily date-bounded query, kept
-  small enough to stay inside the 1,000-credit/month free tier.
-- The initial YouTube channel/video list to track.
+  small enough to stay inside the 1,000-credit/month free tier. Tavily connectivity is
+  confirmed (manual test); the script itself isn't written.
+- The initial YouTube channel/video list to track, and adding `collect-youtube` to
+  `meta/sources.md` / `DESIGN.md` §7 as a planned source (owner has requested this; not yet
+  done).
 - Which public Twitter/X Lists to subscribe to via Readwise (see `DESIGN.md` §7) — needs
-  curating (e.g. "AI researchers," "robotics founders"), and owner confirmation that
-  Readwise's Twitter integration (flagged experimental by Readwise itself) behaves as
-  expected before treating it as more than a bonus feed.
+  curating (e.g. "AI researchers," "robotics founders"). The List currently has no
+  members/digests (checked live via the API); `collect_readwise.py` will pick up this
+  content automatically once it starts flowing, no code change needed — but nothing to
+  verify against yet.
 
-**Next step:** Settle these while building the first collector (`collect-readwise`, since it
-covers the most sources).
+**Next step:** Decide the Tavily query list and/or the YouTube channel list, then build
+those two collectors following `collect_readwise.py`'s pattern.
 
 ## Paid company-data APIs
 
