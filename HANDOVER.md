@@ -91,34 +91,57 @@ python3 -m venv .venv
 
 .venv/bin/python tools/lint.py            # lint whole vault; writes meta/health/lint-report.md
 .venv/bin/python tools/lint.py --strict   # warnings also fail
-.venv/bin/pytest tools/                   # 33 tests
+.venv/bin/pytest tools/                   # 47 tests (38 lint + 9 collect_readwise)
 ```
 
-Current vault: **0 errors, 15 warnings** (all expected — `[[Competitor]]` / `[[future
-concept]]` markers + the seed source's missing archive).
+Current vault: **0 errors, 57 warnings** (all expected — `[[Competitor]]` / `[[future
+concept]]` markers, the seed source's missing archive, and `missing-archive` on every
+collected source — see below).
 
 Not yet implemented (need git-diff or network): curated-block tamper detection, dead
 external-link checking. Add with the pipeline.
 
-## Source-delivery decision (resolved this session)
+## Source-delivery decision and `collect-readwise` (this session)
 
-Collector tooling is now decided — see `DESIGN.md` §7 and `meta/sources.md`:
+Collector tooling decided and the first collector built — see `DESIGN.md` §7 and
+`meta/sources.md`:
 
-- **`collect-readwise`** — a paid Readwise Reader subscription (owner has agreed to pay).
-  Newsletters subscribe directly to the account's `@feed.readwise.io` address; RSS feeds go
-  in the same Reader inbox. One script pulls new documents daily via the Reader API
-  (`withFullContent=true`). Replaces the earlier dedicated-Gmail + Miniflux/Feedbin plan.
-- **`collect-tavily`** — Tavily news-search API, free tier (1,000 credits/month). Daily,
-  date-bounded (`since: last_run`) queries per tracked thread/domain, `topic=news`.
-- **`collect-youtube`** — `youtube-transcript-api` (free, no key) against a curated
-  channel/video list.
-- Twitter/X and Reddit are **excluded from Stage 1 permanently** (no free, ban-safe,
-  incremental-fetch option) but remain available as an on-demand web-search tool inside
-  Enrich/Gardener for gap-filling.
-
-None of these collector scripts are written yet. Remaining before-code questions (API key
-storage, initial Tavily query list, initial YouTube channel list) are in
-`meta/ongoing-discussions.md` under "Collector implementation details".
+- **`collect-readwise`** (`tools/collect_readwise.py`) — **built, tested, run against the
+  live Readwise account.** A paid Readwise Reader subscription (owner is paying). Newsletters
+  subscribe directly to the account's `@feed.readwise.io` address; RSS feeds go in the same
+  Reader inbox. The script pulls documents updated since the last run
+  (`GET /api/v3/list/`, `updatedAfter`, paginated via `nextPageCursor`), using
+  `withHtmlContent=true` (not `withFullContent` — that parameter doesn't exist; corrected in
+  `DESIGN.md` §7 after a research pass against the live API docs). Writes a `sources/` note
+  + local HTML snapshot + `inbox/` capture per new top-level document (highlights/notes with
+  `parent_id` set are filtered out). Replaces the earlier dedicated-Gmail + Miniflux/Feedbin
+  plan.
+  - **Watermark** (`meta/collector-state.json`, `{"readwise": {"last_run_utc": ...}}`) is
+    **committed to the repo**, not git-ignored — deliberate, so whichever machine or CI
+    runner executes the collector next (GitHub Actions / Claude cloud routines, per
+    `DESIGN.md` §12 step 8) picks up exactly where the last run left off. See
+    `meta/ongoing-discussions.md` → "Collector hosting" for the still-open question of
+    where this actually runs day to day.
+  - **First real run:** 38 sources written (0 lint errors; `missing-archive` warnings only,
+    expected — no web.archive.org submission in this version, deferred per the plan since it
+    needs separate S3-style archive.org credentials). Re-run confirmed idempotent (0 new
+    documents, watermark unchanged).
+  - **New note type:** `type: capture` registered in `meta/schema.md` and `tools/lint.py`'s
+    `LOOSE_TYPES` for `inbox/` files (structural checks only, no required fields).
+  - Two bugs caught and fixed during the first live run: inbox files need `type: capture`
+    frontmatter (lint requires it on every file), and inbox/source filenames must not share
+    a stem (`<slug>--capture.md` vs `<slug>.md` — avoids wikilink ambiguity).
+- **`collect-tavily`** — Tavily news-search API, free tier (1,000 credits/month), confirmed
+  working via manual test (`topic=news`, date-bounded). Not yet built as a script; query
+  list intentionally paused (see `meta/ongoing-discussions.md`).
+- **`collect-youtube`** — owner wants `youtube-transcript-api` (free, no key) added as a
+  planned source in `meta/sources.md` / `DESIGN.md` §7. Not yet added or built.
+- Twitter/X and Reddit are **excluded from direct Stage 1 collection permanently** (no free,
+  ban-safe, incremental-fetch option for self-run infrastructure), except via a curated
+  Readwise List subscription (Readwise's own infrastructure does the fetch) — tested live
+  this session (`category=tweet` and `location=feed` both empty; the List has no
+  members/digests yet). `collect_readwise.py` will pick this content up automatically once
+  it starts flowing — no separate code path needed.
 
 ## Open decisions
 
