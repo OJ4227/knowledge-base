@@ -200,12 +200,16 @@ Five stages. Target runtime: **Claude cloud routines committing to a GitHub repo
 
 **Stage 1 — Collectors (one per source modality).** Fetch + light extraction into
 `inbox/` as raw captures, each already linked to a freshly created `sources/` note.
-- `collect-readwise` — Readwise Reader API (paid subscription). Newsletters subscribe
-  directly to the account's `@feed.readwise.io` address (no Gmail hop, avoids SPF breakage
-  from forwarding); RSS/Atom feeds are added in the same Reader inbox. One daily script
-  pulls every document added since the last run via `withFullContent=true` and writes each
-  as a raw capture. Replaces the earlier dedicated-Gmail + Miniflux/Feedbin plan outright —
-  one subscription, one API, one auth path for both modalities.
+- `collect-readwise` — Readwise Reader API (paid subscription; **built and verified against
+  a live account**, see `tools/collect_readwise.py`). Newsletters subscribe directly to the
+  account's `@feed.readwise.io` address (no Gmail hop, avoids SPF breakage from
+  forwarding); RSS/Atom feeds are added in the same Reader inbox. A script pulls every
+  document updated since the last run (`GET /api/v3/list/` with `updatedAfter`, paginated
+  via `nextPageCursor`) and writes each as a raw capture. Content comes from
+  `withHtmlContent=true` (there is no separate "full content" field — HTML is converted to
+  plain text locally). Replaces the earlier dedicated-Gmail + Miniflux/Feedbin plan
+  outright — one subscription, one API, one auth path for both modalities. Highlights/notes
+  (`parent_id` set) are filtered out — only top-level documents become captures.
   - Also covers **curated Twitter/X List subscriptions**: Reader can subscribe to any
     public X List the same way as an RSS feed, delivering two digests a day (AM/PM) of new
     posts from that list — fetched by Readwise's infrastructure, not the owner's X account,
