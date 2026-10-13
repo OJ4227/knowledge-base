@@ -147,7 +147,7 @@ SCHEMAS: dict[str, Schema] = {
 }
 
 # types that may appear but get only structural checks (valid frontmatter, links)
-LOOSE_TYPES = {"meta", "dashboard"}
+LOOSE_TYPES = {"meta", "dashboard", "capture"}
 
 KNOWN_SECTORS = {
     "foundation-models", "ai-applications", "ai-infra", "ai-tooling", "ai-agents",

@@ -147,6 +147,21 @@ Body: `## Extract` (quoted passage). **Immutable once written.**
 step runs (build step 5). The [[Provenance audit]] dashboard and the `missing-archive`
 lint warning track the gap.
 
+## `capture`
+
+Raw/classified capture living in `inbox/` (Stage 1 output, consumed by Triage/Enrich). A
+"loose" type — structural checks only (valid frontmatter), no required fields, no schema
+enforcement. Never a link target; excluded from duplicate-name and orphan checks like
+`meta`/`dashboard`.
+
+| Field | Req | Type | Notes |
+|---|---|---|---|
+| `type` | ✓ | `capture` | |
+
+Body is free-form until Triage/Enrich conventions are established: typically a title, a
+`[[sources/...]]` link, and an excerpt. Nothing here is permanent — Triage removes
+processed captures from `inbox/` (`meta/agent-instructions.md`).
+
 ## Timeline entry format
 
 ```
