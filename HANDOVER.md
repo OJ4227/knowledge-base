@@ -34,7 +34,7 @@ Build order is in `DESIGN.md` §12. Status:
 | 3. `tools/lint.py` + tests | ✅ done — 47 tests pass (38 lint + 9 `collect_readwise`), 0 errors on the vault |
 | 4. Prototype Triage + Enrich prompts | ⬜ **not started — recommended next step, see below** |
 | 5. Resolve source-delivery decision; build collectors | 🚧 **`collect-readwise` built, tested, run against the live account** (38 sources written). `collect-tavily` and `collect-youtube` not started. |
-| 6. Gardener, then Digest | ⬜ |
+| 6. Daily digest (watchlist alerts), then Gardener, then weekly Digest | ⬜ |
 | 7. Write lean `CLAUDE.md` | ✅ done early for cross-session continuity |
 | 8. Migrate to cloud routines (GitHub remote already exists) | ⬜ |
 
