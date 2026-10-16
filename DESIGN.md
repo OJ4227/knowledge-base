@@ -255,15 +255,35 @@ technology / thread note(s) and adds `[[concepts/...]]` links. Appends dated, ci
 new tracked notes from templates only under the "≥2 mentions or flagged" rule. Never
 rewrites prose. Never touches curated blocks. Never edits concept bodies.
 
-**Stage 4 — Gardener (LLM, weekly; deep sweep monthly).** Consumes the lint report and
+**Stage 4 — Daily digest (LLM, daily, after Enrich).** Summarizes only that day's Enrich
+output — a short daily read, not a rollup. Writes `digests/YYYY-MM-DD.md`:
+
+```
+## Watchlist alerts         (companies with watchlist: true that got a new Timeline entry today)
+## Technical developments   (AI / Robotics / Compute-hardware)
+## Threads that moved
+## Business                 (Funding / People / M&A / Shutdowns)
+## New entities added today
+## Concept gaps flagged
+```
+
+**Watchlist alerts** is the change-tracking mechanism for watchlisted companies — the
+`watchlist: true` company field (§4) already exists and already drives the `Deal flow` and
+`Stale watchlist` dashboards; this adds the missing "notify me" half. Any `## Timeline`
+entry Enrich adds today to a `watchlist: true` company surfaces here, `#milestone` and
+`#routine` alike — the owner wants routine mentions visible too, not just major events.
+There is no separate notification channel (no email/Slack/push): the daily digest file
+*is* the alert, read like the rest of the pipeline's output.
+
+**Stage 5 — Gardener (LLM, weekly; deep sweep monthly).** Consumes the lint report and
 scans the vault: dedup proposals, unlinked-mention linking, `related:` suggestions, MOC
 membership, dead-link repair, refresh of `## State of the art` / `## Current state` blocks,
 concept-explanation refresh proposals, timeline rotation (§9), and writes
 `meta/health/report.md`. Additive fixes auto-apply and are logged; destructive ones go to
 `meta/review/YYYY-WW.md`.
 
-**Stage 5 — Digest (weekly).** Writes `digests/YYYY-WW.md`, split so technical signal is
-not drowned by business noise:
+**Stage 6 — Weekly digest (weekly).** Writes `digests/YYYY-WW.md`, a deeper rollup, split so
+technical signal is not drowned by business noise:
 
 ```
 ## Technical developments  (AI / Robotics / Compute-hardware)
@@ -273,6 +293,9 @@ not drowned by business noise:
 ## Concept gaps flagged
 ## Gardener changes applied
 ```
+
+Runs alongside, not instead of, the daily digest (Stage 4) — daily is a quick same-day
+read; weekly is the deeper rollup plus gardener output.
 
 **Lint (script, every commit + nightly).** Deterministic detection only — fixes nothing.
 Broken internal links, frontmatter schema violations, orphans, stubs, dead external links
