@@ -97,6 +97,16 @@ connecting link.
 - **`type: capture`** registered for `inbox/` raw captures (`meta/schema.md`,
   `tools/lint.py` `LOOSE_TYPES`) — loose type, structural checks only, no required fields
   beyond `type`.
+- **Daily digest added as a new pipeline stage** (`DESIGN.md` §7 Stage 4, between Enrich and
+  Gardener) — `digests/YYYY-MM-DD.md`, same-day summary of Enrich's output. Its
+  `## Watchlist alerts` section is also the watchlist-alert mechanism: the existing
+  `watchlist: true` company field (already live on all 3 seed companies, already driving
+  `Deal flow` / `Stale watchlist`) now also surfaces any company that got a new `##
+  Timeline` entry that day — `#milestone` and `#routine` both, no filtering. No separate
+  notification channel (no email/Slack); the digest file in the repo *is* the alert. Weekly
+  Digest (now Stage 6) and Gardener (now Stage 5) are unchanged in shape, just renumbered.
+  Not yet built — needs the Triage/Enrich prompts (step 4) first, since it only summarizes
+  what Enrich wrote that day.
 
 ## `tools/lint.py`
 
