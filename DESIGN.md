@@ -436,7 +436,7 @@ rationale are incorporated into the relevant section of this document.
 4. Write + prototype the Triage and Enrich prompts against a handful of manually-pasted
    captures.
 5. Resolve the source-delivery decision; build collectors one at a time (RSS first).
-6. Add Gardener, then Digest.
+6. Add the daily digest (with watchlist alerts), then Gardener, then the weekly digest.
 7. ✅ Write `CLAUDE.md`. Added during scaffolding to provide cross-device continuity while
    explicitly separating owner-directed build work from the pipeline rules in
    `meta/agent-instructions.md`.
