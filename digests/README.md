@@ -6,10 +6,27 @@ updated: 2026-08-30
 
 # digests/
 
-Weekly change summaries written by the Digest agent: `YYYY-WW.md` (ISO week).
+Two cadences, both written here:
 
-Each digest is your review surface for the week — read it alongside `git log` to see
-everything the pipeline did. Sections:
+- **Daily** — `YYYY-MM-DD.md`, written by the Daily digest agent (`DESIGN.md` §7 Stage 4)
+  right after Enrich runs. A short same-day read, led by `## Watchlist alerts` — every
+  `watchlist: true` company (`meta/schema.md`) that got a new `## Timeline` entry that day.
+  This is also the watchlist alert mechanism: no separate notification channel exists.
+- **Weekly** — `YYYY-WW.md` (ISO week), written by the Weekly digest agent (Stage 6). The
+  deeper rollup, read alongside `git log` to see everything the pipeline did that week.
+
+Daily sections:
+
+```
+## Watchlist alerts
+## Technical developments   (AI / Robotics / Compute-hardware)
+## Threads that moved
+## Business                 (Funding / People / M&A / Shutdowns)
+## New entities added today
+## Concept gaps flagged
+```
+
+Weekly sections:
 
 ```
 ## Technical developments   (AI / Robotics / Compute-hardware)

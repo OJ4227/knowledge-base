@@ -16,7 +16,7 @@ Design: [[DESIGN]] · Schemas: [[schema]] · Taxonomy: [[taxonomy]] · Agent rul
 - [[Provenance audit]] — rumored / disputed / thinly-sourced claims
 - [[Concepts index]] — the evergreen reference layer
 - [[Threads]] — running narratives
-- [[This week]] — latest digest
+- [[This week]] — latest daily and weekly digests (daily leads with watchlist alerts)
 
 ## Counts
 

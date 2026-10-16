@@ -6,13 +6,24 @@ updated: 2026-08-30
 
 # This week
 
-## Latest digests
+## Latest daily digests
 
 ```dataview
 TABLE WITHOUT ID file.link AS "Digest", file.mtime AS "Generated"
 FROM "digests"
+WHERE file.name =~ "^\d{4}-\d{2}-\d{2}$"
 SORT file.name DESC
-LIMIT 8
+LIMIT 7
+```
+
+## Latest weekly digests
+
+```dataview
+TABLE WITHOUT ID file.link AS "Digest", file.mtime AS "Generated"
+FROM "digests"
+WHERE file.name =~ "^\d{4}-W\d{2}$"
+SORT file.name DESC
+LIMIT 4
 ```
 
 ## Open review items

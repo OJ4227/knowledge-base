@@ -72,7 +72,16 @@ Read `DESIGN.md` for the full rationale.
 - Create new tracked notes only under rule 5, from `templates/`.
 - Never touch curated blocks. Never edit concept bodies.
 
-### Gardener (Stage 4, weekly; deep sweep monthly)
+### Daily digest (Stage 4, daily, after Enrich)
+
+- Summarize only today's Enrich output — not a rollup, a same-day read.
+- `## Watchlist alerts` first: every `watchlist: true` company that got a new `## Timeline`
+  entry today, `#milestone` and `#routine` alike (link to the entry, one line each).
+- Then the same category breakdown as the weekly digest (technical / threads / business /
+  new entities / concept gaps), scoped to today only.
+- Write `digests/YYYY-MM-DD.md`. No new notification channel — this file is the alert.
+
+### Gardener (Stage 5, weekly; deep sweep monthly)
 
 - Consume `meta/health/lint-report.md`.
 - Auto-apply (and log): unlinked-mention linking, `related:` links, MOC membership,
@@ -85,7 +94,7 @@ Read `DESIGN.md` for the full rationale.
 - Write `meta/health/report.md` (stats, orphans [see Lint note — excludes concepts and
   seed notes], stubs, stale entities, concept gaps, coverage gaps).
 
-### Digest (Stage 5, weekly)
+### Weekly digest (Stage 6, weekly)
 
 Write `digests/YYYY-WW.md`:
 
