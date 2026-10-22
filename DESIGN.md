@@ -65,6 +65,24 @@ recorded here.
   event to source-of-truth. A kept opinion piece surfaces in the daily digest and, if
   durable, a thread's `## Key links` — never the ledger.
 
+- **LLM pipeline stages call the Anthropic API directly, with a structured-output schema
+  — not the Claude Code subscription.** Decided 2026-10-22 for Triage; applies to every
+  future LLM stage (Enrich, Gardener, the digests) unless explicitly revisited here.
+  `output_config.format` (or `client.messages.parse()`) constrains token generation
+  server-side, so malformed JSON, missing required fields, and invalid enum values are
+  structurally impossible rather than merely checked after the fact — important for an
+  unattended job with no one watching the output. The alternative (shelling out to
+  `claude -p` against the owner's Pro subscription, no separate token cost) was
+  considered and explicitly deferred, not ruled out: headless mode's own
+  `--output-format json` controls the CLI's response envelope, not a schema
+  constraint on the model's generated content, so that path would need prompt
+  engineering + Pydantic validation + a retry loop to approximate (never match) the same
+  guarantee, and risks silently billing as separate API usage anyway if any
+  `ANTHROPIC_API_KEY` is ambient in the environment (a reported Claude Code billing
+  bug). Estimated at well under $15/month for Triage+Enrich at 3 runs/week on current
+  source volume — **revisit if added sources push real cost high enough to matter**; the
+  subscription path is the fallback, not dismissed.
+
 - **Immutable timeline.** Timeline entries are never rewritten or silently deleted. They may
   be *moved* to a linked archive note (log rotation — see §9). Corrections are new entries,
   not edits.
