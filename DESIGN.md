@@ -225,7 +225,7 @@ top-down.
 
 ## 7. The agent pipeline
 
-Five stages. Target runtime: **Claude cloud routines committing to a GitHub repo**
+Six stages. Target runtime: **Claude cloud routines committing to a GitHub repo**
 (runs unattended; owner pulls into local Obsidian). Prototype prompts locally with
 `/schedule` first, migrate once stable.
 
