@@ -100,6 +100,12 @@ def isolated_vault(tmp_path, monkeypatch):
         encoding="utf-8",
     )
 
+    # Isolate ALL credential env vars, not just the API key — an ambient gateway
+    # (ANTHROPIC_BASE_URL + ANTHROPIC_AUTH_TOKEN, e.g. from a machine's global Claude Code
+    # config) takes priority in build_client() and would otherwise make a REAL network
+    # call during these supposedly-mocked tests.
+    monkeypatch.delenv("ANTHROPIC_BASE_URL", raising=False)
+    monkeypatch.delenv("ANTHROPIC_AUTH_TOKEN", raising=False)
     monkeypatch.setenv("ANTHROPIC_API_KEY", "test-key")
     return tmp_path
 
@@ -227,8 +233,50 @@ def test_model_flag_is_passed_through(tmp_path, monkeypatch):
     assert seen["model"] == "claude-haiku-4-5"
 
 
-def test_missing_api_key_fails_cleanly(tmp_path, monkeypatch):
+def test_missing_credentials_fails_cleanly(tmp_path, monkeypatch):
     make_raw_capture(tmp_path, "2026-01-01-example")
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    # isolated_vault already clears ANTHROPIC_BASE_URL/ANTHROPIC_AUTH_TOKEN
     rc = tg.main([])
     assert rc == 1
+
+
+# --------------------------------------------------------------------------- credential resolution
+
+def test_build_client_prefers_gateway_over_api_key(monkeypatch):
+    monkeypatch.setenv("ANTHROPIC_BASE_URL", "https://gateway.example.com")
+    monkeypatch.setenv("ANTHROPIC_AUTH_TOKEN", "gateway-token")
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "direct-key")
+
+    seen = {}
+    def fake_anthropic(**kwargs):
+        seen.update(kwargs)
+        return object()
+
+    monkeypatch.setattr(tg.anthropic, "Anthropic", fake_anthropic)
+    client = tg.build_client()
+    assert client is not None
+    assert seen == {"base_url": "https://gateway.example.com", "auth_token": "gateway-token"}
+
+
+def test_build_client_falls_back_to_api_key(monkeypatch):
+    monkeypatch.delenv("ANTHROPIC_BASE_URL", raising=False)
+    monkeypatch.delenv("ANTHROPIC_AUTH_TOKEN", raising=False)
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "direct-key")
+
+    seen = {}
+    def fake_anthropic(**kwargs):
+        seen.update(kwargs)
+        return object()
+
+    monkeypatch.setattr(tg.anthropic, "Anthropic", fake_anthropic)
+    client = tg.build_client()
+    assert client is not None
+    assert seen == {"api_key": "direct-key"}
+
+
+def test_build_client_returns_none_with_no_credentials(monkeypatch):
+    monkeypatch.delenv("ANTHROPIC_BASE_URL", raising=False)
+    monkeypatch.delenv("ANTHROPIC_AUTH_TOKEN", raising=False)
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    assert tg.build_client() is None

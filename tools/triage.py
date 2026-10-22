@@ -12,7 +12,10 @@ Usage:
     python tools/triage.py --dry-run                 # print the assembled prompt, call nothing
     python tools/triage.py --model claude-haiku-4-5   # override the model (default: claude-sonnet-5)
 
-Requires ANTHROPIC_API_KEY in the environment (source tools/.env first).
+Requires one of, in the environment (source tools/.env first):
+  - ANTHROPIC_API_KEY                         — direct Anthropic API
+  - ANTHROPIC_BASE_URL + ANTHROPIC_AUTH_TOKEN — a gateway/proxy in front of the API
+    (e.g. a corporate relay) that speaks Bearer auth instead of an Anthropic key
 """
 from __future__ import annotations
 
@@ -123,6 +126,26 @@ def build_prompt(captures: list[Capture]) -> str:
     )
 
 
+# --------------------------------------------------------------------------- client
+
+def build_client() -> anthropic.Anthropic | None:
+    """Resolve credentials the same way Claude Code itself does: a gateway/proxy
+    (ANTHROPIC_BASE_URL + ANTHROPIC_AUTH_TOKEN, Bearer auth) takes priority over a direct
+    Anthropic API key, since a gateway is the deliberate choice when both are configured.
+    Returns None if neither is set.
+    """
+    base_url = os.environ.get("ANTHROPIC_BASE_URL")
+    auth_token = os.environ.get("ANTHROPIC_AUTH_TOKEN")
+    if base_url and auth_token:
+        return anthropic.Anthropic(base_url=base_url, auth_token=auth_token)
+
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if api_key:
+        return anthropic.Anthropic(api_key=api_key)
+
+    return None
+
+
 # --------------------------------------------------------------------------- output writers
 
 def write_result(result: TriageResult, run_date: str, consumed: list[str]) -> Path:
@@ -154,13 +177,13 @@ def run(dry_run: bool, model: str) -> int:
         print(prompt)
         return 0
 
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        print("ANTHROPIC_API_KEY is not set in the environment. Source tools/.env first.",
+    client = build_client()
+    if client is None:
+        print("No credentials found. Set ANTHROPIC_API_KEY, or ANTHROPIC_BASE_URL + "
+              "ANTHROPIC_AUTH_TOKEN for a gateway. Source tools/.env first.",
               file=sys.stderr)
         return 1
 
-    client = anthropic.Anthropic(api_key=api_key)
     with client.messages.stream(
         model=model,
         max_tokens=64000,

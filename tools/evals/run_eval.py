@@ -14,19 +14,18 @@ Usage:
     python tools/evals/run_eval.py --model claude-haiku-4-5
     python tools/evals/run_eval.py --case dup-easy-oxide --case fanout-oxide-hardware
 
-Requires ANTHROPIC_API_KEY in the environment (source tools/.env first).
+Requires one of, in the environment (source tools/.env first):
+  - ANTHROPIC_API_KEY                         — direct Anthropic API
+  - ANTHROPIC_BASE_URL + ANTHROPIC_AUTH_TOKEN — a gateway/proxy in front of the API
 """
 from __future__ import annotations
 
 import argparse
 import json
-import os
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-
-import anthropic
 
 import triage as tg
 
@@ -71,13 +70,13 @@ def run_triage_over(rel_paths: list[str], model: str) -> tuple[tg.TriageResult, 
                 for rel in rel_paths]
     prompt = tg.build_prompt(captures)
 
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        print("ANTHROPIC_API_KEY is not set in the environment. Source tools/.env first.",
+    client = tg.build_client()
+    if client is None:
+        print("No credentials found. Set ANTHROPIC_API_KEY, or ANTHROPIC_BASE_URL + "
+              "ANTHROPIC_AUTH_TOKEN for a gateway. Source tools/.env first.",
               file=sys.stderr)
         raise SystemExit(1)
 
-    client = anthropic.Anthropic(api_key=api_key)
     with client.messages.stream(
         model=model,
         max_tokens=64000,
