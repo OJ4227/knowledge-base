@@ -224,9 +224,28 @@ new-company case, and the one capture that touches all three existing vault enti
 scorer's every check type was verified against hand-built `TriageResult` fixtures: 0 lint
 errors throughout.
 
+**Credential resolution (added after the initial build):** `tools/triage.py`'s
+`build_client()` (reused by `run_eval.py`) checks `ANTHROPIC_BASE_URL` +
+`ANTHROPIC_AUTH_TOKEN` first (a gateway/proxy in front of the API, Bearer auth — e.g. this
+machine's global `~/.claude/settings.json` already sets these to route through a Deloitte
+relay) and falls back to `ANTHROPIC_API_KEY` only if those aren't set — same priority
+Claude Code itself uses. **This is not a Claude Pro/Max subscription OAuth token** —
+subscription OAuth is scoped to the Claude Code client only and is rejected by the
+Messages API outside it (enforced server-side since Jan 2026; using it elsewhere also
+violates the Consumer ToS). A real API key (direct or via an authorized gateway) is
+required either way.
+
+A real bug surfaced and was fixed while wiring this up: the test fixture
+(`isolated_vault` in `test_triage_script.py`) only ever cleared `ANTHROPIC_API_KEY`, so on
+a machine with ambient `ANTHROPIC_BASE_URL`/`ANTHROPIC_AUTH_TOKEN` set (like this one),
+4 of the "mocked" tests actually made a live network call to the real gateway before the
+mock could intercept it. Fixed by clearing all three credential env vars in the fixture.
+**Lesson for future credential-resolution changes in this repo: a test isolation fixture
+must clear every env var a new resolution path reads, not just the one it's named after.**
+
 **Not yet done — next concrete action:**
 1. Run `tools/evals/run_eval.py` for the first time. **This costs real money** — needs
-   `ANTHROPIC_API_KEY` in `tools/.env` (owner adds it directly, per the testing-with-secrets
+   credentials in `tools/.env` (owner adds them directly, per the testing-with-secrets
    rule below) — produces the first real scored baseline.
 2. Sweep `--model` across Haiku 4.5 / Sonnet 5 / Opus 5 on that baseline; pick the cheapest
    that holds the score.
