@@ -256,20 +256,26 @@ Collectors also trigger archival: submit the URL to web.archive.org, save a loca
 to `sources/_snapshots/`.
 
 **Stage 2 — Triage (one LLM agent, daily).** Reads all raw captures, applies the taxonomy
-(§6) consistently, dedupes across streams in one context, emits clean classified captures.
-Flags unfamiliar recurring terms as concept-note gaps.
+(§6) consistently, dedupes across streams in one context, emits classified items. **Fans
+out, not 1:1**: a single newsletter capture commonly bundles several independent
+developments, so Triage emits one classified item per development, not one per input file.
+Opinion content is classified `opinion`, not blanket-dropped — see §6, §2. Flags unfamiliar
+recurring terms as concept-note gaps.
 
-**Stage 3 — Enrich (one LLM agent, daily).** Routes each capture to the relevant company /
-technology / thread note(s) and adds `[[concepts/...]]` links. Appends dated, cited
-`## Timeline` bullets tagged `milestone` or `routine`. Updates frontmatter rollups. Creates
-new tracked notes from templates only under the "≥2 mentions or flagged" rule. Never
-rewrites prose. Never touches curated blocks. Never edits concept bodies.
+**Stage 3 — Enrich (one LLM agent, daily).** Routes each classified item to the relevant
+company / technology / thread note(s) and adds `[[concepts/...]]` links. Appends dated,
+cited `## Timeline` bullets tagged `milestone` or `routine` for every non-`opinion` item
+(an `opinion` item routes to a thread's `## Key links` instead — never the ledger, §2).
+Updates frontmatter rollups. Creates new tracked notes from templates only under the "≥2
+mentions or flagged" rule. Never rewrites prose. Never touches curated blocks. Never edits
+concept bodies.
 
 **Stage 4 — Daily digest (LLM, daily, after Enrich).** Summarizes only that day's Enrich
 output — a short daily read, not a rollup. Writes `digests/YYYY-MM-DD.md`:
 
 ```
 ## Watchlist alerts         (companies with watchlist: true that got a new Timeline entry today)
+## Opinion & analysis       (today's kept opinion items, with their recorded reason)
 ## Technical developments   (AI / Robotics / Compute-hardware)
 ## Threads that moved
 ## Business                 (Funding / People / M&A / Shutdowns)
