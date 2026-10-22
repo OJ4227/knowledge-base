@@ -32,7 +32,7 @@ Build order is in `DESIGN.md` §12. Status:
 | 1. Scaffold vault | ✅ done |
 | 2. Seed by hand (concepts, ~20–40 companies, threads) | 🚧 **vertical slice only** — validated in Obsidian; needs scaling up |
 | 3. `tools/lint.py` + tests | ✅ done — 47 tests pass (38 lint + 9 `collect_readwise`), 0 errors on the vault |
-| 4. Prototype Triage + Enrich prompts | ⬜ **not started — recommended next step, see below** |
+| 4. Prototype Triage + Enrich prompts | 🚧 **Triage built and eval-scaffolded; Enrich not started** — see below |
 | 5. Resolve source-delivery decision; build collectors | 🚧 **`collect-readwise` built, tested, run against the live account** (38 sources written). `collect-tavily` and `collect-youtube` not started. |
 | 6. Daily digest (watchlist alerts), then Gardener, then weekly Digest | ⬜ |
 | 7. Write lean `CLAUDE.md` | ✅ done early for cross-session continuity |
