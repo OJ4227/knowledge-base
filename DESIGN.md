@@ -60,6 +60,11 @@ recorded here.
 - **Concepts are the exception** — evergreen explainers, refined in place, no mandatory
   timeline. See §5.
 
+- **Opinion is a second exception to the ledger.** Analysis/commentary with no underlying
+  event (taxonomy value `opinion`, §6) is never written to a `## Timeline` — it isn't an
+  event to source-of-truth. A kept opinion piece surfaces in the daily digest and, if
+  durable, a thread's `## Key links` — never the ledger.
+
 - **Immutable timeline.** Timeline entries are never rewritten or silently deleted. They may
   be *moved* to a linked archive note (log rotation — see §9). Corrections are new entries,
   not edits.
