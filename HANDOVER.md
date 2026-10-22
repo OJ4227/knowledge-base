@@ -224,6 +224,12 @@ new-company case, and the one capture that touches all three existing vault enti
 scorer's every check type was verified against hand-built `TriageResult` fixtures: 0 lint
 errors throughout.
 
+**Backend decision (recorded in `DESIGN.md` §2, 2026-10-22): direct API with a
+structured-output schema, not the Claude Code subscription.** The subscription-via-`claude
+-p` alternative was researched and explicitly deferred (not ruled out) — revisit only if
+added sources push real monthly cost high enough to matter; see `DESIGN.md` §2 for the
+full reasoning.
+
 **Credential resolution (added after the initial build):** `tools/triage.py`'s
 `build_client()` (reused by `run_eval.py`) checks `ANTHROPIC_BASE_URL` +
 `ANTHROPIC_AUTH_TOKEN` first (a gateway/proxy in front of the API, Bearer auth — e.g. this
