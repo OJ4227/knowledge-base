@@ -186,25 +186,71 @@ Config: `tools/.env` (git-ignored, Read-denied for Claude in `.claude/settings.j
 See `meta/ongoing-discussions.md` for the live reasoning, status, and next question for
 each unresolved design topic.
 
-## Recommended next step
+## Triage (Stage 2) — built this session, not yet run for real
 
-**(b) Triage + Enrich prompts (step 4) — start here.** There are 38 real, unprocessed
-captures sitting in `inbox/` right now from the first `collect-readwise` run. Write and
-dry-run the Triage prompt against them: it should classify each on the taxonomy
-(`meta/taxonomy.md`), dedupe the known cross-posted pairs (e.g. the two "TLDR" items, the
-three "Meta Wonder..." items), and drop the 3 Readwise onboarding articles as noise. This
-is a much better test than hand-pasted fixtures — the design was explicitly built to need
-real messy data for Triage to prove itself against, and now it exists.
+Built: `tools/prompts/triage.md` (the prompt — interpolates `meta/taxonomy.md` and the
+Triage section of `meta/agent-instructions.md` at runtime rather than restating them, so
+it can't drift from the design), `tools/triage.py` (the runner — follows
+`collect_readwise.py`'s conventions: module-level path constants, `@dataclass`,
+`run()`/`main()`, `--dry-run`), and an eval harness: `tools/evals/run_eval.py` +
+10 hand-labelled golden cases in `tools/evals/cases/triage/*.json`, scored against the
+real 35-capture inbox corpus (noise, easy/hard/triplet dedup, newsletter fan-out, a
+sponsor-block-that-is-real-news trap, an off-domain issue, two opinion contrast cases, a
+new-company case, and the one capture that touches all three existing vault entities).
+
+**Design decisions made alongside the build (see `DESIGN.md` §2/§6/§7 and
+`meta/taxonomy.md`/`meta/agent-instructions.md` for the recorded versions):**
+- **Fan-out, not 1:1** — a newsletter capture becomes N classified items, one per
+  development, not one blob per input file.
+- **Opinion is a 13th taxonomy value, not auto-dropped** — kept only when it clears a
+  "non-obvious claim" bar judged on the body, never the headline; a kept opinion item
+  never gets a `## Timeline` entry (added as a second exception to the ledger, alongside
+  concepts) — it surfaces in the daily digest's new `## Opinion & analysis` section and,
+  if durable, a thread's `## Key links`.
+- **Triage output is one JSON file per run** (`inbox/_triage/YYYY-MM-DD.json`), not N
+  markdown notes — `inbox/README.md` is updated to match. A merged duplicate is one item
+  with multiple `sources`.
+- **Model choice is deferred to measurement, not assumed.** `triage.py --model` makes the
+  model a flag; `run_eval.py --model` sweeps it. Nothing has been run for real yet, so
+  there is no chosen model — sweep Haiku 4.5 → Sonnet 5 → Opus 5 and take the cheapest
+  that holds the eval score before committing to one.
+- **Eval assertions are deterministic Python, no LLM judge** — even the two opinion cases,
+  where the *judgment* (is this a non-obvious claim?) is hand-labelled by a human into the
+  golden file once, and the assertion just checks the model's decision against that label.
+
+**Verified this session (all free — no API key was used, no money spent):**
+`--dry-run` prints a correctly assembled prompt; 10 new mocked plumbing tests in
+`tools/tests/test_triage_script.py` pass (57/57 total with the existing suite); the eval
+scorer's every check type was verified against hand-built `TriageResult` fixtures: 0 lint
+errors throughout.
+
+**Not yet done — next concrete action:**
+1. Run `tools/evals/run_eval.py` for the first time. **This costs real money** — needs
+   `ANTHROPIC_API_KEY` in `tools/.env` (owner adds it directly, per the testing-with-secrets
+   rule below) — produces the first real scored baseline.
+2. Sweep `--model` across Haiku 4.5 / Sonnet 5 / Opus 5 on that baseline; pick the cheapest
+   that holds the score.
+3. Iterate the prompt against failures until the score is solid, *then* run `triage.py`
+   for real against the live `inbox/` (35 captures) — review its output by hand before
+   trusting it, per the plan's "first run should be hand-reviewed" note.
+4. Only after Triage's output format has proven stable: build Enrich (Stage 3), which
+   consumes it. Its eval will need checklist/LLM-judge assertions instead of Triage's
+   strict-JSON approach, since Enrich's output is prose timeline bullets.
 
 Other options, lower priority:
 
 - **(a) Bulk-seed (finish step 2)** — ~10–15 more evergreen concepts, ~20–40 companies,
   ~6–10 threads. Large review load; draft in batches into a scratch file for review before
-  writing to the vault.
+  writing to the vault. Note: `technologies/` is currently **empty** (zero notes), which
+  will make Enrich's "≥2 mentions" new-note rule fire constantly once it's built.
 - **(c) Build `collect-tavily`** — needs a query list decided first (see
   `meta/ongoing-discussions.md`), then follow `collect_readwise.py`'s pattern (same
   `meta/collector-state.json`, same `type: capture` inbox output).
 - **(d) Add `collect-youtube`** — needs a starter channel/video list first.
+
+**Correction to a stale fact in this file:** the "3 Readwise onboarding articles" noted
+below under `collect_readwise.py`'s first run were already removed in commit `6abfc3a`
+(before this session) — the live inbox corpus is 35 captures, not 38.
 
 ## Working style (carried across sessions)
 
