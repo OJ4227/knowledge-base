@@ -40,6 +40,7 @@ A capture may carry more than one domain (a humanoid-robotics raise is `robotics
 | `people-move` | Notable hire, departure, founding | "Chief scientist leaves to found startup" |
 | `shutdown` | Wind-down, mass layoffs, pivot away | "Robotics startup shuts down" |
 | `policy` | Regulation, standards, export controls | "New EU rules on frontier models" |
+| `opinion` | Analysis, commentary, or argument with no underlying event. Kept only when it makes a non-obvious claim — a thesis, prediction, or contrarian read the event feed alone wouldn't give you. Restatement, rant, and engagement-bait are dropped. Judge the body, not the headline. | "Why humanoid robotics valuations are overhyped" (kept if it argues a specific thesis; dropped if it's just a reaction piece) |
 
 ## Company sectors (`sectors:` field)
 

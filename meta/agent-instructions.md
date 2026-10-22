@@ -54,19 +54,27 @@ Read `DESIGN.md` for the full rationale.
 ### Triage (Stage 2, daily, one LLM context)
 
 - Read all `inbox/` raw captures.
+- **Fan out, don't stay 1:1.** A single newsletter file commonly bundles several
+  independent developments — emit one classified item per development, not one per input
+  file.
 - Deduplicate across all streams in this single context (same event from 3 newsletters = 1
-  capture with 3 source links).
-- Classify each on both taxonomy axes (`meta/taxonomy.md`).
-- Drop noise (opinion with no event, pure marketing, already-known facts).
+  item with 3 source links).
+- Classify each item on both taxonomy axes (`meta/taxonomy.md`).
+- Drop noise (pure marketing, signup/onboarding chrome, already-known facts). **Opinion is
+  not automatically noise** — classify it `opinion` and apply the keep bar in
+  `meta/taxonomy.md`: keep only if it makes a non-obvious claim, judged on the body, never
+  the headline. Record a one-line `reason` on every `opinion` item and every dropped item.
 - Flag recurring unfamiliar terms as concept-note gaps.
-- Emit clean classified captures; remove processed raw captures from `inbox/`.
+- Emit one classified-items file for the run; remove processed raw captures from `inbox/`.
 
 ### Enrich (Stage 3, daily, one LLM context)
 
-- Route each classified capture to the relevant `company` / `technology` / `topic` note(s),
+- Route each classified item to the relevant `company` / `technology` / `topic` note(s),
   and add `[[concepts/...]]` links where a concept is touched.
+- An `opinion` item never gets a `## Timeline` entry — it has no event to ledger. Route a
+  kept opinion piece to the relevant thread's `## Key links` instead.
 - Append a `## Timeline` entry per the format in `meta/schema.md`, tagged `#milestone` or
-  `#routine`, with source citation(s).
+  `#routine`, with source citation(s), for every non-opinion item.
 - Update frontmatter rollups (`total_funding_usd`, `last_round`, `stage`, `status`,
   `updated`) — only where a new cited timeline entry supports it.
 - Create new tracked notes only under rule 5, from `templates/`.
@@ -77,6 +85,8 @@ Read `DESIGN.md` for the full rationale.
 - Summarize only today's Enrich output — not a rollup, a same-day read.
 - `## Watchlist alerts` first: every `watchlist: true` company that got a new `## Timeline`
   entry today, `#milestone` and `#routine` alike (link to the entry, one line each).
+- `## Opinion & analysis` next: today's kept `opinion` items, with their recorded `reason`
+  — this is the only place a kept opinion piece surfaces same-day.
 - Then the same category breakdown as the weekly digest (technical / threads / business /
   new entities / concept gaps), scoped to today only.
 - Write `digests/YYYY-MM-DD.md`. No new notification channel — this file is the alert.
