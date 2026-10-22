@@ -1,0 +1,12 @@
+{
+  "description": "TLDR Fintech issue (Revolut US expansion, FTX Netflix documentary, Chase payroll product) is mostly off-domain for this vault, with one genuinely in-scope item buried in it (OpenAI's reported $50B annualized revenue). Triage must not invent AI/robotics relevance for the fintech-only stories.",
+  "inputs": [
+    "inbox/2026-10-12-revolut-wants-to-dominate-the-us-ftx-drama-on-netflix-chase-now-offers-payroll--capture.md",
+    "inbox/2026-10-12-revolut-wants-to-dominate-the-us-ftx-drama-on-netflix-chase-now-offers-payroll-2--capture.md"
+  ],
+  "checks": [
+    {"type": "max_item_count", "count": 1},
+    {"type": "no_item_title_contains", "text": "Revolut"},
+    {"type": "no_item_title_contains", "text": "FTX"}
+  ]
+}

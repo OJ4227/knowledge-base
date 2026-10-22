@@ -1,0 +1,15 @@
+{
+  "description": "Clean single-event capture: XPeng's reported $13.8B humanoid robotics investment and its 'Iron' robot. XPeng is not yet in the vault (zero existing notes) — exercises the Enrich-boundary case where Triage must still classify correctly without an existing target to route to.",
+  "inputs": [
+    "inbox/2025-03-12-xpeng-s-huge-investment-in-humanoid-robotics--capture.md"
+  ],
+  "checks": [
+    {
+      "type": "some_item_matches",
+      "entities_include": ["XPeng"],
+      "domains_include": ["robotics", "business"],
+      "development_type_one_of": ["funding", "hardware"],
+      "claim_status_one_of": ["reported", "rumored"]
+    }
+  ]
+}

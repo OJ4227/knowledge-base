@@ -1,0 +1,16 @@
+{
+  "description": "Cross-modality pair (email + RSS) of the same TLDR AI issue, both 528 words but diverging at the tail — the email variant ends on 'Do Agent Teams Pay Off?', the RSS variant ends on 'What is Speculative Decoding?'. The shared lead story (Nvidia discussing boosting its Reflection AI investment) must merge into one item citing both sources.",
+  "inputs": [
+    "inbox/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race--capture.md",
+    "inbox/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race-2--capture.md"
+  ],
+  "checks": [
+    {
+      "type": "merged",
+      "title_contains": "Nvidia",
+      "entities_include": ["Nvidia", "Reflection AI"],
+      "development_type": "m&a",
+      "claim_status_one_of": ["reported", "rumored"]
+    }
+  ]
+}

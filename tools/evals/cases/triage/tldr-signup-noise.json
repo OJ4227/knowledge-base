@@ -1,0 +1,11 @@
+{
+  "description": "Both signup-confirmation captures must be dropped as noise. Tests that noise detection beats dedup — neither should survive, merged or not, as an item.",
+  "inputs": [
+    "inbox/2026-10-09-tldr-confirm-your-signup--capture.md",
+    "inbox/2026-10-09-tldr-confirm-your-signup-2--capture.md"
+  ],
+  "checks": [
+    {"type": "all_dropped"},
+    {"type": "none_become_items"}
+  ]
+}

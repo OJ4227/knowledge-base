@@ -1,0 +1,13 @@
+{
+  "description": "Hand-labelled KEEP as opinion. The piece argues a specific, sourced thesis — citing Goldman Sachs' $38B-by-2035 humanoid robotics market forecast, and a contrarian claim that Google/Nvidia/Amazon (not Tesla/OpenAI) will end up acquiring the best robotics startups. That clears the non-obvious-claim bar even with no single reportable event. Contrast case to opinion-zuckerberg-drop.json.",
+  "inputs": [
+    "inbox/2025-02-14-the-ai-robot-race-is-going-to-be-next-level--capture.md"
+  ],
+  "checks": [
+    {
+      "type": "some_item_matches",
+      "development_type": "opinion",
+      "reason_required": true
+    }
+  ]
+}

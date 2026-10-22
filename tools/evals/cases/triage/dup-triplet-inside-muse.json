@@ -1,0 +1,16 @@
+{
+  "description": "One TLDR issue arriving three times (1 RSS + 2 email, the two email copies byte-identical but for the source link). The base/RSS copy has a longer tail (China's delivery robots, BootLoops) that the email copies lose to the 500-word truncation. All three must merge into one item for the Meta/Muse launch story, citing all 3 sources.",
+  "inputs": [
+    "inbox/2026-10-12-inside-muse-apple-homeview-ai-experimentation--capture.md",
+    "inbox/2026-10-12-inside-muse-apple-homeview-ai-experimentation-2--capture.md",
+    "inbox/2026-10-12-inside-muse-apple-homeview-ai-experimentation-3--capture.md"
+  ],
+  "checks": [
+    {
+      "type": "merged",
+      "title_contains": "Muse",
+      "entities_include": ["Meta"],
+      "min_sources": 3
+    }
+  ]
+}

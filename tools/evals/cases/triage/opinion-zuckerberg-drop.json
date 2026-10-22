@@ -1,0 +1,10 @@
+{
+  "description": "Hand-labelled DROP. Despite the clickbait headline ('Is Mark Zuckerberg a robot?'), the body is a rant restating already-known events (Meta's robotics push, Llama, the $65B spend) with no forecast, thesis, or non-obvious claim — commentary-as-venting, not analysis. Contrast case to opinion-ai-robot-race-keep.json: same general subject, different verdict based on body content.",
+  "inputs": [
+    "inbox/2025-02-18-is-mark-zuckerberg-a-robot--capture.md"
+  ],
+  "checks": [
+    {"type": "all_dropped"},
+    {"type": "no_item_development_type", "development_type": "opinion"}
+  ]
+}

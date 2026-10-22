@@ -1,0 +1,16 @@
+{
+  "description": "Same TLDR Hardware issue arriving via email twice (two Readwise document IDs), differing only in the source link. Oxide's $445M Series D must merge into one item citing both sources.",
+  "inputs": [
+    "inbox/2026-10-12-oxide-series-d-spacex-buys-spectrum-pic-s-learn-after-fab--capture.md",
+    "inbox/2026-10-12-oxide-series-d-spacex-buys-spectrum-pic-s-learn-after-fab-2--capture.md"
+  ],
+  "checks": [
+    {
+      "type": "merged",
+      "title_contains": "Oxide",
+      "entities_include": ["Oxide Computer Company"],
+      "development_type": "funding",
+      "domains_include": ["hardware/compute", "business"]
+    }
+  ]
+}

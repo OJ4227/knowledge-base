@@ -1,0 +1,15 @@
+{
+  "description": "Figure AI's $39B self-valuation after its Series C. The only capture in the corpus touching an existing company note (Figure AI, alias 'Figure'), an existing person note (Brett Adcock), and an existing thread (Humanoid manipulation) — exercises correct entity extraction ahead of Enrich's routing.",
+  "inputs": [
+    "inbox/2025-09-25-figure-ai-values-itself-at-39-billion--capture.md"
+  ],
+  "checks": [
+    {
+      "type": "some_item_matches",
+      "entities_include": ["Figure AI", "Brett Adcock"],
+      "domains_include": ["robotics", "business"],
+      "development_type": "funding",
+      "claim_status_one_of": ["reported", "confirmed"]
+    }
+  ]
+}

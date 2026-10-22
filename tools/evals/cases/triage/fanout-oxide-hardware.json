@@ -1,0 +1,12 @@
+{
+  "description": "One TLDR Hardware newsletter capture bundles at least 4 independent developments (Oxide's Series D, SpaceX's spectrum purchase, Foxconn/NVIDIA digital twins, photonic chips learning after fab). Triage must fan this out into separate items, not summarize the capture as one blob.",
+  "inputs": [
+    "inbox/2026-10-12-oxide-series-d-spacex-buys-spectrum-pic-s-learn-after-fab--capture.md"
+  ],
+  "checks": [
+    {"type": "min_item_count", "count": 4},
+    {"type": "some_item_title_contains", "text": "Oxide"},
+    {"type": "some_item_title_contains", "text": "SpaceX"},
+    {"type": "some_item_title_contains", "text": "photonic"}
+  ]
+}

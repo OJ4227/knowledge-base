@@ -1,0 +1,15 @@
+{
+  "description": "This TLDR issue has two ad-shaped blocks marked '(Sponsor)': StepFun's Step 5 Preview, which carries real pricing and benchmark claims (a genuine model-release), and a generic 'Reach 8 million tech professionals' sponsorship pitch with no product claim. Triage must keep the former as model-release and drop the latter as marketing — judging by content, not the '(Sponsor)' label.",
+  "inputs": [
+    "inbox/2026-10-08-chatgpt-intelligent-ui-claude-haiku-5-5-grok-bot-3rd-party-models--capture.md"
+  ],
+  "checks": [
+    {
+      "type": "some_item_matches",
+      "title_contains": "Step 5",
+      "entities_include": ["StepFun"],
+      "development_type": "model-release"
+    },
+    {"type": "no_item_title_contains", "text": "Reach 8 million"}
+  ]
+}
