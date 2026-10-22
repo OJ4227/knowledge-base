@@ -188,7 +188,12 @@ Every capture is classified on two axes (full list will be in `meta/taxonomy.md`
 
 **Development type:** `model-release` · `research` · `capability-demo` · `product` ·
 `hardware` · `benchmark` · `open-source` · `funding` · `m&a` · `people-move` · `shutdown` ·
-`policy`
+`policy` · `opinion`
+
+`opinion` is commentary/analysis with no underlying event — kept only when it makes a
+non-obvious claim (judged on the body, never the headline; see `meta/taxonomy.md`). It
+never produces a `## Timeline` entry (§2); it surfaces in the daily digest and, if
+durable, a thread's `## Key links`.
 
 Only ~4 of ~12 types are business events — technical developments dominate by design.
 
