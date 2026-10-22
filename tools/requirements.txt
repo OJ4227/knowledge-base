@@ -1,2 +1,4 @@
 PyYAML>=6.0
 requests>=2.31
+anthropic>=0.69
+pydantic>=2.7
