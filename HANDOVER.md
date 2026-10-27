@@ -249,18 +249,53 @@ mock could intercept it. Fixed by clearing all three credential env vars in the 
 **Lesson for future credential-resolution changes in this repo: a test isolation fixture
 must clear every env var a new resolution path reads, not just the one it's named after.**
 
+**Eval baseline achieved and model chosen (2026-10-27).** Live runs through the gateway
+surfaced two real bugs, now fixed (see `DESIGN.md` §2 and the git log):
+`model_json_schema()` doesn't set `additionalProperties: false`, which this gateway's
+Vertex backend requires (fixed with `ConfigDict(extra="forbid")` on all three schema
+classes); and the SDK's default `anthropic-version` header conflicts with the gateway's
+own body-level version pin (fixed by omitting the header on the gateway path only, via
+`anthropic.Omit()` in `build_client()`).
+
+Comparison run across Sonnet 5 (default + `xhigh` effort, twice) and Opus 5: Sonnet
+scored 16/20 consistently regardless of effort (ruling out "needs more thinking depth");
+Opus scored 20/23 at a comparable cost (~$0.38 vs. ~$0.33–0.41/run) — **`claude-opus-5` is
+now `DEFAULT_MODEL` in `triage.py`**. `--model`/`--effort` remain flags on both scripts for
+re-measurement later.
+
+Along the way, 4 of the 10 golden cases turned out to have hand-labels that were too
+narrow — not model errors. Each failure was checked against the actual model output
+before the case was revised (see the "Revise 4 golden cases" commit for the full
+reasoning per case): `dup-hard-gemini-carbon` required `m&a` where `funding` is equally
+defensible; `off-domain-fintech` and `end-to-end-figure` pinned a `development_type` that
+varied defensibly across runs (dropped the type constraint, kept the entity-match check);
+`opinion-zuckerberg-drop` was a blanket all-dropped assertion that didn't account for
+fan-out applying to opinion too — rewritten to require the one real falsifiable claim
+buried in the rant (a Llama-vs-Chinese-labs prediction) survive, not a single keep/drop
+verdict on the whole capture. **Lesson: when an eval case fails, read the actual model
+output before assuming the model is wrong — several of these "failures" were the eval
+teaching me my own hand-label was too strict.**
+
+`run_eval.py` now also prints each item's `reason` field (and each dropped capture's
+reason) to the console per-case, so failures are diagnosable from the normal run output
+without a bespoke debug script — per owner request, nothing is persisted to disk and
+thinking-summary display was not requested (keeps cost/latency down).
+
+One reproducible gap survived every model/effort combination tried: `fanout-oxide-hardware`
+intermittently drops the SpaceX item from that newsletter's fan-out (passed in 2 of 4
+runs). Worth a prompt-level look later — likely the SpaceX spectrum story loses out to
+Oxide's funding story for attention in that batch — but not blocking, since it isn't tied
+to the backend/model decision.
+
 **Not yet done — next concrete action:**
-1. Run `tools/evals/run_eval.py` for the first time. **This costs real money** — needs
-   credentials in `tools/.env` (owner adds them directly, per the testing-with-secrets
-   rule below) — produces the first real scored baseline.
-2. Sweep `--model` across Haiku 4.5 / Sonnet 5 / Opus 5 on that baseline; pick the cheapest
-   that holds the score.
-3. Iterate the prompt against failures until the score is solid, *then* run `triage.py`
-   for real against the live `inbox/` (35 captures) — review its output by hand before
-   trusting it, per the plan's "first run should be hand-reviewed" note.
-4. Only after Triage's output format has proven stable: build Enrich (Stage 3), which
-   consumes it. Its eval will need checklist/LLM-judge assertions instead of Triage's
-   strict-JSON approach, since Enrich's output is prose timeline bullets.
+1. Run `triage.py` for real against the live `inbox/` (35 captures, `claude-opus-5` by
+   default) — review its output by hand before trusting it, per the plan's "first run
+   should be hand-reviewed" note. This also finally clears the real inbox backlog.
+2. Optionally look at the `fanout-oxide-hardware` SpaceX gap in the prompt before or after
+   that first real run — not blocking.
+3. Build Enrich (Stage 3), which consumes Triage's `inbox/_triage/YYYY-MM-DD.json` output.
+   Its eval will need checklist/LLM-judge assertions instead of Triage's strict-JSON
+   approach, since Enrich's output is prose timeline bullets, not structured data.
 
 Other options, lower priority:
 
