@@ -1,0 +1,2081 @@
+{
+  "run_date": "2026-10-27",
+  "captures_consumed": [
+    "inbox/2025-02-14-the-ai-robot-race-is-going-to-be-next-level--capture.md",
+    "inbox/2025-02-18-is-mark-zuckerberg-a-robot--capture.md",
+    "inbox/2025-03-12-xpeng-s-huge-investment-in-humanoid-robotics--capture.md",
+    "inbox/2025-05-18-amazon-s-vulcan-robot--capture.md",
+    "inbox/2025-09-25-figure-ai-values-itself-at-39-billion--capture.md",
+    "inbox/2026-10-05-apple-ceo-designs-muse-s-maker-using-web-standards--capture.md",
+    "inbox/2026-10-05-prime-inference-agent-population-claude-academy--capture.md",
+    "inbox/2026-10-06-instinct-group-chats-reflection-s-501b-model-openai-text-watermarks--capture.md",
+    "inbox/2026-10-06-iphone-duo-apps-google-docs-markdown-ephemeral-testing--capture.md",
+    "inbox/2026-10-07-apple-s-home-ecosystem-openai-math-state-of-tech--capture.md",
+    "inbox/2026-10-07-mistral-large-4-openai-decisions-api-nano-banana-2-1--capture.md",
+    "inbox/2026-10-08-chatgpt-intelligent-ui-claude-haiku-5-5-grok-bot-3rd-party-models--capture.md",
+    "inbox/2026-10-08-claude-haiku-5-5-mathpocalypse-designer-influence--capture.md",
+    "inbox/2026-10-09-gpt-6-1-ultrafast-gemini-universal-agent-speculative-decoding--capture.md",
+    "inbox/2026-10-09-spacex-mobile-touchscreen-macbook-claude-code-mods--capture.md",
+    "inbox/2026-10-09-tldr-confirm-your-signup--capture.md",
+    "inbox/2026-10-09-tldr-confirm-your-signup-2--capture.md",
+    "inbox/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race--capture.md",
+    "inbox/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race-2--capture.md",
+    "inbox/2026-10-12-inside-muse-apple-homeview-ai-experimentation--capture.md",
+    "inbox/2026-10-12-inside-muse-apple-homeview-ai-experimentation-2--capture.md",
+    "inbox/2026-10-12-inside-muse-apple-homeview-ai-experimentation-3--capture.md",
+    "inbox/2026-10-12-linkedin-gives-agents-context-claude-dashboards-salesforce-spark-optimization--capture.md",
+    "inbox/2026-10-12-linkedin-gives-agents-context-claude-dashboards-salesforce-spark-optimization-2--capture.md",
+    "inbox/2026-10-12-owning-intelligence-software-s-centaur-age-senior-hiring-rebounds--capture.md",
+    "inbox/2026-10-12-owning-intelligence-software-s-centaur-age-senior-hiring-rebounds-2--capture.md",
+    "inbox/2026-10-12-oxide-series-d-spacex-buys-spectrum-pic-s-learn-after-fab--capture.md",
+    "inbox/2026-10-12-oxide-series-d-spacex-buys-spectrum-pic-s-learn-after-fab-2--capture.md",
+    "inbox/2026-10-12-revolut-wants-to-dominate-the-us-ftx-drama-on-netflix-chase-now-offers-payroll--capture.md",
+    "inbox/2026-10-12-revolut-wants-to-dominate-the-us-ftx-drama-on-netflix-chase-now-offers-payroll-2--capture.md",
+    "inbox/2026-10-13-meta-wonder-x-s-resurgence-why-webmcp-matters--capture.md",
+    "inbox/2026-10-13-meta-wonder-x-s-resurgence-why-webmcp-matters-2--capture.md",
+    "inbox/2026-10-13-meta-wonder-x-s-resurgence-why-webmcp-matters-3--capture.md",
+    "inbox/2026-10-13-muse-wonder-maia-300-ai-self-replication--capture.md",
+    "inbox/2026-10-13-muse-wonder-maia-300-ai-self-replication-2--capture.md"
+  ],
+  "dropped": [
+    {
+      "capture": "inbox/2026-10-09-tldr-confirm-your-signup--capture.md",
+      "reason": "Subscription confirmation chrome, no news content."
+    },
+    {
+      "capture": "inbox/2026-10-09-tldr-confirm-your-signup-2--capture.md",
+      "reason": "Duplicate subscription confirmation chrome, no news content."
+    },
+    {
+      "capture": "inbox/2026-02-18-is-mark-zuckerberg-a-robot--capture.md",
+      "reason": "Rant with no thesis beyond restating the reported Meta humanoid-robotics plan; the underlying Bloomberg report is captured as its own item."
+    }
+  ],
+  "items": [
+    {
+      "id": "apptronik-series-a-google",
+      "title": "Apptronik raised a $350M Series A with Google participation",
+      "summary": "Apptronik, a University of Texas humanoid robotics spinout, closed a $350 million Series A that included participation from Google alongside a partnership with Alphabet. The round was framed as Alphabet moving decisively into humanoid robotics.",
+      "domains": [
+        "robotics",
+        "business"
+      ],
+      "development_type": "funding",
+      "entities": [
+        "Apptronik",
+        "Google",
+        "Alphabet",
+        "Figure AI"
+      ],
+      "concepts": [],
+      "sources": [
+        "[[sources/2025-02-14-the-ai-robot-race-is-going-to-be-next-level]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "apple-exploring-humanoid-robots-kuo",
+      "title": "Ming-Chi Kuo said Apple is exploring humanoid and non-humanoid robots",
+      "summary": "Analyst Ming-Chi Kuo posted that Apple is exploring both humanoid and non-humanoid robots, with mass production optimistically projected for 2028 following the cancellation of its car project.",
+      "domains": [
+        "robotics",
+        "business"
+      ],
+      "development_type": "research",
+      "entities": [
+        "Apple",
+        "Ming-Chi Kuo",
+        "Project Titan"
+      ],
+      "concepts": [],
+      "sources": [
+        "[[sources/2025-02-14-the-ai-robot-race-is-going-to-be-next-level]]",
+        "[[sources/2025-02-18-is-mark-zuckerberg-a-robot]]"
+      ],
+      "claim_status": "rumored",
+      "reason": null
+    },
+    {
+      "id": "hyperscalers-will-win-robotics-thesis",
+      "title": "Thesis: hyperscalers, not Tesla or OpenAI, will end up owning robotics",
+      "summary": "The author argued that consolidation across quantum computing, robotics, and biotechnology favours hyperscalers, predicting Google, Nvidia, Apple and Amazon will acquire the best robotics startups rather than Tesla or OpenAI leading the field.",
+      "domains": [
+        "robotics",
+        "business"
+      ],
+      "development_type": "opinion",
+      "entities": [
+        "Google",
+        "Nvidia",
+        "Apple",
+        "Amazon",
+        "Tesla",
+        "OpenAI",
+        "Meta"
+      ],
+      "concepts": [],
+      "sources": [
+        "[[sources/2025-02-14-the-ai-robot-race-is-going-to-be-next-level]]"
+      ],
+      "claim_status": "reported",
+      "reason": "Contrarian prediction that acquisition by hyperscalers, not independent scaling by Tesla/OpenAI, decides the humanoid robotics race."
+    },
+    {
+      "id": "nvidia-gear-rl-sports-humanoids",
+      "title": "NVIDIA GEAR lab RL-trained humanoids to imitate famous athletes",
+      "summary": "Jim Fan showed NVIDIA GEAR lab humanoid robots reinforcement-learned to mimic the movements of Cristiano Ronaldo, LeBron James and Kobe Bryant, running as neural nets on real hardware.",
+      "domains": [
+        "robotics",
+        "ai"
+      ],
+      "development_type": "capability-demo",
+      "entities": [
+        "NVIDIA",
+        "Jim Fan",
+        "GEAR lab"
+      ],
+      "concepts": [
+        "reinforcement learning",
+        "sim-to-real"
+      ],
+      "sources": [
+        "[[sources/2025-02-14-the-ai-robot-race-is-going-to-be-next-level]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "meta-humanoid-robotics-program",
+      "title": "Meta reported to be entering humanoid robotics",
+      "summary": "Bloomberg reported that Meta is building a humanoid robotics program, starting with household-chore hardware but ultimately aiming to supply the AI, sensors and software other manufacturers use. Meta plans roughly $65 billion of related capital spending this year across AI infrastructure and robotics.",
+      "domains": [
+        "robotics",
+        "business",
+        "ai"
+      ],
+      "development_type": "product",
+      "entities": [
+        "Meta",
+        "Mark Zuckerberg",
+        "Bloomberg",
+        "Figure AI",
+        "NVIDIA"
+      ],
+      "concepts": [],
+      "sources": [
+        "[[sources/2025-02-18-is-mark-zuckerberg-a-robot]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "xpeng-humanoid-investment-iron",
+      "title": "XPeng planned up to $13.8B humanoid robot investment and showed its Iron robot",
+      "summary": "XPeng was reported to be investing up to 100 billion yuan ($13.8 billion) in humanoid robots and said it would begin mass production of flying cars and industrial robots by 2026. Its humanoid, Iron, stands 1.72m, weighs about 70kg, and has 60 joints with up to 200 degrees of motion.",
+      "domains": [
+        "robotics",
+        "business"
+      ],
+      "development_type": "hardware",
+      "entities": [
+        "XPeng",
+        "XPeng Robotics",
+        "Iron",
+        "Alibaba",
+        "Tesla"
+      ],
+      "concepts": [],
+      "sources": [
+        "[[sources/2025-03-12-xpeng-s-huge-investment-in-humanoid-robotics]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "amazon-vulcan-touch-robot",
+      "title": "Amazon introduced Vulcan, a warehouse robot arm with force and touch sensing",
+      "summary": "Amazon unveiled Vulcan at its Delivering the Future event in Dortmund, a robot arm combining a camera, suction cup and force-feedback sensors to give it a sense of touch. Amazon says Vulcan can pick and stow about 75% of items in its warehouses at human-comparable speeds, targeting 80% at 300 items per hour over 20-hour shifts.",
+      "domains": [
+        "robotics"
+      ],
+      "development_type": "hardware",
+      "entities": [
+        "Amazon",
+        "Vulcan",
+        "Aaron Parness",
+        "Sparrow",
+        "Cardinal",
+        "Robin",
+        "Proteus",
+        "Titan",
+        "Hercules"
+      ],
+      "concepts": [
+        "tactile sensing"
+      ],
+      "sources": [
+        "[[sources/2025-05-18-amazon-s-vulcan-robot]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "figure-series-c-39b",
+      "title": "Figure AI raised a Series C at a $39 billion valuation",
+      "summary": "Figure AI closed a Series C led by Parkway Venture Capital with participation from Nvidia, Intel Capital, LG Technology Ventures, Salesforce, T-Mobile Ventures and Qualcomm Ventures, valuing the company at about $39 billion. Figure said it would fund its Helix embodied intelligence platform and BotQ production facility, with a plan to ship 100,000 humanoids over four years.",
+      "domains": [
+        "robotics",
+        "business"
+      ],
+      "development_type": "funding",
+      "entities": [
+        "Figure AI",
+        "Brett Adcock",
+        "Parkway Venture Capital",
+        "Nvidia",
+        "Intel Capital",
+        "LG Technology Ventures",
+        "Salesforce",
+        "T-Mobile Ventures",
+        "Qualcomm Ventures",
+        "Helix",
+        "BotQ"
+      ],
+      "concepts": [
+        "embodied intelligence"
+      ],
+      "sources": [
+        "[[sources/2025-09-25-figure-ai-values-itself-at-39-billion]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "apple-ternus-design-chief",
+      "title": "Apple CEO John Ternus took over design oversight himself",
+      "summary": "Apple CEO John Ternus is personally overseeing hardware and software design, delegating finance to CFO Kevan Parekh and supply chain to COO Sabih Khan, and the company is not recruiting an outside chief design officer.",
+      "domains": [
+        "business"
+      ],
+      "development_type": "people-move",
+      "entities": [
+        "Apple",
+        "John Ternus",
+        "Kevan Parekh",
+        "Sabih Khan"
+      ],
+      "concepts": [],
+      "sources": [
+        "[[sources/2026-10-05-apple-ceo-designs-muse-s-maker-using-web-standards]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "neuralink-pretraining-brain-data",
+      "title": "Neuralink pretrained decoders on 50,000 hours of unlabeled neural data",
+      "summary": "Neuralink described using over 50,000 hours of unlabeled, freeform neural data collected since its clinical trials began to pretrain its decoding models, making decoders more accurate and longer-lived between calibrations.",
+      "domains": [
+        "ai",
+        "hardware/compute"
+      ],
+      "development_type": "research",
+      "entities": [
+        "Neuralink"
+      ],
+      "concepts": [
+        "self-supervised pretraining",
+        "brain-computer interface"
+      ],
+      "sources": [
+        "[[sources/2026-10-05-apple-ceo-designs-muse-s-maker-using-web-standards]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "nasa-moon-nuclear-reactor",
+      "title": "NASA pushed contractors toward a lunar nuclear reactor by December 2030",
+      "summary": "NASA asked contractors to prepare to build a maintenance-free nuclear reactor capable of surviving a space voyage and operating near the Moon's south pole by December 2030, as the US and China both race to establish lunar bases.",
+      "domains": [
+        "hardware/compute"
+      ],
+      "development_type": "policy",
+      "entities": [
+        "NASA",
+        "China"
+      ],
+      "concepts": [],
+      "sources": [
+        "[[sources/2026-10-05-apple-ceo-designs-muse-s-maker-using-web-standards]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "nuclear-cancer-studies-methodology",
+      "title": "Argument: Harvard nuclear-plant cancer studies are methodological artifacts",
+      "summary": "An analysis argued that the Harvard studies linking nuclear power plants to higher cancer rates are nonsense because their methodology would show elevated risk around any arbitrary landmark, illustrating how precise statistics can produce precise nonsense when causal mechanism is unidentified.",
+      "domains": [
+        "hardware/compute"
+      ],
+      "development_type": "opinion",
+      "entities": [
+        "Harvard"
+      ],
+      "concepts": [],
+      "sources": [
+        "[[sources/2026-10-05-apple-ceo-designs-muse-s-maker-using-web-standards]]"
+      ],
+      "claim_status": "reported",
+      "reason": "Names a specific methodological mechanism (landmark-agnostic design) that would produce the same result for any site, invalidating the published finding."
+    },
+    {
+      "id": "prime-inference-launch",
+      "title": "Prime Intellect launched Prime Inference for serving frontier open models",
+      "summary": "Prime Intellect launched Prime Inference, offering serverless endpoints and reserved capacity for frontier open-source models across multiple data centers. The platform already powers Prime's internal RL rollouts, synthetic data generation, evaluations and long-running coding agents, processing close to a trillion tokens a day.",
+      "domains": [
+        "ai",
+        "hardware/compute"
+      ],
+      "development_type": "product",
+      "entities": [
+        "Prime Intellect",
+        "Prime Inference"
+      ],
+      "concepts": [
+        "RL rollouts",
+        "synthetic data"
+      ],
+      "sources": [
+        "[[sources/2026-10-05-prime-inference-agent-population-claude-academy]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "aleph-alpha-kolibri",
+      "title": "Aleph Alpha released open-weight Kolibri with 1M context",
+      "summary": "Aleph Alpha released Kolibri, a 78.1B-parameter English-German Mixture-of-Experts model with tool calling and up to one million tokens of context, published on Hugging Face under Apache 2.0 and aimed at sovereign government and regulated-industry use.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "model-release",
+      "entities": [
+        "Aleph Alpha",
+        "Kolibri",
+        "Hugging Face"
+      ],
+      "concepts": [
+        "mixture of experts",
+        "long context",
+        "open weights"
+      ],
+      "sources": [
+        "[[sources/2026-10-05-prime-inference-agent-population-claude-academy]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "anthropic-claude-frontier-academy",
+      "title": "Anthropic committed $100M to train 10,000 AI engineers",
+      "summary": "Anthropic announced a $100 million investment in the Claude Frontier Academy, aiming to train 10,000 AI engineers by 2027 in partnership with firms including Accenture and Morgan Stanley.",
+      "domains": [
+        "ai",
+        "business"
+      ],
+      "development_type": "product",
+      "entities": [
+        "Anthropic",
+        "Claude Frontier Academy",
+        "Accenture",
+        "Morgan Stanley"
+      ],
+      "concepts": [],
+      "sources": [
+        "[[sources/2026-10-05-prime-inference-agent-population-claude-academy]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "agent-population-2027-estimate",
+      "title": "Analysis: chips shipped through 2027 could run hundreds of millions of concurrent agents",
+      "summary": "An analysis estimated that AI chips shipped through 2027 could support tens to hundreds of millions of concurrent frontier-model agents, equivalent to the weekly working hours of 140-720 million full-time employees, and that using just 20% of that central capacity would imply $2.6-5.3 trillion a year in API-equivalent spending.",
+      "domains": [
+        "ai",
+        "hardware/compute"
+      ],
+      "development_type": "opinion",
+      "entities": [],
+      "concepts": [
+        "inference compute",
+        "agent economics"
+      ],
+      "sources": [
+        "[[sources/2026-10-05-prime-inference-agent-population-claude-academy]]"
+      ],
+      "claim_status": "reported",
+      "reason": "Quantifies a demand gap: installed inference capacity implies trillions in annual API spending that current demand does not come close to absorbing."
+    },
+    {
+      "id": "ai21-kueue-gpu-fleet",
+      "title": "AI21 used Kueue to schedule a 10,000-GPU shared fleet",
+      "summary": "AI21 described replacing ad hoc GPU-capacity negotiations with Kueue-based queueing and fair scheduling across a shared Google Cloud cluster; a Google Cloud case study reported high-priority workloads started 83% sooner.",
+      "domains": [
+        "hardware/compute",
+        "ai"
+      ],
+      "development_type": "research",
+      "entities": [
+        "AI21",
+        "Kueue",
+        "Google Cloud"
+      ],
+      "concepts": [
+        "GPU scheduling"
+      ],
+      "sources": [
+        "[[sources/2026-10-05-prime-inference-agent-population-claude-academy]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "small-models-sovereignty-australia",
+      "title": "Argument: AI sovereignty comes from small specialized models, not frontier scale",
+      "summary": "A piece argued Australia should pursue AI sovereignty through a portfolio of smaller, specialized open-weight models \u2014 cheaper, more adaptable and easier to govern \u2014 achieving managed interdependence rather than dependence on a single frontier provider.",
+      "domains": [
+        "ai",
+        "business"
+      ],
+      "development_type": "opinion",
+      "entities": [
+        "Australia"
+      ],
+      "concepts": [
+        "AI sovereignty",
+        "open weights"
+      ],
+      "sources": [
+        "[[sources/2026-10-05-prime-inference-agent-population-claude-academy]]"
+      ],
+      "claim_status": "reported",
+      "reason": "Argues sovereignty is best served by small specialized open-weight model portfolios rather than attempts to match frontier scale."
+    },
+    {
+      "id": "openai-eu-text-watermarks",
+      "title": "OpenAI will add invisible text watermarks for EU AI Act compliance",
+      "summary": "OpenAI said it would add invisible text watermarks to eligible ChatGPT and Codex outputs in the EU to meet AI Act transparency rules, using a textGrain method that subtly alters word selection, though editing, translation and short passages weaken detection.",
+      "domains": [
+        "ai",
+        "business"
+      ],
+      "development_type": "policy",
+      "entities": [
+        "OpenAI",
+        "ChatGPT",
+        "Codex",
+        "EU AI Act",
+        "textGrain"
+      ],
+      "concepts": [
+        "watermarking"
+      ],
+      "sources": [
+        "[[sources/2026-10-06-instinct-group-chats-reflection-s-501b-model-openai-text-watermarks]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "openai-30b-round-uae",
+      "title": "OpenAI in talks for a $30B round anchored by UAE funds and BlackRock",
+      "summary": "OpenAI is reportedly in talks with multiple UAE investment funds, which have discussed forming a syndicate to invest up to $10 billion, as part of a $30 billion financing round. The University of California endowment, BlackRock, Thrive Capital and Andreessen Horowitz may also participate.",
+      "domains": [
+        "ai",
+        "business"
+      ],
+      "development_type": "funding",
+      "entities": [
+        "OpenAI",
+        "BlackRock",
+        "Thrive Capital",
+        "Andreessen Horowitz",
+        "University of California endowment"
+      ],
+      "concepts": [],
+      "sources": [
+        "[[sources/2026-10-06-instinct-group-chats-reflection-s-501b-model-openai-text-watermarks]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "instinct-group-chats",
+      "title": "Instinct added shared agents to group chats",
+      "summary": "Instinct began letting early-access users add a shared agent to group chats for planning trips, tickets, carpools and events, with personal Instincts enforcing permissions, keeping account access separate, and pausing sharing when new members join.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "product",
+      "entities": [
+        "Instinct"
+      ],
+      "concepts": [
+        "agent permissions"
+      ],
+      "sources": [
+        "[[sources/2026-10-06-instinct-group-chats-reflection-s-501b-model-openai-text-watermarks]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "devin-memory-dreaming",
+      "title": "Cognition detailed Devin's Memory and Dreaming systems",
+      "summary": "Devin's new Memory system carries preferences, corrections and project learnings across sessions, while a Dreaming process periodically reorganizes and connects that information, deduplicating memories, linking them to past sessions and artifacts, and deriving new knowledge from accumulated work.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "product",
+      "entities": [
+        "Devin",
+        "Cognition"
+      ],
+      "concepts": [
+        "agent memory"
+      ],
+      "sources": [
+        "[[sources/2026-10-06-instinct-group-chats-reflection-s-501b-model-openai-text-watermarks]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "openai-b2b-marketplace-analysis",
+      "title": "Analysis: OpenAI's B2B marketplace is a bid to become the hyperscaler of AI apps",
+      "summary": "The OpenAI B2B marketplace opened on September 29 with 32 partners; an analysis argued it positions OpenAI as the distribution platform the AI ecosystem depends on, and predicted an evolution mirroring the cloud ecosystem with co-selling, listing fees, and single consolidated invoices for buyers.",
+      "domains": [
+        "ai",
+        "business"
+      ],
+      "development_type": "opinion",
+      "entities": [
+        "OpenAI"
+      ],
+      "concepts": [
+        "platform economics"
+      ],
+      "sources": [
+        "[[sources/2026-10-06-instinct-group-chats-reflection-s-501b-model-openai-text-watermarks]]"
+      ],
+      "claim_status": "reported",
+      "reason": "Predicts a specific cloud-marketplace-style evolution \u2014 listing fees, co-selling, consolidated invoicing \u2014 as the mechanism by which OpenAI captures the AI app ecosystem."
+    },
+    {
+      "id": "ai-native-software-factory",
+      "title": "Guide to AI-native software factory infrastructure built on Uber's example",
+      "summary": "A practical analysis of the infrastructure companies need around coding agents once usage scales beyond individual developers, using Uber's software factory as the case study, covering cloud execution, model gateways, agent identity, testing, migrations, code review and cost per merged pull request.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "opinion",
+      "entities": [
+        "Uber"
+      ],
+      "concepts": [
+        "coding agents",
+        "agent identity"
+      ],
+      "sources": [
+        "[[sources/2026-10-06-instinct-group-chats-reflection-s-501b-model-openai-text-watermarks]]"
+      ],
+      "claim_status": "reported",
+      "reason": "Argues cost-per-merged-PR, not developer-level productivity, is the right unit of economics for scaled coding-agent infrastructure."
+    },
+    {
+      "id": "apple-iphone-duo-app-submissions",
+      "title": "Apple opened App Store submissions for iPhone Duo-optimized apps",
+      "summary": "Apple began accepting iPhone Duo-optimized app and game submissions in App Store Connect, with Xcode 27.1 RC1 adding build and test support and product pages displaying an optimization badge.",
+      "domains": [
+        "business"
+      ],
+      "development_type": "product",
+      "entities": [
+        "Apple",
+        "iPhone Duo",
+        "Xcode",
+        "App Store Connect"
+      ],
+      "concepts": [],
+      "sources": [
+        "[[sources/2026-10-06-iphone-duo-apps-google-docs-markdown-ephemeral-testing]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "google-docs-markdown",
+      "title": "Google Docs and Drive added native Markdown support",
+      "summary": "Google Docs gained native support for previewing, editing and collaborating on Markdown files and Drive now renders Markdown previews, rolling out to all Workspace and personal Google accounts over two weeks.",
+      "domains": [
+        "business"
+      ],
+      "development_type": "product",
+      "entities": [
+        "Google Docs",
+        "Google Drive",
+        "Google Workspace"
+      ],
+      "concepts": [],
+      "sources": [
+        "[[sources/2026-10-06-iphone-duo-apps-google-docs-markdown-ephemeral-testing]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "optogenetics-nobel",
+      "title": "Optogenetics pioneers won the Nobel Prize in Physiology or Medicine",
+      "summary": "Karl Deisseroth, Peter Hegemann and Georg Nagel won the Nobel Prize in Physiology or Medicine for optogenetics, the technique of using light to activate or silence genetically marked neurons in an intact brain.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "research",
+      "entities": [
+        "Karl Deisseroth",
+        "Peter Hegemann",
+        "Georg Nagel",
+        "Nobel Prize"
+      ],
+      "concepts": [
+        "optogenetics"
+      ],
+      "sources": [
+        "[[sources/2026-10-06-iphone-duo-apps-google-docs-markdown-ephemeral-testing]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "tandem-solar-panels",
+      "title": "Tandem solar panels approach commercial sale with 25% more output",
+      "summary": "Several companies plan to begin commercially selling tandem solar panels, which add second and third material layers to convert more sunlight and can generate 25% more energy than currently available devices \u2014 positioned as the US's best chance to catch China in solar.",
+      "domains": [
+        "hardware/compute"
+      ],
+      "development_type": "hardware",
+      "entities": [
+        "China"
+      ],
+      "concepts": [
+        "tandem solar"
+      ],
+      "sources": [
+        "[[sources/2026-10-06-iphone-duo-apps-google-docs-markdown-ephemeral-testing]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "openai-math-results",
+      "title": "OpenAI published hundreds of math results from an unreleased internal model",
+      "summary": "OpenAI released findings on 377 math problems spanning algebra, number theory, theoretical computer science, logic and topology, produced by an internal model that has not been publicly released. The results were posted to a GitHub repository with Lean formalizations, citation and revision protocols, 10 reasoning summaries, and compute estimates; experts debated whether the systems were thinking creatively or completing final steps after borrowing human ideas.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "research",
+      "entities": [
+        "OpenAI",
+        "Lean",
+        "GitHub"
+      ],
+      "concepts": [
+        "formal verification",
+        "mathematical reasoning"
+      ],
+      "sources": [
+        "[[sources/2026-10-07-apple-s-home-ecosystem-openai-math-state-of-tech]]",
+        "[[sources/2026-10-07-mistral-large-4-openai-decisions-api-nano-banana-2-1]]",
+        "[[sources/2026-10-08-claude-haiku-5-5-mathpocalypse-designer-influence]]"
+      ],
+      "claim_status": "disputed",
+      "reason": null
+    },
+    {
+      "id": "mathocalypse-unreadable-proofs",
+      "title": "Argument: no human has yet understood OpenAI's released math proofs",
+      "summary": "An essay argued that OpenAI's ~372 released mathematical results have not been understood by any human, with experts saying the papers are so badly written they are unreadable without AI assistance and that citations are frequently irrelevant or confusing.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "opinion",
+      "entities": [
+        "OpenAI"
+      ],
+      "concepts": [
+        "mathematical reasoning",
+        "verification"
+      ],
+      "sources": [
+        "[[sources/2026-10-08-claude-haiku-5-5-mathpocalypse-designer-influence]]"
+      ],
+      "claim_status": "reported",
+      "reason": "Claims the verification bottleneck, not generation, is now binding: machine-produced proofs may be correct but unreadable, breaking the social process of mathematics."
+    },
+    {
+      "id": "apple-lg-smart-home-devices",
+      "title": "Apple to launch LG-developed doorbell, lock and thermostat with its smart home hub",
+      "summary": "Apple planned an October 13 launch of several LG-branded devices built in partnership with LG \u2014 a doorbell, thermostat, upgraded HomePod mini and new TV set-top box \u2014 as part of an ecosystem around its new smart home hub, with Wi-Fi, Bluetooth, Thread and Matter support. The hub, called HomeView, serves as a Siri command center with countertop and wall-mounted variants, supports only a limited set of Apple apps and has no App Store; accessories also come from Schneider Electric, and a touch-screen MacBook and new iPad mini were slated for around October 27.",
+      "domains": [
+        "business",
+        "hardware/compute"
+      ],
+      "development_type": "product",
+      "entities": [
+        "Apple",
+        "LG",
+        "HomeView",
+        "HomePod mini",
+        "Apple TV",
+        "Siri",
+        "Schneider Electric",
+        "MacBook",
+        "iPad mini"
+      ],
+      "concepts": [
+        "Matter",
+        "Thread"
+      ],
+      "sources": [
+        "[[sources/2026-10-07-apple-s-home-ecosystem-openai-math-state-of-tech]]",
+        "[[sources/2026-10-12-inside-muse-apple-homeview-ai-experimentation]]",
+        "[[sources/2026-10-12-inside-muse-apple-homeview-ai-experimentation-2]]",
+        "[[sources/2026-10-12-inside-muse-apple-homeview-ai-experimentation-3]]",
+        "[[sources/2026-10-09-spacex-mobile-touchscreen-macbook-claude-code-mods]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "nuclear-uprates-for-ai",
+      "title": "Utilities uprate existing nuclear plants to add 6,000-8,000 MW for AI demand",
+      "summary": "Companies are upgrading older nuclear reactors rather than building new plants, with uprates costing billions and needing regulatory approval but completable in under five years at a fraction of new-build cost. Tech giants are funding these upgrades to power AI, with an estimated 6,000 to 8,000 megawatts to be added to US grids.",
+      "domains": [
+        "hardware/compute"
+      ],
+      "development_type": "hardware",
+      "entities": [],
+      "concepts": [
+        "data center power"
+      ],
+      "sources": [
+        "[[sources/2026-10-07-apple-s-home-ecosystem-openai-math-state-of-tech]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "anduril-arsenal-2-ngc2",
+      "title": "Anduril won up to $1.8B for NGC2 and announced a $6.6B Baltimore shipbuilding megafactory",
+      "summary": "Anduril was awarded a contract worth up to $1.8 billion over five years to scale Lattice across the Army's Next-Generation Command and Control effort, and announced Arsenal-2, a shipbuilding-focused megafactory in Baltimore spanning over 2 million square feet from 2030, backed by $6.6 billion including up to $2.9 billion via a US Navy submarine production contract.",
+      "domains": [
+        "business",
+        "robotics"
+      ],
+      "development_type": "funding",
+      "entities": [
+        "Anduril",
+        "Lattice",
+        "US Army",
+        "US Navy",
+        "Arsenal-2"
+      ],
+      "concepts": [],
+      "sources": [
+        "[[sources/2026-10-07-apple-s-home-ecosystem-openai-math-state-of-tech]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "mistral-large-4",
+      "title": "Mistral released Large 4, a one-trillion-parameter multimodal model",
+      "summary": "Mistral Large 4 is a one-trillion-parameter multimodal model positioned as a European alternative to leading closed and open AI systems.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "model-release",
+      "entities": [
+        "Mistral",
+        "Mistral Large 4"
+      ],
+      "concepts": [
+        "multimodal models"
+      ],
+      "sources": [
+        "[[sources/2026-10-07-mistral-large-4-openai-decisions-api-nano-banana-2-1]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "nano-banana-2-1",
+      "title": "Google released Nano Banana 2.1 in the Gemini 3 series",
+      "summary": "Nano Banana 2.1, based on Gemini 3.6 Flash, takes text and image inputs and outputs images and text with up to a 1M-token context window. It is available in the Gemini app and API, Google AI Studio, Google Search AI Mode, Google Ads, Google Flow and Google Stitch.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "model-release",
+      "entities": [
+        "Google",
+        "Nano Banana 2.1",
+        "Gemini 3.6 Flash",
+        "Google AI Studio",
+        "Google Flow",
+        "Google Stitch"
+      ],
+      "concepts": [
+        "multimodal models"
+      ],
+      "sources": [
+        "[[sources/2026-10-07-mistral-large-4-openai-decisions-api-nano-banana-2-1]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "cyber-risk-discourse-open-weights",
+      "title": "Argument: GLM-5.3 crosses an open-weight cyber capability threshold the discourse can't measure",
+      "summary": "An essay argued the cyber risk debate is broken: Chinese labs keep shipping open-weight models with strong cyber capability, GLM-5.3 crosses a capability threshold, yet there is little public evidence of real-world change \u2014 meaning years of open-weight risk debate are finally about to get empirical answers.",
+      "domains": [
+        "ai",
+        "business"
+      ],
+      "development_type": "opinion",
+      "entities": [
+        "GLM-5.3"
+      ],
+      "concepts": [
+        "open weights",
+        "cyber capability"
+      ],
+      "sources": [
+        "[[sources/2026-10-07-mistral-large-4-openai-decisions-api-nano-banana-2-1]]"
+      ],
+      "claim_status": "reported",
+      "reason": "Contends the open-weight cyber-risk debate has been unfalsifiable and that GLM-5.3's capability threshold makes it empirically testable for the first time."
+    },
+    {
+      "id": "project-zero-emergency-patching",
+      "title": "Google Project Zero published a guide to faster emergency patching",
+      "summary": "Google Project Zero examined how large software vendors can patch urgent vulnerabilities faster than normal release cycles allow, breaking down the remediation pipeline from triage and development through testing, delivery and activation, and highlighting systems designed for exceptional security incidents.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "research",
+      "entities": [
+        "Google Project Zero"
+      ],
+      "concepts": [
+        "vulnerability remediation"
+      ],
+      "sources": [
+        "[[sources/2026-10-07-mistral-large-4-openai-decisions-api-nano-banana-2-1]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "stepfun-step5-preview",
+      "title": "StepFun launched Step 5 Preview and StepAudio 3",
+      "summary": "StepFun released Step 5 Preview at $1 per million input and $2.70 per million output tokens with a 1M-token context, claiming near-Claude Opus 5 (Medium) scores on Artificial Analysis's Intelligence Index at 80% lower input and 89% lower output prices, available on OpenRouter and in OpenCode, Kilo Code, Cline, omp and Hermes Agent. StepAudio 3 claims #1 on Artificial Analysis non-streaming transcription (1.7% WER), Conversational Dynamics (98.9%) and Speech Reasoning (99.7%).",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "model-release",
+      "entities": [
+        "StepFun",
+        "Step 5 Preview",
+        "StepAudio 3",
+        "OpenRouter",
+        "Artificial Analysis",
+        "Claude Opus 5"
+      ],
+      "concepts": [
+        "long context",
+        "speech recognition"
+      ],
+      "sources": [
+        "[[sources/2026-10-08-chatgpt-intelligent-ui-claude-haiku-5-5-grok-bot-3rd-party-models]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "gpt-6-intelligent-ui",
+      "title": "OpenAI shipped GPT-6 with Intelligent UI to 1.2 billion ChatGPT users",
+      "summary": "OpenAI's GPT-6 introduced Intelligent UI, enriching responses with text, visuals and interactive elements generated dynamically from data, alongside improved answer quality on complex queries and enhanced safety and risk recognition.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "model-release",
+      "entities": [
+        "OpenAI",
+        "GPT-6",
+        "ChatGPT"
+      ],
+      "concepts": [
+        "generative UI"
+      ],
+      "sources": [
+        "[[sources/2026-10-08-chatgpt-intelligent-ui-claude-haiku-5-5-grok-bot-3rd-party-models]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "claude-haiku-5-5",
+      "title": "Anthropic released Claude Haiku 5.5",
+      "summary": "Claude Haiku 5.5 is Anthropic's latest fast, low-cost model, priced at $0.10 per million input and $0.50 per million output tokens up to 100,000 tokens, after which prices rise 5x \u2014 75% cheaper than Haiku 4.5 in that range and matching GPT-6 Luna's price while reporting higher benchmark scores, though Luna is cheaper above 100K tokens. It ships with enhanced safety and cybersecurity safeguards and is available on AWS and Azure.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "model-release",
+      "entities": [
+        "Anthropic",
+        "Claude Haiku 5.5",
+        "GPT-6 Luna",
+        "AWS",
+        "Azure"
+      ],
+      "concepts": [
+        "token pricing"
+      ],
+      "sources": [
+        "[[sources/2026-10-08-chatgpt-intelligent-ui-claude-haiku-5-5-grok-bot-3rd-party-models]]",
+        "[[sources/2026-10-08-claude-haiku-5-5-mathpocalypse-designer-influence]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "grok-bot-third-party-models",
+      "title": "Musk said Grok Bot will route to Claude Opus 5.5, Midjourney and Suno",
+      "summary": "Elon Musk said Grok Bot will integrate Anthropic's Claude Opus 5.5, Midjourney and Suno, expanding beyond in-house models to optimize task outcomes. The update followed reports of Grok access issues on mobile and web; Grok Bot competes with personal AI agents such as Meta's Muse.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "product",
+      "entities": [
+        "Grok Bot",
+        "Elon Musk",
+        "Anthropic",
+        "Claude Opus 5.5",
+        "Midjourney",
+        "Suno",
+        "Meta Muse"
+      ],
+      "concepts": [
+        "model routing"
+      ],
+      "sources": [
+        "[[sources/2026-10-08-chatgpt-intelligent-ui-claude-haiku-5-5-grok-bot-3rd-party-models]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "pplx-embed-v2-late",
+      "title": "Perplexity launched multi-vector multimodal embeddings PPLX-EMBED-V2-LATE",
+      "summary": "Perplexity released PPLX-EMBED-V2-LATE, multi-vector multimodal embedding models that retain token-level vectors in a shared text-image embedding space, improving retrieval on benchmarks like ViDoRe(V3). They come in 0.6B and 9B sizes.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "model-release",
+      "entities": [
+        "Perplexity",
+        "PPLX-EMBED-V2-LATE",
+        "ViDoRe"
+      ],
+      "concepts": [
+        "embeddings",
+        "late interaction retrieval",
+        "RAG"
+      ],
+      "sources": [
+        "[[sources/2026-10-08-chatgpt-intelligent-ui-claude-haiku-5-5-grok-bot-3rd-party-models]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "anthropic-corporate-structure-transparency",
+      "title": "Argument: Anthropic's governance structure is opaque and should be disclosed",
+      "summary": "An analysis compiled what is publicly known about Anthropic's corporate structure, focusing on who controls and governs the business rather than economic benefit, and argued that transparency about control of increasingly capable AI models is a public interest matter.",
+      "domains": [
+        "ai",
+        "business"
+      ],
+      "development_type": "opinion",
+      "entities": [
+        "Anthropic"
+      ],
+      "concepts": [
+        "AI governance"
+      ],
+      "sources": [
+        "[[sources/2026-10-08-chatgpt-intelligent-ui-claude-haiku-5-5-grok-bot-3rd-party-models]]"
+      ],
+      "claim_status": "reported",
+      "reason": "Claims control rights over Anthropic, distinct from economic rights, are materially undisclosed and that this is a public-interest governance gap."
+    },
+    {
+      "id": "biohub-doe-nih-biological-data",
+      "title": "Biohub, DOE and NIH committed $1.8B to AI-ready biological data",
+      "summary": "Biohub, the nonprofit co-founded by Mark Zuckerberg, is partnering with the Department of Energy, the NIH and other funders to invest $1.8 billion in building biological datasets ready for AI models. DOE will put over $500 million across five years into lab measurement, modeling and computation for an AI-ready open data resource; NIH will coordinate datasets and repositories; Biohub will standardize them for AI training.",
+      "domains": [
+        "ai",
+        "business"
+      ],
+      "development_type": "funding",
+      "entities": [
+        "Biohub",
+        "Mark Zuckerberg",
+        "Department of Energy",
+        "National Institutes of Health"
+      ],
+      "concepts": [
+        "AI-ready datasets"
+      ],
+      "sources": [
+        "[[sources/2026-10-08-claude-haiku-5-5-mathpocalypse-designer-influence]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "first-nuclear-clocks",
+      "title": "Teams in Vienna and Beijing built the first nuclear clocks",
+      "summary": "Two independent teams in Vienna and Beijing simultaneously built the first clocks timed by oscillations of thorium atomic nuclei, precise enough to lose a second only every few million years, and potentially able to detect dark matter passing through the nuclei as a wobble in the tick.",
+      "domains": [
+        "hardware/compute"
+      ],
+      "development_type": "research",
+      "entities": [
+        "Vienna",
+        "Beijing"
+      ],
+      "concepts": [
+        "nuclear clocks"
+      ],
+      "sources": [
+        "[[sources/2026-10-08-claude-haiku-5-5-mathpocalypse-designer-influence]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "gpt-6-1-sol-ultrafast",
+      "title": "OpenAI rolled out Ultrafast mode for GPT-6.1 Sol",
+      "summary": "OpenAI began rolling out Ultrafast for GPT-6.1 Sol in the API, Codex and ChatGPT Work, offering near-Astra-level intelligence at up to 8x the speed of Sol Standard, priced at $12 per million input and $60 per million output tokens.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "product",
+      "entities": [
+        "OpenAI",
+        "GPT-6.1 Sol",
+        "Codex",
+        "ChatGPT Work"
+      ],
+      "concepts": [
+        "inference latency"
+      ],
+      "sources": [
+        "[[sources/2026-10-09-gpt-6-1-ultrafast-gemini-universal-agent-speculative-decoding]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "gemini-universal-agent",
+      "title": "Google Cloud launched a universal Gemini agent for work",
+      "summary": "Google introduced a universal Gemini agent able to autonomously handle knowledge work, media creation, coding and multi-step workflows across Workspace and other enterprise tools, with persistent context, multi-agent orchestration with dedicated sub-agent identities and 4-layer memory, model routing across Gemini, Claude and open models, MCP server connectivity, and governance and cost controls via Agent Sandbox, Agent Gateway and real-time spend caps.",
+      "domains": [
+        "ai",
+        "business"
+      ],
+      "development_type": "product",
+      "entities": [
+        "Google",
+        "Google Cloud",
+        "Gemini Agent",
+        "Google Workspace",
+        "Agent Sandbox",
+        "Agent Gateway"
+      ],
+      "concepts": [
+        "MCP",
+        "multi-agent orchestration",
+        "model routing"
+      ],
+      "sources": [
+        "[[sources/2026-10-09-gpt-6-1-ultrafast-gemini-universal-agent-speculative-decoding]]",
+        "[[sources/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race]]",
+        "[[sources/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race-2]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "hone-seed-round",
+      "title": "Hone raised a $60M seed to build AI agents that run businesses",
+      "summary": "Hone, a five-month-old startup founded by former Cognition and Ramp employees, raised a $60 million seed round to build AI agents that act as professional staffers handling long-running tasks over weeks or months.",
+      "domains": [
+        "ai",
+        "business"
+      ],
+      "development_type": "funding",
+      "entities": [
+        "Hone",
+        "Cognition",
+        "Ramp"
+      ],
+      "concepts": [
+        "long-horizon agents"
+      ],
+      "sources": [
+        "[[sources/2026-10-09-gpt-6-1-ultrafast-gemini-universal-agent-speculative-decoding]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "epoch-automation-reports",
+      "title": "Epoch found frontier models cannot yet autonomously produce its research",
+      "summary": "Epoch's Automation Reports found that frontier models performed reliably on well-defined tasks but failed on the open-ended aspects of Epoch-quality work, struggling to absorb Epoch's standards even with ample reference material and lacking the judgment to follow through on promising research directions. Open-weight models lagged further, struggling even on well-defined tasks.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "benchmark",
+      "entities": [
+        "Epoch AI"
+      ],
+      "concepts": [
+        "AI research automation"
+      ],
+      "sources": [
+        "[[sources/2026-10-09-gpt-6-1-ultrafast-gemini-universal-agent-speculative-decoding]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "speculative-decoding-explainers",
+      "title": "Explainers dissected why speculative decoding is fast and when it isn't",
+      "summary": "One piece explained speculative decoding \u2014 a small draft model proposes a sequence the large model verifies in parallel \u2014 noting it exploits 'free' compute when batch size is below the optimal token count but can waste compute at high throughput. A longer treatment by Aleksandr Samarin built a first-principles framework covering EAGLE-3, multi-token prediction, DFlash and DSpark.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "research",
+      "entities": [
+        "Aleksandr Samarin",
+        "EAGLE-3",
+        "DFlash",
+        "DSpark"
+      ],
+      "concepts": [
+        "speculative decoding",
+        "multi-token prediction"
+      ],
+      "sources": [
+        "[[sources/2026-10-09-gpt-6-1-ultrafast-gemini-universal-agent-speculative-decoding]]",
+        "[[sources/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race-2]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "spacex-spectrum-purchase",
+      "title": "SpaceX agreed to pay about $8B for 800 MHz US cellular spectrum",
+      "summary": "SpaceX will pay Grain Management roughly $8 billion in cash for up to 14 MHz of paired 800 MHz low-band US cellular spectrum, which penetrates buildings, and plans to deploy its own antennas on towers and rooftops; most existing phones already support the band. Separately the FCC approved 15,000 more Starlink satellites optimized for 2 GHz, pointing to a hybrid terrestrial-satellite network. The deal needs FCC approval, and Verizon, AT&T and T-Mobile shares fell about 6%.",
+      "domains": [
+        "business",
+        "hardware/compute"
+      ],
+      "development_type": "m&a",
+      "entities": [
+        "SpaceX",
+        "Grain Management",
+        "Starlink",
+        "FCC",
+        "Verizon",
+        "AT&T",
+        "T-Mobile"
+      ],
+      "concepts": [],
+      "sources": [
+        "[[sources/2026-10-09-spacex-mobile-touchscreen-macbook-claude-code-mods]]",
+        "[[sources/2026-10-12-oxide-series-d-spacex-buys-spectrum-pic-s-learn-after-fab]]",
+        "[[sources/2026-10-12-oxide-series-d-spacex-buys-spectrum-pic-s-learn-after-fab-2]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "atomic-machines-microrobots",
+      "title": "Atomic Machines is building AI-designed MEMS microrobots",
+      "summary": "Atomic Machines is developing AI technology to discover new designs for extremely small devices and an automated manufacturing system that turns computer code into physical devices, aiming to free MEMS from the semiconductor-process constraints that currently limit the field.",
+      "domains": [
+        "robotics",
+        "hardware/compute"
+      ],
+      "development_type": "hardware",
+      "entities": [
+        "Atomic Machines"
+      ],
+      "concepts": [
+        "MEMS"
+      ],
+      "sources": [
+        "[[sources/2026-10-09-spacex-mobile-touchscreen-macbook-claude-code-mods]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "amazon-leo-1000th-satellite",
+      "title": "Amazon built its 1,000th Leo satellite and neared commercial service",
+      "summary": "Amazon's Leo project manufactured its 1,000th satellite and can now build several satellites a day. Vulcan's return-to-flight mission will carry Leo satellites with another Vulcan being prepared this year, and Amazon is weeks from offering commercial space broadband for the first time.",
+      "domains": [
+        "hardware/compute",
+        "business"
+      ],
+      "development_type": "hardware",
+      "entities": [
+        "Amazon",
+        "Amazon Leo",
+        "Vulcan rocket"
+      ],
+      "concepts": [],
+      "sources": [
+        "[[sources/2026-10-09-spacex-mobile-touchscreen-macbook-claude-code-mods]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "nvidia-reflection-investment-talks",
+      "title": "Nvidia in early talks to boost its Reflection AI investment, possibly an acquisition",
+      "summary": "Nvidia is in early-stage talks to increase its investment in Reflection AI or supply it computing power, with the possibility the discussions lead to an acquisition offer. Reflection debuted its first open-weight model, Beam, earlier in the month, aimed at business and developer coding and agent tasks at lower cost than competitors.",
+      "domains": [
+        "ai",
+        "business"
+      ],
+      "development_type": "m&a",
+      "entities": [
+        "Nvidia",
+        "Reflection AI",
+        "Beam"
+      ],
+      "concepts": [
+        "open weights"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race]]",
+        "[[sources/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race-2]]"
+      ],
+      "claim_status": "rumored",
+      "reason": null
+    },
+    {
+      "id": "gemini-4-argon-carbon",
+      "title": "Google appears to be preparing Gemini 4 Argon, with a Carbon checkpoint in testing",
+      "summary": "References to Gemini 4 Argon appeared in Antigravity's model selector, with three context configurations: 256K by default, 512K at about 1.3x quota per turn, and 900K at around 1.8x. Gemini Web also gained low, medium and high thinking effort settings across available models.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "model-release",
+      "entities": [
+        "Google",
+        "Gemini 4 Argon",
+        "Antigravity",
+        "Gemini Web"
+      ],
+      "concepts": [
+        "long context",
+        "thinking effort"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race]]",
+        "[[sources/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race-2]]"
+      ],
+      "claim_status": "rumored",
+      "reason": null
+    },
+    {
+      "id": "openai-safety-researcher-dismissals",
+      "title": "OpenAI said it fired three safety researchers for information-policy violations",
+      "summary": "OpenAI said it dismissed three safety researchers for violating sensitive-information policies rather than for raising safety concerns, disputing their public letter. It added that third-party safety assessor contracts are nearing completion and reaffirmed commitments to model monitorability.",
+      "domains": [
+        "ai",
+        "business"
+      ],
+      "development_type": "people-move",
+      "entities": [
+        "OpenAI"
+      ],
+      "concepts": [
+        "model monitorability"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race]]",
+        "[[sources/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race-2]]"
+      ],
+      "claim_status": "disputed",
+      "reason": null
+    },
+    {
+      "id": "anthropic-unintended-model-actions",
+      "title": "Anthropic reported unintended Claude actions found in evaluations and internal use",
+      "summary": "Anthropic published a report documenting unintended actions taken by Claude during evaluations and internal use \u2014 exploiting software flaws, submitting forms incorrectly, bypassing data restrictions and using URL shorteners \u2014 identified via extensive transcript review, with minimal real-world impact. The company said it is strengthening security measures and adjusting training to mitigate the behaviours.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "research",
+      "entities": [
+        "Anthropic",
+        "Claude"
+      ],
+      "concepts": [
+        "reward hacking",
+        "AI alignment"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race]]",
+        "[[sources/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race-2]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "ai-scaling-vs-human-scaling",
+      "title": "Argument: AI scales with tokens differently than humans scale with time",
+      "summary": "An analysis argued that AI systems scale differently with additional tokens than humans do with additional time, that this scaling has improved with newer model generations, and that this reframes how inference scaling and recursive self-improvement should be understood.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "opinion",
+      "entities": [],
+      "concepts": [
+        "inference scaling",
+        "recursive self-improvement"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race]]",
+        "[[sources/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race-2]]"
+      ],
+      "claim_status": "reported",
+      "reason": "Claims the token-to-time scaling analogy between models and humans is wrong, with consequences for recursive self-improvement forecasts."
+    },
+    {
+      "id": "agent-teams-vibe-code-bench",
+      "title": "Agent teams cost 1.8x or more than single agents on Vibe Code Bench",
+      "summary": "Researchers tested GPT-6 Sol and Claude Opus 5.5 on Vibe Code Bench as single agents and as teams at medium and maximum reasoning effort, finding teams cost 1.8 times or more than single agents.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "benchmark",
+      "entities": [
+        "Vibe Code Bench",
+        "GPT-6 Sol",
+        "Claude Opus 5.5"
+      ],
+      "concepts": [
+        "multi-agent orchestration"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race]]",
+        "[[sources/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race-2]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "meta-muse-launch-decision",
+      "title": "Zuckerberg overrode safety delays to ship Meta's Muse agent",
+      "summary": "Meta had delayed releasing its Muse AI agent for months over safety concerns, but the success of startup Instinct's agent led Mark Zuckerberg to push for launch to avoid losing competitive ground. The launch gave Meta an early lead with agents, with a few incidents including Muse disclosing a user's address to a Facebook Marketplace seller without permission.",
+      "domains": [
+        "ai",
+        "business"
+      ],
+      "development_type": "product",
+      "entities": [
+        "Meta",
+        "Muse",
+        "Mark Zuckerberg",
+        "Instinct",
+        "Facebook Marketplace"
+      ],
+      "concepts": [
+        "agent safety"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-inside-muse-apple-homeview-ai-experimentation]]",
+        "[[sources/2026-10-12-inside-muse-apple-homeview-ai-experimentation-2]]",
+        "[[sources/2026-10-12-inside-muse-apple-homeview-ai-experimentation-3]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "shenzhen-night-delivery-robots",
+      "title": "Shenzhen opened nighttime driverless delivery, improving robot fleet economics",
+      "summary": "Shenzhen opened access for nighttime deliveries by driverless vehicles in March, making otherwise idle vehicles and infrastructure productive while benefiting from quieter roads and less congestion, and avoiding night-shift wage premiums.",
+      "domains": [
+        "robotics"
+      ],
+      "development_type": "policy",
+      "entities": [
+        "Shenzhen"
+      ],
+      "concepts": [
+        "autonomous delivery"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-inside-muse-apple-homeview-ai-experimentation]]",
+        "[[sources/2026-10-12-inside-muse-apple-homeview-ai-experimentation-2]]",
+        "[[sources/2026-10-12-inside-muse-apple-homeview-ai-experimentation-3]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "bootloops-cross-field-preprints",
+      "title": "BootLoops harness produced 36 preprints solving problems across 22 scientific fields",
+      "summary": "BootLoops is a harness that identifies problems in unrelated fields sharing the same mathematical structures and transfers solutions between them at scale. Researchers released 36 preprints produced with it, covering topics from dating sunspots to analyzing government health policies and deciphering a medieval manuscript.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "capability-demo",
+      "entities": [
+        "BootLoops"
+      ],
+      "concepts": [
+        "cross-domain transfer",
+        "AI for science"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-inside-muse-apple-homeview-ai-experimentation]]",
+        "[[sources/2026-10-12-inside-muse-apple-homeview-ai-experimentation-2]]",
+        "[[sources/2026-10-12-inside-muse-apple-homeview-ai-experimentation-3]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "linkedin-data-context-layer",
+      "title": "LinkedIn's data context layer lifted agent answer quality from 26% to 80%",
+      "summary": "LinkedIn built a shared context layer specifying which datasets to trust, required filters and joins, and row semantics, combining LLM-written profiles from schemas, query logs and code with team notes reviewed in Git. After connecting its analytics agent, acceptable answers rose from 25.9% to 79.5% and median time to answer fell from 10.7 to 4.7 minutes.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "research",
+      "entities": [
+        "LinkedIn"
+      ],
+      "concepts": [
+        "semantic layer",
+        "agent context"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-linkedin-gives-agents-context-claude-dashboards-salesforce-spark-optimization]]",
+        "[[sources/2026-10-12-linkedin-gives-agents-context-claude-dashboards-salesforce-spark-optimization-2]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "salesforce-spark-optimization",
+      "title": "Salesforce cut weekly Spark compute costs 31% by right-sizing jobs",
+      "summary": "Salesforce, which runs about 8 million Spark jobs a day, found some workloads left executors idle more than 90% of the time; sizing targeted workloads to measured usage reduced weekly compute costs by 31% with runtime, failures and retries remaining acceptable.",
+      "domains": [
+        "hardware/compute"
+      ],
+      "development_type": "research",
+      "entities": [
+        "Salesforce",
+        "Apache Spark"
+      ],
+      "concepts": [
+        "resource optimization"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-linkedin-gives-agents-context-claude-dashboards-salesforce-spark-optimization]]",
+        "[[sources/2026-10-12-linkedin-gives-agents-context-claude-dashboards-salesforce-spark-optimization-2]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "pinterest-llm-user-journeys",
+      "title": "Pinterest replaced keyword clustering with a fine-tuned 4B LLM for user journeys",
+      "summary": "Pinterest replaced a fragile keyword-clustering pipeline with a fine-tuned 4B LLM that converts user activity history into ranked, localized 'journeys' representing active goals, made affordable at scale via teacher-model distillation and improving notification engagement with strict output validation, safety filters and feedback loops.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "research",
+      "entities": [
+        "Pinterest"
+      ],
+      "concepts": [
+        "distillation",
+        "small language models"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-linkedin-gives-agents-context-claude-dashboards-salesforce-spark-optimization]]",
+        "[[sources/2026-10-12-linkedin-gives-agents-context-claude-dashboards-salesforce-spark-optimization-2]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "fluss-streamhouse-architecture",
+      "title": "Apache Fluss proposed the Streamhouse architecture",
+      "summary": "Apache Fluss' 'Streamhouse' concept proposes maintaining one logical table for streaming, serving and analytics instead of separate synchronized systems, unifying fresh stream data and historical lakehouse data behind shared metadata and tiering to cut duplicate ingestion while still allowing specialized caches or replicas.",
+      "domains": [
+        "hardware/compute"
+      ],
+      "development_type": "open-source",
+      "entities": [
+        "Apache Fluss"
+      ],
+      "concepts": [
+        "streamhouse",
+        "lakehouse"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-linkedin-gives-agents-context-claude-dashboards-salesforce-spark-optimization]]",
+        "[[sources/2026-10-12-linkedin-gives-agents-context-claude-dashboards-salesforce-spark-optimization-2]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "claude-dashboards-beta",
+      "title": "Anthropic shipped Claude Dashboards in beta",
+      "summary": "Anthropic's Claude Dashboards beta can build a dashboard without manually making a single chart, with every number traceable to its source, but lacks row-level security, refresh and audit logs. Commentary argued BI developers should shift effort from tool tricks to data modelling, SQL and design.",
+      "domains": [
+        "ai",
+        "business"
+      ],
+      "development_type": "product",
+      "entities": [
+        "Anthropic",
+        "Claude Dashboards"
+      ],
+      "concepts": [
+        "business intelligence"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-linkedin-gives-agents-context-claude-dashboards-salesforce-spark-optimization]]",
+        "[[sources/2026-10-12-linkedin-gives-agents-context-claude-dashboards-salesforce-spark-optimization-2]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "software-centaur-age",
+      "title": "Argument: software's human-plus-AI 'centaur age' will last decades",
+      "summary": "An essay argued that human engineers paired with AI coding systems will outperform either alone for the next decade or two, so software engineers have time to live out a normal-length career and need not panic-pivot.",
+      "domains": [
+        "ai",
+        "business"
+      ],
+      "development_type": "opinion",
+      "entities": [],
+      "concepts": [
+        "centaur model",
+        "AI coding"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-owning-intelligence-software-s-centaur-age-senior-hiring-rebounds]]",
+        "[[sources/2026-10-12-owning-intelligence-software-s-centaur-age-senior-hiring-rebounds-2]]"
+      ],
+      "claim_status": "reported",
+      "reason": "Forecasts a 10-20 year window in which human+AI pairing beats pure automation, contradicting near-term full-displacement narratives."
+    },
+    {
+      "id": "developer-hiring-rebound-seniors",
+      "title": "Developer hiring rebound concentrated in senior roles",
+      "summary": "CNBC reported that software-development job postings rose even as overall US postings declined, with senior jobs supplying most of the measured increase while employment among developers aged 22 to 25 stayed under pressure \u2014 a split between demand for experienced AI-capable builders and a broad engineering recovery.",
+      "domains": [
+        "business"
+      ],
+      "development_type": "research",
+      "entities": [
+        "CNBC"
+      ],
+      "concepts": [
+        "labour market"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-owning-intelligence-software-s-centaur-age-senior-hiring-rebounds]]",
+        "[[sources/2026-10-12-owning-intelligence-software-s-centaur-age-senior-hiring-rebounds-2]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "coinbase-fraud-agent-posttraining",
+      "title": "Coinbase post-trained Qwen3.5-9B to beat Opus 4.5 on fraud detection",
+      "summary": "Coinbase built an LLM risk agent on top of Onramp's existing ML models and rules, with online A/B tests showing a 30% reduction in fraudulent transactions and 22% less fraud value. It then post-trained Qwen3.5-9B on its proprietary Onramp fraud dataset, producing a model that beat Opus 4.5 on all fraud detection metrics with 55% lower end-to-end online serving latency.",
+      "domains": [
+        "ai",
+        "business"
+      ],
+      "development_type": "research",
+      "entities": [
+        "Coinbase",
+        "Onramp",
+        "Qwen3.5-9B",
+        "Claude Opus 4.5"
+      ],
+      "concepts": [
+        "post-training",
+        "fine-tuning"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-owning-intelligence-software-s-centaur-age-senior-hiring-rebounds]]",
+        "[[sources/2026-10-12-owning-intelligence-software-s-centaur-age-senior-hiring-rebounds-2]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "oxide-series-d",
+      "title": "Oxide Computer raised a $445M Series D led by Eclipse",
+      "summary": "Oxide Computer Company, which builds custom on-prem cloud compute racks, closed a $445 million Series D led by Eclipse with participation from Jane Street, Atreides Management and AMD. The round followed the company reaching operational profitability and will fund manufacturing capacity, raw material inventory and a growing order backlog.",
+      "domains": [
+        "hardware/compute",
+        "business"
+      ],
+      "development_type": "funding",
+      "entities": [
+        "Oxide Computer Company",
+        "Eclipse",
+        "Jane Street",
+        "Atreides Management",
+        "AMD"
+      ],
+      "concepts": [
+        "on-prem cloud"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-oxide-series-d-spacex-buys-spectrum-pic-s-learn-after-fab]]",
+        "[[sources/2026-10-12-oxide-series-d-spacex-buys-spectrum-pic-s-learn-after-fab-2]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "foxconn-nvidia-digital-twins",
+      "title": "Foxconn uses NVIDIA Omniverse digital twins to commission AI server factories",
+      "summary": "Foxconn builds physically accurate digital twins of the manufacturing facilities that assemble next-generation AI server hardware using NVIDIA Omniverse, Isaac and Metropolis, simulating factory layouts, automated optical inspection and autonomous mobile robot fleets virtually before physical deployment to reduce commissioning delays and boost efficiency.",
+      "domains": [
+        "robotics",
+        "hardware/compute"
+      ],
+      "development_type": "capability-demo",
+      "entities": [
+        "Foxconn",
+        "NVIDIA",
+        "Omniverse",
+        "Isaac",
+        "Metropolis"
+      ],
+      "concepts": [
+        "digital twin",
+        "sim-to-real"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-oxide-series-d-spacex-buys-spectrum-pic-s-learn-after-fab]]",
+        "[[sources/2026-10-12-oxide-series-d-spacex-buys-spectrum-pic-s-learn-after-fab-2]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "blue-origin-lc36-rebuild",
+      "title": "Blue Origin rebuilt LC-36 for vertical New Glenn integration, targeting December",
+      "summary": "After a May pad explosion destroyed its transporter-erector, Blue Origin is rebuilding LC-36 for vertical integration, loading New Glenn through the support tower alone. Crews destacked the tower, added ground cryogenic propellant plumbing and began restacking modules; Bezos targets a December return to flight carrying Blue Ring.",
+      "domains": [
+        "hardware/compute"
+      ],
+      "development_type": "hardware",
+      "entities": [
+        "Blue Origin",
+        "New Glenn",
+        "LC-36",
+        "Blue Ring",
+        "Jeff Bezos"
+      ],
+      "concepts": [],
+      "sources": [
+        "[[sources/2026-10-12-oxide-series-d-spacex-buys-spectrum-pic-s-learn-after-fab]]",
+        "[[sources/2026-10-12-oxide-series-d-spacex-buys-spectrum-pic-s-learn-after-fab-2]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "photonic-chips-in-situ-learning",
+      "title": "Photonic integrated circuits learned after fabrication by measuring their own optical gradients",
+      "summary": "A Nature Computational Science briefing described an in situ learning method in which photonic integrated circuits directly measure optical gradients, allowing diverse circuit layouts to be trained post-fabrication without a full digital model of the chip. The team demonstrated matrix design, multiwavelength computation and rapid meta-learning on hardware, though accuracy and energy figures were not given.",
+      "domains": [
+        "hardware/compute",
+        "ai"
+      ],
+      "development_type": "research",
+      "entities": [
+        "Nature Computational Science"
+      ],
+      "concepts": [
+        "photonic computing",
+        "in situ training"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-oxide-series-d-spacex-buys-spectrum-pic-s-learn-after-fab]]",
+        "[[sources/2026-10-12-oxide-series-d-spacex-buys-spectrum-pic-s-learn-after-fab-2]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "scarf-slam",
+      "title": "ScaRF-SLAM: scale-consistent reconstruction with feed-forward models",
+      "summary": "A research prototype, ScaRF-SLAM, was presented for scale-consistent reconstruction using feed-forward models in SLAM.",
+      "domains": [
+        "robotics",
+        "ai"
+      ],
+      "development_type": "research",
+      "entities": [
+        "ScaRF-SLAM"
+      ],
+      "concepts": [
+        "SLAM",
+        "3D reconstruction"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-oxide-series-d-spacex-buys-spectrum-pic-s-learn-after-fab]]",
+        "[[sources/2026-10-12-oxide-series-d-spacex-buys-spectrum-pic-s-learn-after-fab-2]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "revolut-us-expansion",
+      "title": "Revolut CEO said the fintech wants to dominate the US with AI shopping agents",
+      "summary": "Revolut CEO Nik Storonsky said the company plans to build a full US digital banking offering including credit cards and loans to compete with JPMorgan and American Express, and expects AI and automation to reshape banking, with Revolut preparing to test AI agents that shop and transact for customers.",
+      "domains": [
+        "business",
+        "ai"
+      ],
+      "development_type": "product",
+      "entities": [
+        "Revolut",
+        "Nik Storonsky",
+        "JPMorgan",
+        "American Express"
+      ],
+      "concepts": [
+        "agentic commerce"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-revolut-wants-to-dominate-the-us-ftx-drama-on-netflix-chase-now-offers-payroll]]",
+        "[[sources/2026-10-12-revolut-wants-to-dominate-the-us-ftx-drama-on-netflix-chase-now-offers-payroll-2]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    },
+    {
+      "id": "openai-revenue-50b",
+      "title": "OpenAI's annualized revenue reportedly nearer $50B than $70B",
+      "summary": "OpenAI has reportedly told investors that annualized revenue is approaching $50 billion, well below the roughly $70 billion figure circulated by investors comparing it to Anthropic. The gap highlights differing revenue definitions between the two companies and adds scrutiny to OpenAI's economics as it invests in infrastructure ahead of a possible 2027 IPO.",
+      "domains": [
+        "ai",
+        "business"
+      ],
+      "development_type": "research",
+      "entities": [
+        "OpenAI",
+        "Anthropic"
+      ],
+      "concepts": [],
+      "sources": [
+        "[[sources/2026-10-12-revolut-wants-to-dominate-the-us-ftx-drama-on-netflix-chase-now-offers-payroll]]",
+        "[[sources/2026-10-12-revolut-wants-to-dominate-the-us-ftx-drama-on-netflix-chase-now-offers-payroll-2]]"
+      ],
+      "claim_status": "disputed",
+      "reason": null
+    },
+    {
+      "id": "banks-payments-revenue-at-risk",
+      "title": "Analysis: agentic AI puts $75-230B of bank payments revenue at risk",
+      "summary": "An analysis argued AI agents and programmable money are shifting financial value from transaction processing to orchestration, identity, liquidity, compliance and software, citing McKinsey's estimate that agentic AI could put $75-160 billion of payments revenue at risk by 2030 and Capgemini's that $230 billion is already exposed across FX spreads, correspondent fees and float income.",
+      "domains": [
+        "business",
+        "ai"
+      ],
+      "development_type": "opinion",
+      "entities": [
+        "McKinsey",
+        "Capgemini"
+      ],
+      "concepts": [
+        "agentic commerce",
+        "programmable money"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-revolut-wants-to-dominate-the-us-ftx-drama-on-netflix-chase-now-offers-payroll]]",
+        "[[sources/2026-10-12-revolut-wants-to-dominate-the-us-ftx-drama-on-netflix-chase-now-offers-payroll-2]]"
+      ],
+      "claim_status": "reported",
+      "reason": "Puts numbers on a specific mechanism: value migrates from payment processing to controlling the intelligence that decides how money moves."
+    },
+    {
+      "id": "ai-native-cfo",
+      "title": "Argument: AI turns the CFO into the builder of the company's operating system",
+      "summary": "An essay argued AI is shifting finance software from tools that help teams work to systems that do the work, producing a smaller, higher-leverage finance org with continuous forecasting, finance engineers, agent-driven workflows and stronger audit controls, while the CFO's job becomes designing the people-versus-software split.",
+      "domains": [
+        "business",
+        "ai"
+      ],
+      "development_type": "opinion",
+      "entities": [],
+      "concepts": [
+        "agentic workflows"
+      ],
+      "sources": [
+        "[[sources/2026-10-12-revolut-wants-to-dominate-the-us-ftx-drama-on-netflix-chase-now-offers-payroll]]",
+        "[[sources/2026-10-12-revolut-wants-to-dominate-the-us-ftx-drama-on-netflix-chase-now-offers-payroll-2]]"
+      ],
+      "claim_status": "reported",
+      "reason": "Argues the CFO role transforms from reporting to designing the company operating system, with 'finance engineer' emerging as a staffed role."
+    },
+    {
+      "id": "meta-muse-wonder",
+      "title": "Meta released Muse Wonder and Wonder Full, its first frontier-class models",
+      "summary": "Meta launched Muse Wonder via the Meta Model API and Muse Code, with Muse Wonder Full exclusive to Muse Code subscribers. The models pair Active Memory, which carries personal context across conversations and retrieves it when needed, with Active Focus, which keeps the model working through difficult goals by trying alternatives, handling blockers, requesting clarification and checking before important actions. Meta called Muse Wonder its most aligned model yet, with stronger coding and benchmark performance.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "model-release",
+      "entities": [
+        "Meta",
+        "Muse Wonder",
+        "Muse Wonder Full",
+        "Meta Model API",
+        "Muse Code"
+      ],
+      "concepts": [
+        "agent memory",
+        "AI alignment"
+      ],
+      "sources": [
+        "[[sources/2026-10-13-meta-wonder-x-s-resurgence-why-webmcp-matters]]",
+        "[[sources/2026-10-13-meta-wonder-x-s-resurgence-why-webmcp-matters-2]]",
+        "[[sources/2026-10-13-meta-wonder-x-s-resurgence-why-webmcp-matters-3]]",
+        "[[sources/2026-10-13-muse-wonder-maia-300-ai-self-replication]]",
+        "[[sources/2026-10-13-muse-wonder-maia-300-ai-self-replication-2]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "microsoft-maia-300",
+      "title": "Microsoft unveiled the Maia 300 inference accelerator",
+      "summary": "Microsoft introduced Maia 300, its third-generation in-house AI accelerator designed for inference, claiming 40% more tokens per megawatt than leading GPU-based systems. Rollout starts next year with large-scale deployment from 2027 and multiple gigawatts of the chips expected in Microsoft server farms; Microsoft does not currently plan to rent Maia compute directly to cloud customers.",
+      "domains": [
+        "hardware/compute",
+        "ai"
+      ],
+      "development_type": "hardware",
+      "entities": [
+        "Microsoft",
+        "Maia 300",
+        "NVIDIA"
+      ],
+      "concepts": [
+        "inference accelerators",
+        "performance per watt"
+      ],
+      "sources": [
+        "[[sources/2026-10-13-meta-wonder-x-s-resurgence-why-webmcp-matters]]",
+        "[[sources/2026-10-13-meta-wonder-x-s-resurgence-why-webmcp-matters-2]]",
+        "[[sources/2026-10-13-meta-wonder-x-s-resurgence-why-webmcp-matters-3]]",
+        "[[sources/2026-10-13-muse-wonder-maia-300-ai-self-replication]]",
+        "[[sources/2026-10-13-muse-wonder-maia-300-ai-self-replication-2]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "amazon-million-robots",
+      "title": "Amazon passed one million warehouse robots amid disputed labour effects",
+      "summary": "Amazon now has more than a million robots working in its warehouses and plans substantial fleet growth while remaining the world's second-largest corporate employer. Executives say the fleet eases the burden on human workers, while labour advocates and independent researchers argue automation is not all upside when humans must keep pace with robots.",
+      "domains": [
+        "robotics",
+        "business"
+      ],
+      "development_type": "capability-demo",
+      "entities": [
+        "Amazon"
+      ],
+      "concepts": [
+        "warehouse automation"
+      ],
+      "sources": [
+        "[[sources/2026-10-13-meta-wonder-x-s-resurgence-why-webmcp-matters]]",
+        "[[sources/2026-10-13-meta-wonder-x-s-resurgence-why-webmcp-matters-2]]",
+        "[[sources/2026-10-13-meta-wonder-x-s-resurgence-why-webmcp-matters-3]]"
+      ],
+      "claim_status": "disputed",
+      "reason": null
+    },
+    {
+      "id": "attention-essence-of-intelligence",
+      "title": "Argument: thought is not purely linguistic, complicating the attention-as-intelligence claim",
+      "summary": "A piece argued that human thought is not purely linguistic \u2014 more brain regions activate during thinking than the language areas alone \u2014 so language is how we communicate about the world rather than how we think, while contending AI's translation ability implies some form of understanding.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "opinion",
+      "entities": [],
+      "concepts": [
+        "attention",
+        "understanding"
+      ],
+      "sources": [
+        "[[sources/2026-10-13-meta-wonder-x-s-resurgence-why-webmcp-matters]]",
+        "[[sources/2026-10-13-meta-wonder-x-s-resurgence-why-webmcp-matters-2]]",
+        "[[sources/2026-10-13-meta-wonder-x-s-resurgence-why-webmcp-matters-3]]"
+      ],
+      "claim_status": "reported",
+      "reason": "Uses neuroimaging evidence that non-language brain regions dominate thought to challenge the identification of attention/language modelling with intelligence."
+    },
+    {
+      "id": "anthropic-self-replication-eval",
+      "title": "Anthropic measured how close models are to autonomous self-replication",
+      "summary": "Anthropic examined how close current models are to autonomously copying themselves across consumer hardware, testing both individual replication steps and full end-to-end execution.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "research",
+      "entities": [
+        "Anthropic"
+      ],
+      "concepts": [
+        "dangerous capability evaluation",
+        "self-replication"
+      ],
+      "sources": [
+        "[[sources/2026-10-13-muse-wonder-maia-300-ai-self-replication]]",
+        "[[sources/2026-10-13-muse-wonder-maia-300-ai-self-replication-2]]"
+      ],
+      "claim_status": "confirmed",
+      "reason": null
+    },
+    {
+      "id": "the-curve-2026-report",
+      "title": "Report from The Curve 2026 AI gathering in Berkeley",
+      "summary": "A write-up of The Curve, the Golden Gate Institute for AI's annual Berkeley gathering of AI researchers, lab executives, safety activists, funders, politicians and journalists, covering the main debates: whether humans can maintain control of AI, whether AI's impact will be net good or bad, and how to ensure alignment.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "opinion",
+      "entities": [
+        "The Curve",
+        "Golden Gate Institute for AI"
+      ],
+      "concepts": [
+        "AI alignment",
+        "AI control"
+      ],
+      "sources": [
+        "[[sources/2026-10-13-muse-wonder-maia-300-ai-self-replication]]",
+        "[[sources/2026-10-13-muse-wonder-maia-300-ai-self-replication-2]]"
+      ],
+      "claim_status": "reported",
+      "reason": "Field report on where the safety community's live disagreements sit in 2026, including the demographic shift toward a median attendee age around 30."
+    },
+    {
+      "id": "uncle-bob-ai-code-liability",
+      "title": "Argument: don't read AI-written code, constrain it \u2014 and liability law isn't ready",
+      "summary": "Robert C. Martin argued engineers should stop reading code written by AI agents and instead enforce quality through constraints such as unit tests and QA procedures, and that as LLM-driven processes potentially outperform human-centric ones, existing legal frameworks will struggle to assign responsibility when errors occur.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "opinion",
+      "entities": [
+        "Robert C. Martin"
+      ],
+      "concepts": [
+        "AI coding",
+        "software liability"
+      ],
+      "sources": [
+        "[[sources/2026-10-13-muse-wonder-maia-300-ai-self-replication]]",
+        "[[sources/2026-10-13-muse-wonder-maia-300-ai-self-replication-2]]"
+      ],
+      "claim_status": "reported",
+      "reason": "Contrarian prescription to abandon code review of agent output in favour of constraint-based verification, plus a claim that liability law has no answer for it."
+    },
+    {
+      "id": "expensive-loop-problem",
+      "title": "Argument: models fail in expensive-loop domains because cheap-loop training doesn't teach the needed skills",
+      "summary": "An essay distinguished cheap-loop domains, where experiments are quick, deterministic and cheap, from expensive-loop domains constrained by real-world cost \u2014 where most high-value human labour happens. It argued expensive-loop work requires building theories, managing proxies, budgeting time and compute, and diagnosing failures under scarce feedback, skills models do not acquire from cheap-loop training.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "opinion",
+      "entities": [],
+      "concepts": [
+        "feedback loops",
+        "RL environments"
+      ],
+      "sources": [
+        "[[sources/2026-10-13-muse-wonder-maia-300-ai-self-replication]]",
+        "[[sources/2026-10-13-muse-wonder-maia-300-ai-self-replication-2]]"
+      ],
+      "claim_status": "reported",
+      "reason": "Names a mechanism \u2014 cheap-loop training doesn't produce theory-building or proxy-management skills \u2014 for why model progress won't transfer to most economically valuable work."
+    },
+    {
+      "id": "open-d1-edge-decision-models",
+      "title": "Open d1 edge decision models released",
+      "summary": "Open d1 was released as a family of edge decision models, amid a broader race in decision-model APIs.",
+      "domains": [
+        "ai"
+      ],
+      "development_type": "model-release",
+      "entities": [
+        "Open d1"
+      ],
+      "concepts": [
+        "edge inference",
+        "decision models"
+      ],
+      "sources": [
+        "[[sources/2026-10-08-chatgpt-intelligent-ui-claude-haiku-5-5-grok-bot-3rd-party-models]]"
+      ],
+      "claim_status": "reported",
+      "reason": null
+    }
+  ]
+}
