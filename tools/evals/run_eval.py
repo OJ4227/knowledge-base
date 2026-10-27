@@ -64,7 +64,8 @@ def union_inputs(cases: list[dict]) -> list[str]:
 
 # --------------------------------------------------------------------------- running triage
 
-def run_triage_over(rel_paths: list[str], model: str) -> tuple[tg.TriageResult, object]:
+def run_triage_over(rel_paths: list[str], model: str,
+                     effort: str = tg.DEFAULT_EFFORT) -> tuple[tg.TriageResult, object]:
     captures = [tg.Capture(path=tg.ROOT / rel, rel=rel,
                             body=(tg.ROOT / rel).read_text(encoding="utf-8"))
                 for rel in rel_paths]
@@ -87,6 +88,7 @@ def run_triage_over(rel_paths: list[str], model: str) -> tuple[tg.TriageResult, 
                          "cache_control": {"type": "ephemeral"}}],
         }],
         output_config={
+            "effort": effort,
             "format": {"type": "json_schema", "schema": tg.TriageResult.model_json_schema()},
         },
     ) as stream:
@@ -205,6 +207,19 @@ def check_no_item_title_contains(case: dict, check: dict,
                       else f"no title contains {check['text']!r}, as expected")
 
 
+def _item_full_text(item: tg.TriageItem) -> str:
+    return " ".join(filter(None, [item.title, item.summary, item.reason])).lower()
+
+
+def check_some_item_text_contains(case: dict, check: dict,
+                                   result: tg.TriageResult) -> tuple[bool, str]:
+    # searches title + summary + reason together — a claim often lands in the reason
+    # field (why an opinion item was kept) rather than the title itself
+    matches = items_from_inputs(result, case["inputs"])
+    hit = any(check["text"].lower() in _item_full_text(i) for i in matches)
+    return hit, f"text containing {check['text']!r} " + ("found" if hit else "not found")
+
+
 CHECKS = {
     "all_dropped": check_all_dropped,
     "none_become_items": check_none_become_items,
@@ -214,6 +229,7 @@ CHECKS = {
     "max_item_count": check_max_item_count,
     "some_item_matches": check_some_item_matches,
     "some_item_title_contains": check_some_item_title_contains,
+    "some_item_text_contains": check_some_item_text_contains,
     "no_item_title_contains": check_no_item_title_contains,
 }
 
@@ -242,6 +258,8 @@ def estimate_cost(model: str, usage) -> float | None:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", default=tg.DEFAULT_MODEL)
+    parser.add_argument("--effort", default=tg.DEFAULT_EFFORT,
+                        choices=["low", "medium", "high", "xhigh", "max"])
     parser.add_argument("--case", action="append", dest="cases",
                         help="run only this case (repeatable); default: all cases")
     args = parser.parse_args(argv)
@@ -253,9 +271,9 @@ def main(argv: list[str] | None = None) -> int:
 
     inputs = union_inputs(cases)
     print(f"running triage over {len(inputs)} capture(s) from {len(cases)} case(s), "
-          f"model={args.model}\n")
+          f"model={args.model}, effort={args.effort}\n")
 
-    result, usage = run_triage_over(inputs, args.model)
+    result, usage = run_triage_over(inputs, args.model, args.effort)
 
     total_checks = 0
     total_passed = 0

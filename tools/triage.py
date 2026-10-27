@@ -29,7 +29,7 @@ from pathlib import Path
 from typing import Literal
 
 import anthropic
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 ROOT = Path(__file__).resolve().parent.parent
 INBOX_DIR = ROOT / "inbox"
@@ -39,6 +39,7 @@ TAXONOMY_PATH = ROOT / "meta" / "taxonomy.md"
 AGENT_INSTRUCTIONS_PATH = ROOT / "meta" / "agent-instructions.md"
 
 DEFAULT_MODEL = "claude-sonnet-5"
+DEFAULT_EFFORT = "high"  # Anthropic's own default; exposed as a flag to test xhigh/max
 DOMAINS = ("ai", "robotics", "hardware/compute", "business")
 DEVELOPMENT_TYPES = (
     "model-release", "research", "capability-demo", "product", "hardware", "benchmark",
@@ -50,11 +51,15 @@ CLAIM_STATUSES = ("confirmed", "reported", "rumored", "disputed")
 # --------------------------------------------------------------------------- schema
 
 class DroppedCapture(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     capture: str
     reason: str
 
 
 class TriageItem(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     id: str
     title: str
     summary: str
@@ -68,6 +73,8 @@ class TriageItem(BaseModel):
 
 
 class TriageResult(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     dropped: list[DroppedCapture]
     items: list[TriageItem]
 
@@ -137,7 +144,13 @@ def build_client() -> anthropic.Anthropic | None:
     base_url = os.environ.get("ANTHROPIC_BASE_URL")
     auth_token = os.environ.get("ANTHROPIC_AUTH_TOKEN")
     if base_url and auth_token:
-        return anthropic.Anthropic(base_url=base_url, auth_token=auth_token)
+        # Some gateways (e.g. a LiteLLM relay in front of Claude-on-Vertex) pin their own
+        # anthropic_version in the request body and reject a request that also carries the
+        # SDK's default `anthropic-version` header, since the two can name different API
+        # versions. Omit the header on the gateway path and let the gateway's body-level
+        # version win; a direct Anthropic connection is unaffected and keeps the header.
+        return anthropic.Anthropic(base_url=base_url, auth_token=auth_token,
+                                    default_headers={"anthropic-version": anthropic.Omit()})
 
     api_key = os.environ.get("ANTHROPIC_API_KEY")
     if api_key:
@@ -163,14 +176,14 @@ def write_result(result: TriageResult, run_date: str, consumed: list[str]) -> Pa
 
 # --------------------------------------------------------------------------- main
 
-def run(dry_run: bool, model: str) -> int:
+def run(dry_run: bool, model: str, effort: str) -> int:
     captures = load_captures()
     if not captures:
         print("inbox/ has no raw captures — nothing to triage")
         return 0
 
     prompt = build_prompt(captures)
-    print(f"assembled prompt for {len(captures)} capture(s), model={model}")
+    print(f"assembled prompt for {len(captures)} capture(s), model={model}, effort={effort}")
 
     if dry_run:
         print("\n--- dry run: prompt below, no API call made ---\n")
@@ -194,6 +207,7 @@ def run(dry_run: bool, model: str) -> int:
                          "cache_control": {"type": "ephemeral"}}],
         }],
         output_config={
+            "effort": effort,
             "format": {
                 "type": "json_schema",
                 "schema": TriageResult.model_json_schema(),
@@ -223,8 +237,11 @@ def main(argv: list[str] | None = None) -> int:
                         help="print the assembled prompt, make no API call")
     parser.add_argument("--model", default=DEFAULT_MODEL,
                         help=f"model to use (default: {DEFAULT_MODEL})")
+    parser.add_argument("--effort", default=DEFAULT_EFFORT,
+                        choices=["low", "medium", "high", "xhigh", "max"],
+                        help=f"thinking/output effort (default: {DEFAULT_EFFORT})")
     args = parser.parse_args(argv)
-    return run(dry_run=args.dry_run, model=args.model)
+    return run(dry_run=args.dry_run, model=args.model, effort=args.effort)
 
 
 if __name__ == "__main__":

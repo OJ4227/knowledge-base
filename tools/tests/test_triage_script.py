@@ -256,7 +256,11 @@ def test_build_client_prefers_gateway_over_api_key(monkeypatch):
     monkeypatch.setattr(tg.anthropic, "Anthropic", fake_anthropic)
     client = tg.build_client()
     assert client is not None
-    assert seen == {"base_url": "https://gateway.example.com", "auth_token": "gateway-token"}
+    assert seen["base_url"] == "https://gateway.example.com"
+    assert seen["auth_token"] == "gateway-token"
+    # the anthropic-version header is omitted on the gateway path — some gateways pin
+    # their own version in the request body and reject a conflicting header
+    assert isinstance(seen["default_headers"]["anthropic-version"], tg.anthropic.Omit)
 
 
 def test_build_client_falls_back_to_api_key(monkeypatch):
