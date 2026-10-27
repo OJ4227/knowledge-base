@@ -83,6 +83,18 @@ recorded here.
   source volume — **revisit if added sources push real cost high enough to matter**; the
   subscription path is the fallback, not dismissed.
 
+- **Triage's default model is `claude-opus-5`, chosen by live measurement, not assumed.**
+  Decided 2026-10-27 against the 11-case eval (`tools/evals/`) after multiple live runs:
+  Sonnet 5 scored 16/20 twice at default effort and again at `xhigh` (no improvement from
+  more thinking depth — ruling out "not enough effort" as the cause), while Opus 5 scored
+  20/23 on the full case set at a cost within the same range as Sonnet (~$0.38 vs.
+  ~$0.33–0.41 per run) — contrary to the ~2.5×-cost assumption made before any real
+  numbers existed. `triage.py --model`/`run_eval.py --model` keep this a flag, not a
+  hardcoded choice, so it can be re-measured if either model's behavior or pricing
+  changes. One reproducible gap survived model and effort changes (a fan-out item
+  intermittently dropped in `fanout-oxide-hardware`) — noted as a likely prompt-level
+  issue to revisit, not a reason the model choice is wrong.
+
 - **Immutable timeline.** Timeline entries are never rewritten or silently deleted. They may
   be *moved* to a linked archive note (log rotation — see §9). Corrections are new entries,
   not edits.
