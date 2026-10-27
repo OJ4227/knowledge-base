@@ -10,7 +10,7 @@ pipeline.
 Usage:
     python tools/triage.py                           # real run
     python tools/triage.py --dry-run                 # print the assembled prompt, call nothing
-    python tools/triage.py --model claude-haiku-4-5   # override the model (default: claude-sonnet-5)
+    python tools/triage.py --model claude-sonnet-5    # override the model (default: claude-opus-5)
 
 Requires one of, in the environment (source tools/.env first):
   - ANTHROPIC_API_KEY                         — direct Anthropic API
@@ -38,7 +38,7 @@ PROMPT_PATH = ROOT / "tools" / "prompts" / "triage.md"
 TAXONOMY_PATH = ROOT / "meta" / "taxonomy.md"
 AGENT_INSTRUCTIONS_PATH = ROOT / "meta" / "agent-instructions.md"
 
-DEFAULT_MODEL = "claude-sonnet-5"
+DEFAULT_MODEL = "claude-opus-5"  # chosen 2026-10-27 after live eval comparison — see DESIGN.md §2
 DEFAULT_EFFORT = "high"  # Anthropic's own default; exposed as a flag to test xhigh/max
 DOMAINS = ("ai", "robotics", "hardware/compute", "business")
 DEVELOPMENT_TYPES = (

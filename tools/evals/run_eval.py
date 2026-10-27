@@ -284,6 +284,17 @@ def main(argv: list[str] | None = None) -> int:
             total_passed += ok
             mark = "PASS" if ok else "FAIL"
             print(f"  [{mark}] {check_type}: {detail}")
+
+        # print the model's own reasoning for every item/drop touching this case's
+        # inputs — the data is already in the response, just not surfaced by default
+        for item in items_from_inputs(result, case["inputs"]):
+            print(f"    - [{item.development_type}] {item.title}")
+            if item.reason:
+                print(f"      reason: {item.reason}")
+        for dropped in result.dropped:
+            if dropped.capture in case["inputs"]:
+                print(f"    - [dropped] {dropped.capture}")
+                print(f"      reason: {dropped.reason}")
         print()
 
     print(f"score: {total_passed}/{total_checks}")
