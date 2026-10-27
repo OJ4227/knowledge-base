@@ -287,15 +287,42 @@ runs). Worth a prompt-level look later — likely the SpaceX spectrum story lose
 Oxide's funding story for attention in that batch — but not blocking, since it isn't tied
 to the backend/model decision.
 
+**First real Triage run — done (2026-10-27).** `tools/triage.py` ran against the live
+35-capture inbox backlog (`claude-opus-5`, default effort): **88 classified items, 3
+dropped**, written to `inbox/_triage/2026-10-27.json`; all 35 raw captures consumed and
+removed, the permanent record intact in `sources/` untouched. Hand-reviewed and it holds
+up well — in some ways better than the eval subset suggested:
+- All 88 items cite real `sources/...` notes — zero hallucinated citations.
+- Both TLDR signup-confirmation captures and the Zuckerberg rant correctly dropped as
+  noise (this was the eval's most persistently flaky case — clean here).
+- Cross-modality near-duplicates correctly merged: Oxide (2 sources), Nvidia/Reflection
+  (2 sources), and a SpaceX item that merged **3 sources spanning two different
+  newsletter issues** — a stronger dedup result than anything seen in the smaller eval
+  subset, and specifically the case (`fanout-oxide-hardware`'s SpaceX miss) that was
+  flaky across every eval run.
+- All 17 `opinion` items carry a specific, falsifiable claim (named mechanism, number, or
+  contrarian prediction) per the keep bar in `meta/taxonomy.md` — none read as mere
+  restatement. One borderline case (a conference field report) still has a defensible
+  reason attached, not a clear miss.
+- `development_type` spread across 12 of 13 taxonomy values (only `shutdown` unused, as
+  expected — no shutdown events in this batch); `ai` dominates domains as expected for
+  this source mix.
+
+Committed as one atomic commit (`triage: first real run...`) — the 35 deletions +
+`inbox/_triage/2026-10-27.json` addition, nothing else mixed in, per rule 8.
+
 **Not yet done — next concrete action:**
-1. Run `triage.py` for real against the live `inbox/` (35 captures, `claude-opus-5` by
-   default) — review its output by hand before trusting it, per the plan's "first run
-   should be hand-reviewed" note. This also finally clears the real inbox backlog.
-2. Optionally look at the `fanout-oxide-hardware` SpaceX gap in the prompt before or after
-   that first real run — not blocking.
-3. Build Enrich (Stage 3), which consumes Triage's `inbox/_triage/YYYY-MM-DD.json` output.
-   Its eval will need checklist/LLM-judge assertions instead of Triage's strict-JSON
-   approach, since Enrich's output is prose timeline bullets, not structured data.
+1. Build Enrich (Stage 3), which consumes Triage's `inbox/_triage/YYYY-MM-DD.json` output
+   (88 items now sitting there, unconsumed). Its eval will need checklist/LLM-judge
+   assertions instead of Triage's strict-JSON approach, since Enrich's output is prose
+   timeline bullets, not structured data.
+2. The known `fanout-oxide-hardware` SpaceX gap from the eval **did not reproduce** in
+   this real run (see above) — may have been an artifact of the smaller eval subset
+   rather than a real prompt weakness. Not worth chasing further unless it recurs.
+3. Separately, `collect_readwise.py`'s `EXCERPT_WORD_LIMIT` (500 words) truncates 31 of
+   35 real captures before Triage ever sees them — a plausible source of any future
+   fan-out/dedup misses on longer newsletters. Flagged, not yet acted on (owner chose to
+   proceed with current excerpts and revisit only if it causes real misses).
 
 Other options, lower priority:
 
