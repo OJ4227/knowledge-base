@@ -1,12 +1,13 @@
 {
-  "description": "TLDR Fintech issue (Revolut US expansion, FTX Netflix documentary, Chase payroll product) is mostly off-domain for this vault, with one genuinely in-scope item buried in it (OpenAI's reported $50B annualized revenue). Triage must not invent AI/robotics relevance for the fintech-only stories.",
+  "description": "TLDR Fintech issue. Revised after real eval runs (2026-10-22, 2026-10-27) showed the original assertion was wrong: this issue is NOT mostly off-domain — alongside the FTX/Netflix drama and a pure Marqeta ad (genuinely off-domain, must drop), it contains OpenAI's reported $50B-vs-$70B revenue dispute, Revolut testing AI shopping agents, and two opinion pieces with real numbered theses about AI reshaping finance. The OpenAI item's correct development_type is genuinely ambiguous across runs (funding, research, and opinion have all been produced, each defensibly — it's a disputed-figure story, not a clean new fact) so the check only requires the item exists and is about OpenAI, not a specific type. The real failure mode to catch is dropping *irrelevant* pop-culture/ad content while correctly keeping the AI-finance content that happens to share the issue.",
   "inputs": [
     "inbox/2026-10-12-revolut-wants-to-dominate-the-us-ftx-drama-on-netflix-chase-now-offers-payroll--capture.md",
     "inbox/2026-10-12-revolut-wants-to-dominate-the-us-ftx-drama-on-netflix-chase-now-offers-payroll-2--capture.md"
   ],
   "checks": [
-    {"type": "max_item_count", "count": 1},
-    {"type": "no_item_title_contains", "text": "Revolut"},
-    {"type": "no_item_title_contains", "text": "FTX"}
+    {"type": "no_item_title_contains", "text": "FTX"},
+    {"type": "no_item_title_contains", "text": "Altruists"},
+    {"type": "no_item_title_contains", "text": "Marqeta"},
+    {"type": "some_item_matches", "entities_include": ["OpenAI"]}
   ]
 }

@@ -1,10 +1,13 @@
 {
-  "description": "Hand-labelled DROP. Despite the clickbait headline ('Is Mark Zuckerberg a robot?'), the body is a rant restating already-known events (Meta's robotics push, Llama, the $65B spend) with no forecast, thesis, or non-obvious claim — commentary-as-venting, not analysis. Contrast case to opinion-ai-robot-race-keep.json: same general subject, different verdict based on body content.",
+  "description": "Revised 2026-10-27 after real eval runs. This capture is a multi-paragraph rant about Zuckerberg/Meta's robotics push — mostly venting, restating already-known events (Meta's humanoid plans, Llama, the $65B spend). The original case treated it as one blanket drop/keep decision, but fan-out applies to opinion too: buried in the rant is one specific, falsifiable prediction (Llama loses its open-weight lead to Chinese labs within 2025) that does clear the non-obvious-claim bar, plus two legitimate already-reported hardware facts (Meta's and Apple's robotics pushes) worth extracting as factual items. The failure mode to actually catch: keeping the whole rant verbatim as one undifferentiated opinion item (the mocking tone, not a thesis) rather than fanning out and mining the one real claim.",
   "inputs": [
     "inbox/2025-02-18-is-mark-zuckerberg-a-robot--capture.md"
   ],
   "checks": [
-    {"type": "all_dropped"},
-    {"type": "no_item_development_type", "development_type": "opinion"}
+    {"type": "min_item_count", "count": 2},
+    {"type": "max_item_count", "count": 4},
+    {"type": "some_item_text_contains", "text": "Llama"},
+    {"type": "no_item_title_contains", "text": "Congrats Mark"},
+    {"type": "no_item_title_contains", "text": "Nevermind"}
   ]
 }

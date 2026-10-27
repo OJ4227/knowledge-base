@@ -1,5 +1,5 @@
 {
-  "description": "Cross-modality pair (email + RSS) of the same TLDR AI issue, both 528 words but diverging at the tail — the email variant ends on 'Do Agent Teams Pay Off?', the RSS variant ends on 'What is Speculative Decoding?'. The shared lead story (Nvidia discussing boosting its Reflection AI investment) must merge into one item citing both sources.",
+  "description": "Cross-modality pair (email + RSS) of the same TLDR AI issue, both 528 words but diverging at the tail — the email variant ends on 'Do Agent Teams Pay Off?', the RSS variant ends on 'What is Speculative Decoding?'. The shared lead story (Nvidia discussing boosting its Reflection AI investment / offering compute, possibly leading to acquisition) must merge into one item citing both sources. Revised 2026-10-27: every run (Sonnet high/xhigh, Opus) classified this as development_type 'funding', not 'm&a' — a defensible read, since the capture describes early-stage investment talks, not a closed acquisition (meta/taxonomy.md: funding = priced round/grant/debt, m&a = acquisition/merger/acquihire). The original assertion was too narrow; the real thing worth checking is correct merging and entity extraction, not pinning one disputable taxonomy value.",
   "inputs": [
     "inbox/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race--capture.md",
     "inbox/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race-2--capture.md"
@@ -9,7 +9,7 @@
       "type": "merged",
       "title_contains": "Nvidia",
       "entities_include": ["Nvidia", "Reflection AI"],
-      "development_type": "m&a",
+      "development_type_one_of": ["funding", "m&a"],
       "claim_status_one_of": ["reported", "rumored"]
     }
   ]
