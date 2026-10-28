@@ -329,18 +329,98 @@ up well — in some ways better than the eval subset suggested:
 Committed as one atomic commit (`triage: first real run...`) — the 35 deletions +
 `inbox/_triage/2026-10-27.json` addition, nothing else mixed in, per rule 8.
 
-**Not yet done — next concrete action:**
-1. Build Enrich (Stage 3), which consumes Triage's `inbox/_triage/YYYY-MM-DD.json` output
-   (88 items now sitting there, unconsumed). Its eval will need checklist/LLM-judge
-   assertions instead of Triage's strict-JSON approach, since Enrich's output is prose
-   timeline bullets, not structured data.
-2. The known `fanout-oxide-hardware` SpaceX gap from the eval **did not reproduce** in
-   this real run (see above) — may have been an artifact of the smaller eval subset
-   rather than a real prompt weakness. Not worth chasing further unless it recurs.
-3. Separately, `collect_readwise.py`'s `EXCERPT_WORD_LIMIT` (500 words) truncates 31 of
-   35 real captures before Triage ever sees them — a plausible source of any future
-   fan-out/dedup misses on longer newsletters. Flagged, not yet acted on (owner chose to
-   proceed with current excerpts and revisit only if it causes real misses).
+Known, non-blocking items carried forward from Triage (unrelated to the Enrich work below):
+- The `fanout-oxide-hardware` SpaceX eval gap **did not reproduce** in the real run — the
+  SpaceX item merged correctly across 3 sources. Likely an artifact of the smaller eval
+  subset; not worth chasing unless it recurs.
+- `collect_readwise.py`'s `EXCERPT_WORD_LIMIT` (500 words) truncates 31 of 35 real
+  captures before Triage ever sees them — a plausible source of future fan-out/dedup
+  misses on long newsletters. Flagged, not acted on (owner chose current excerpts,
+  revisit only if it causes real misses).
+
+## Enrich (Stage 3) — built and committed this session (2026-10-28), eval NOT yet run
+
+**Everything below is free/committed work. The eval costs real money and is the next
+concrete action — see "Resume here" at the end of this section.**
+
+Built, in 4 commits (`git log` has the full reasoning per commit):
+
+1. **Split `meta/agent-instructions.md`** into per-stage files (see durable decisions
+   above) — a prerequisite so `enrich.py` could load its own rules cleanly, the same way
+   `triage.py` now does (`load_triage_rules()` rewritten to a plain file read + frontmatter
+   strip, no more heading-slicing).
+2. **`tools/enrich_resolve.py`** — pure entity-resolution logic, no API calls. For every
+   entity string in a Triage item, decides: `matched` (exact name/alias match against a
+   vault-wide index built by reusing `tools/lint.py`'s `load_note`/`iter_markdown`/
+   `wikilink_targets`/`resolve_key`), `pending_second_mention` (clears the ≥2-mentions bar
+   via an existing unresolved `[[link]]` **or** a prior fact already stored in
+   `meta/pending-entities.md`), or `pending_first_mention` (stores the fact, creates
+   nothing). Verified fact-fidelity round-trip exactly (a stored fact's text survives
+   save/load unchanged) and real resolution against the live vault (`Figure AI`/`Brett
+   Adcock` → matched, `Apptronik` → pending-second via an existing unresolved competitor
+   link, `XPeng` → pending-first) — all free, no API calls.
+3. **`tools/prompts/enrich.md` + `tools/enrich.py`** — the prompt interpolates
+   `meta/agent-instructions/enrich.md`, `hard-rules.md`, and relevant `meta/schema.md`
+   excerpts at runtime (same discipline as Triage: never restate rules in the prompt).
+   Output is a **flat** Pydantic schema (`EnrichAction`, not a discriminated union) covering
+   6 action types — `timeline_entry`, `frontmatter_patch`, `new_note`, `concept_link`,
+   `key_link`, `skip` — with action-type-specific required fields enforced in Python
+   (`validate_actions()`), not the JSON schema, because a discriminated union's `oneOf`
+   shape is untested against this session's gateway and `extra="forbid"` was already a
+   gateway-compatibility lesson learned the hard way during Triage. A Python hard-guard
+   layer rejects anything violating a rule that must never break regardless of model
+   output: no uncited timeline entry, **no opinion item ever gets a `timeline_entry`**
+   (checked for both standalone and inside a `new_note`), no new-note name/alias collision,
+   nothing in `meta/rejected-links.md`. Applying an action is a targeted text edit
+   (timeline bullets inserted newest-first under the right `### YYYY` heading, frontmatter
+   patched via a YAML round-trip) — **the model never writes a full file verbatim.**
+   Defaults to preview-only; `--apply` is required for real writes and runs `tools/lint.py`
+   on touched files before declaring success.
+4. **`tools/evals/run_enrich_eval.py` + 5 golden cases** in `tools/evals/cases/enrich/`,
+   built from real items in `inbox/_triage/2026-10-27.json` (selected by `item_ids`, not
+   hand-written captures): `figure-series-c-existing-note` (routes to existing
+   company+person, frontmatter rollup backed by the ledger entry), `apptronik-second-
+   mention-new-note` (creates a note once the ≥2-mentions bar clears), `xpeng-first-
+   mention-pending` (nothing created yet for a genuine first mention),
+   `opinion-never-gets-timeline` (hard rule only — revised from an earlier draft that
+   assumed the sole existing robotics thread, `Humanoid manipulation`, was a topical fit
+   for a business-consolidation thesis; on inspection its curated scope is dexterous
+   manipulation technique, not M&A — so the case only asserts what's guaranteed, not a
+   debatable routing call), `incidental-mention-skipped` (no spurious Figure AI entry for
+   an item about a different company's round). The eval scores the model's output *after*
+   the same `validate_actions()` pass `--apply` runs — a rejected action never counts
+   toward a case's score.
+
+**A real scoring bug was caught and fixed before any live run**, same discipline as the
+Triage build: an early version of the eval's `target_note_stem` check only read
+`a.target_note`, but a `new_note` action has no `target_note` (it uses `new_note_path`) —
+so "must not create a new note for X" checks would have silently never fired. Fixed, then
+re-verified both the catch and the correct-behavior path against hand-built `EnrichAction`
+fixtures, at zero cost.
+
+**Verified this session, all free:** `--dry-run` against the real vault + real
+`inbox/_triage/2026-10-27.json` (88 items) correctly resolved `Figure AI`/`Brett Adcock` as
+matched and `Apptronik` as pending-second-mention; 19 new mocked tests for `enrich.py` +
+12 for `enrich_resolve.py` (91/91 total with Triage's suite); lint holds at 0 errors
+throughout; every eval check type verified against hand-built fixtures offline.
+
+### Resume here — next concrete action
+
+1. **Run `tools/evals/run_enrich_eval.py` for the first time.** Costs real money (expect a
+   similar order of magnitude to Triage's ~$0.35–0.40/run, scaled to the eval's 5 cases
+   covering ~4 items — likely cheaper than that). `source tools/.env && set -a` first.
+   Default model is `claude-opus-5` (same as Triage settled on) — no model sweep has been
+   done for Enrich yet; consider one if the Opus baseline isn't clean, following the same
+   method as Triage's (`DESIGN.md` §2): compare scores, not just cost, before switching.
+2. Iterate the prompt/cases against whatever the first run shows — per the Triage
+   experience, a failing case is often a hand-label that's too strict, not a model error;
+   check the actual proposed action before rewriting the prompt.
+3. Once the eval score is solid, run `tools/enrich.py --input inbox/_triage/2026-10-27.json`
+   (preview mode, the default) against the real 88-item backlog and **hand-review the
+   printed diff** before ever passing `--apply` — this writes to permanent vault content,
+   a materially higher-risk operation than Triage's disposable JSON output.
+4. Only after a real `--apply` run has been reviewed: build the daily digest (Stage 4),
+   which consumes Enrich's output and didn't exist to depend on before now.
 
 Other options, lower priority:
 
