@@ -134,8 +134,9 @@ knowledge-base/
 ├── digests/              # weekly "what changed" summaries
 ├── dashboards/           # Dataview queries
 ├── templates/            # static note skeletons (one per type)
-└── meta/                 # schema.md, taxonomy.md, agent-instructions.md,
-                          # sources.md, rejected-links.md, health/, review/
+└── meta/                 # schema.md, taxonomy.md, agent-instructions/ (one file per
+                          # stage), sources.md, rejected-links.md, pending-entities.md,
+                          # health/, review/
 ```
 
 Three reference layers, all in one vault:
