@@ -10,10 +10,8 @@ _Last updated: 2026-10-28._
 
 ## Repo state
 
-- Branch `main` tracks `origin/main`. **5 local commits not yet pushed** as of this update
-  (`21ba938`..`89a3bd2` — Readwise collector deny-permission, `type: capture` schema, the
-  collector itself, source-register update, first live collector run). Push these before
-  doing anything else if they aren't already on `origin/main`.
+- Branch `main` tracks `origin/main` and is fully pushed (verified 2026-10-28) — nothing
+  outstanding to push.
 - Project-level Claude Code instructions and hooks provide shared context across machines
   and accounts. See `CLAUDE.md` and `.claude/settings.json`.
 - `.venv/` and `meta/health/*.md` are git-ignored; recreate the venv with the commands below.
