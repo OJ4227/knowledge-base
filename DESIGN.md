@@ -351,7 +351,7 @@ frontmatter facts with no supporting cited entry. Hard errors fail the commit.
 
 Orphans are a weak signal, not a defect: concept notes (lookup targets) and `seed: true`
 notes are excluded, and a link is never added just to clear orphan status — see
-`meta/agent-instructions.md`.
+`meta/agent-instructions/lint.md`.
 
 - **Scraping and the web-search tool are not Stage 1 modalities.** A web-search call is a
   point-in-time query, not a subscription — it can't cheaply answer "what's new since last
