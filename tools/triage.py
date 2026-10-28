@@ -4,8 +4,8 @@
 Reads every raw capture in `inbox/`, fans each newsletter-style capture out into its
 component developments, dedupes across captures, classifies on the taxonomy
 (`meta/taxonomy.md`), and writes one run file to `inbox/_triage/`. Consumed raw captures
-are deleted. See `DESIGN.md` §7 and `meta/agent-instructions.md` for how this fits the
-pipeline.
+are deleted. See `DESIGN.md` §7 and `meta/agent-instructions/triage.md` for how this fits
+the pipeline.
 
 Usage:
     python tools/triage.py                           # real run
@@ -23,6 +23,7 @@ import argparse
 import datetime as dt
 import json
 import os
+import re
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -36,7 +37,7 @@ INBOX_DIR = ROOT / "inbox"
 TRIAGE_DIR = INBOX_DIR / "_triage"
 PROMPT_PATH = ROOT / "tools" / "prompts" / "triage.md"
 TAXONOMY_PATH = ROOT / "meta" / "taxonomy.md"
-AGENT_INSTRUCTIONS_PATH = ROOT / "meta" / "agent-instructions.md"
+TRIAGE_RULES_PATH = ROOT / "meta" / "agent-instructions" / "triage.md"
 
 DEFAULT_MODEL = "claude-opus-5"  # chosen 2026-10-27 after live eval comparison — see DESIGN.md §2
 DEFAULT_EFFORT = "high"  # Anthropic's own default; exposed as a flag to test xhigh/max
@@ -119,9 +120,9 @@ def load_taxonomy() -> str:
 
 
 def load_triage_rules() -> str:
-    text = AGENT_INSTRUCTIONS_PATH.read_text(encoding="utf-8")
-    return section_between(text, "### Triage (Stage 2, daily, one LLM context)",
-                            "### Enrich (Stage 3, daily, one LLM context)")
+    text = TRIAGE_RULES_PATH.read_text(encoding="utf-8")
+    # strip the YAML frontmatter block; the rest is the rules verbatim
+    return re.sub(r"^---\n.*?\n---\s*\n", "", text, count=1, flags=re.DOTALL).strip()
 
 
 def build_prompt(captures: list[Capture]) -> str:

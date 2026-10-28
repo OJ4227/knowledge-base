@@ -6,9 +6,9 @@ Read these files before discussing or changing the project:
 2. `HANDOVER.md` — current implementation state and next actions
 3. `meta/ongoing-discussions.md` — unresolved design threads
 
-For pipeline or vault-maintenance work, also follow `meta/agent-instructions.md`. Its
-pipeline restrictions do not apply to owner-directed build and scaffolding work unless the
-owner says otherwise.
+For pipeline or vault-maintenance work, also follow `meta/agent-instructions/` (split one
+file per stage; start at its `README.md`). Its pipeline restrictions do not apply to
+owner-directed build and scaffolding work unless the owner says otherwise.
 
 ## Preserve cross-session context
 

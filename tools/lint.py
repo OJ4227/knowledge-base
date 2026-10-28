@@ -2,7 +2,7 @@
 """Vault linter for the AI / Robotics / Startups knowledge base.
 
 Deterministic checks only — this script never edits notes. It is the machine-checkable
-half of `meta/schema.md`. See `meta/agent-instructions.md` for how it fits the pipeline.
+half of `meta/schema.md`. See `meta/agent-instructions/lint.md` for how it fits the pipeline.
 
 Usage:
     python tools/lint.py                 # lint the whole vault

@@ -49,7 +49,7 @@ blindly), missing `## sections`, unknown company sectors, orphans (excluding con
 `seed:` notes), stubs, stale watchlist entries, `unsupported-volatile-field`, missing
 `archive_url` on sources.
 
-Not yet implemented (needs git diff / network — see `meta/agent-instructions.md`):
+Not yet implemented (needs git diff / network — see `meta/agent-instructions/lint.md`):
 curated-block tamper detection, dead external link checking.
 
 ## `collect_readwise.py`

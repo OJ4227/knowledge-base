@@ -27,7 +27,7 @@ and unresolved design discussions while keeping build work separate from pipelin
 | `digests/` | Weekly "what changed" summaries. |
 | `dashboards/` | Dataview queries. |
 | `templates/` | Static note skeletons, one per type — Claude/agents copy these. |
-| `meta/` | `schema.md`, `taxonomy.md`, `agent-instructions.md`, `sources.md`, `rejected-links.md`, `health/`, `review/`. |
+| `meta/` | `schema.md`, `taxonomy.md`, `agent-instructions/`, `sources.md`, `rejected-links.md`, `pending-entities.md`, `health/`, `review/`. |
 
 ## Obsidian setup
 

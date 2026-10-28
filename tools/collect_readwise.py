@@ -3,7 +3,7 @@
 
 Fetches documents added/updated since the last run, writes a `sources/` note + local
 snapshot per item, and a raw capture into `inbox/`. See `DESIGN.md` §7 and
-`meta/agent-instructions.md` for how this fits the pipeline.
+`meta/agent-instructions/collectors.md` for how this fits the pipeline.
 
 Usage:
     python tools/collect_readwise.py              # real run

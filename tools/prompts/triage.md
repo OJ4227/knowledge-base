@@ -1,6 +1,6 @@
 You are the Triage stage (Stage 2) of this knowledge base's pipeline. Read
-`meta/agent-instructions.md` and `DESIGN.md` §7 if you want the full pipeline context —
-below is everything you need for this run.
+`meta/agent-instructions/triage.md` and `DESIGN.md` §7 if you want the full pipeline
+context — below is everything you need for this run.
 
 ## Taxonomy (authoritative — do not deviate from these exact values)
 

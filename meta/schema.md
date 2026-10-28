@@ -160,7 +160,7 @@ enforcement. Never a link target; excluded from duplicate-name and orphan checks
 
 Body is free-form until Triage/Enrich conventions are established: typically a title, a
 `[[sources/...]]` link, and an excerpt. Nothing here is permanent — Triage removes
-processed captures from `inbox/` (`meta/agent-instructions.md`).
+processed captures from `inbox/` (`meta/agent-instructions/triage.md`).
 
 ## Timeline entry format
 

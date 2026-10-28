@@ -78,8 +78,8 @@ def isolated_vault(tmp_path, monkeypatch):
     monkeypatch.setattr(tg, "TRIAGE_DIR", tmp_path / "inbox" / "_triage")
     monkeypatch.setattr(tg, "PROMPT_PATH", tmp_path / "tools" / "prompts" / "triage.md")
     monkeypatch.setattr(tg, "TAXONOMY_PATH", tmp_path / "meta" / "taxonomy.md")
-    monkeypatch.setattr(tg, "AGENT_INSTRUCTIONS_PATH",
-                        tmp_path / "meta" / "agent-instructions.md")
+    monkeypatch.setattr(tg, "TRIAGE_RULES_PATH",
+                        tmp_path / "meta" / "agent-instructions" / "triage.md")
 
     (tmp_path / "tools" / "prompts").mkdir(parents=True, exist_ok=True)
     (tmp_path / "tools" / "prompts" / "triage.md").write_text(
@@ -93,10 +93,10 @@ def isolated_vault(tmp_path, monkeypatch):
         "## Company sectors (`sectors:` field)\n\nirrelevant\n",
         encoding="utf-8",
     )
-    (tmp_path / "meta" / "agent-instructions.md").write_text(
-        "# Agent instructions\n\n"
-        "### Triage (Stage 2, daily, one LLM context)\n\nTriage rule text here.\n\n"
-        "### Enrich (Stage 3, daily, one LLM context)\n\nirrelevant\n",
+    (tmp_path / "meta" / "agent-instructions").mkdir(parents=True, exist_ok=True)
+    (tmp_path / "meta" / "agent-instructions" / "triage.md").write_text(
+        "---\ntype: meta\nname: Triage instructions\nupdated: 2026-10-28\n---\n\n"
+        "# Triage (Stage 2, daily, one LLM context)\n\nTriage rule text here.\n",
         encoding="utf-8",
     )
 
@@ -118,10 +118,11 @@ def test_load_taxonomy_extracts_capture_classification_section(tmp_path):
     assert "irrelevant" not in text
 
 
-def test_load_triage_rules_extracts_only_triage_section(tmp_path):
+def test_load_triage_rules_strips_frontmatter(tmp_path):
     text = tg.load_triage_rules()
     assert "Triage rule text here." in text
-    assert "irrelevant" not in text
+    assert "type: meta" not in text
+    assert not text.startswith("---")
 
 
 def test_build_prompt_interpolates_all_placeholders(tmp_path):
