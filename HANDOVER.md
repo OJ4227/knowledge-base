@@ -204,7 +204,7 @@ Config: `tools/.env` (git-ignored, Read-denied for Claude in `.claude/settings.j
 See `meta/ongoing-discussions.md` for the live reasoning, status, and next question for
 each unresolved design topic.
 
-## Triage (Stage 2) — built this session, not yet run for real
+## Triage (Stage 2) — built, evaluated, and run for real against the live inbox
 
 Built: `tools/prompts/triage.md` (the prompt — interpolates `meta/taxonomy.md` and the
 Triage section of `meta/agent-instructions.md` at runtime rather than restating them, so
