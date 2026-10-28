@@ -1,0 +1,18 @@
+{
+  "description": "XPeng's reported $13.8B humanoid investment and Iron robot. XPeng resolves as PENDING_FIRST_MENTION (no existing note, no prior unresolved link, no prior pending-entities.md entry). Must NOT create a note yet -- but the fact itself must not be lost: this is Enrich's output-review stage, so we check no new_note/timeline_entry was produced for XPeng this run (a real pipeline run would separately write the fact to meta/pending-entities.md; that persistence step is exercised by enrich_resolve.py's own tests, not duplicated here).",
+  "item_ids": ["xpeng-humanoid-investment-iron"],
+  "checks": [
+    {
+      "type": "item_lacks_action",
+      "item_id": "xpeng-humanoid-investment-iron",
+      "action_type": "new_note",
+      "new_note_path_stem": "XPeng"
+    },
+    {
+      "type": "item_lacks_action",
+      "item_id": "xpeng-humanoid-investment-iron",
+      "action_type": "timeline_entry",
+      "target_note_stem": "XPeng"
+    }
+  ]
+}

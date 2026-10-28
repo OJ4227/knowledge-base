@@ -1,0 +1,16 @@
+{
+  "description": "The hyperscalers-robotics thesis is a kept opinion item (claim: hyperscalers, not Tesla/OpenAI, will own robotics via acquisition). Hard-enforced regardless of model behavior: an opinion item must never produce a timeline_entry (DESIGN.md §2 -- opinion is a ledger exception), with or without a fitting thread. Revised from an earlier draft that assumed 'Humanoid manipulation' (the only existing robotics thread) was a topical fit for this item -- on inspection it isn't: that thread's own curated scope is dexterous manipulation technique, not industry M&A/consolidation dynamics, so forcing a key_link there would itself violate the prompt's own 'domain match is not topical fit' rule. The only thing this case can assert as a real requirement, rather than guessing at a judgment call either way is right, is the hard guard: no timeline_entry, ever.",
+  "item_ids": ["hyperscalers-will-win-robotics-thesis"],
+  "checks": [
+    {
+      "type": "item_lacks_action",
+      "item_id": "hyperscalers-will-win-robotics-thesis",
+      "action_type": "timeline_entry"
+    },
+    {
+      "type": "item_lacks_action",
+      "item_id": "hyperscalers-will-win-robotics-thesis",
+      "action_type": "frontmatter_patch"
+    }
+  ]
+}

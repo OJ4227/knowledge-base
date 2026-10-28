@@ -1,0 +1,26 @@
+{
+  "description": "Figure AI's Series C at a $39B valuation. Figure AI and Brett Adcock both resolve as MATCHED to existing notes. Must route a timeline_entry to companies/Figure AI.md, cited to the item's source, with a correct frontmatter_patch (stage) backing it -- the 'never patch frontmatter with nothing backing it' rule from the prompt. Must not create a new note for an entity that already has one.",
+  "item_ids": ["figure-series-c-39b"],
+  "checks": [
+    {
+      "type": "item_has_action",
+      "item_id": "figure-series-c-39b",
+      "action_type": "timeline_entry",
+      "target_note": "companies/Figure AI.md",
+      "sources_include": ["[[sources/2025-09-25-figure-ai-values-itself-at-39-billion]]"]
+    },
+    {
+      "type": "item_has_action",
+      "item_id": "figure-series-c-39b",
+      "action_type": "frontmatter_patch",
+      "target_note": "companies/Figure AI.md",
+      "frontmatter_field": "stage"
+    },
+    {
+      "type": "item_lacks_action",
+      "item_id": "figure-series-c-39b",
+      "action_type": "new_note",
+      "target_note_stem": "Figure AI"
+    }
+  ]
+}

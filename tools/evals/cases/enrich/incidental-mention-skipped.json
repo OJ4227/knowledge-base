@@ -1,0 +1,12 @@
+{
+  "description": "apptronik-series-a-google's entities include Figure AI only as competitive context ('Apptronik pulling even with the likes of Figure'), not as the item's subject -- Apptronik raised the round, not Figure AI. Must not write a spurious Figure AI timeline entry for an item about a different company's funding round.",
+  "item_ids": ["apptronik-series-a-google"],
+  "checks": [
+    {
+      "type": "item_lacks_action",
+      "item_id": "apptronik-series-a-google",
+      "action_type": "timeline_entry",
+      "target_note_stem": "Figure AI"
+    }
+  ]
+}

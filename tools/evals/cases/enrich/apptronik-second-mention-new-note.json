@@ -1,0 +1,13 @@
+{
+  "description": "Apptronik's $350M Series A with Google participation. Apptronik resolves as PENDING_SECOND_MENTION (an unresolved [[Apptronik]] link already exists in companies/Figure AI.md's Competitors section) -- clears the ≥2-mentions bar today. Must create companies/Apptronik.md with a cited timeline entry, not leave it pending.",
+  "item_ids": ["apptronik-series-a-google"],
+  "checks": [
+    {
+      "type": "item_has_action",
+      "item_id": "apptronik-series-a-google",
+      "action_type": "new_note",
+      "new_note_type": "company",
+      "new_note_path_stem": "Apptronik"
+    }
+  ]
+}
