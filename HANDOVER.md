@@ -107,6 +107,24 @@ connecting link.
   Digest (now Stage 6) and Gardener (now Stage 5) are unchanged in shape, just renumbered.
   Not yet built — needs the Triage/Enrich prompts (step 4) first, since it only summarizes
   what Enrich wrote that day.
+- **`meta/agent-instructions.md` split into one file per stage** (2026-10-28):
+  `meta/agent-instructions/{hard-rules,collectors,triage,enrich,daily-digest,gardener,
+  weekly-digest,lint}.md` + a `README.md` index. The single-file version required fragile
+  heading-text slicing (`text.index("### Triage...")`) that `triage.py` already did and
+  `enrich.py` would have had to replicate — an edit to any heading would silently break
+  extraction. The old file was deleted outright, not kept as a redirect stub; every
+  cross-reference in the repo was updated to the specific new file. Any new pipeline stage
+  script should read its own file directly, never the old combined path (which no longer
+  exists).
+- **`meta/pending-entities.md` added, committed to git (not git-ignored)** — holds full,
+  cited, timeline-ready facts for entities that haven't cleared the "≥2 independent
+  mentions" bar (`meta/agent-instructions/enrich.md` hard rule 5) yet. Rule 5 exists to
+  avoid note *bloat*, not to discard information (`DESIGN.md` §2 says so explicitly) — so
+  deferring *where* a fact lives must never mean weakening the fact. An existing unresolved
+  `[[EntityName]]` link anywhere in the vault also counts as a prior mention. Unlike
+  `meta/health/*.md` (generated, git-ignored), this file is the *only* copy of a
+  first-mention fact until a second mention arrives, sometimes months later — losing it
+  would be a real, permanent data loss, so it's committed like `meta/collector-state.json`.
 
 ## `tools/lint.py`
 
