@@ -486,7 +486,7 @@ rationale are incorporated into the relevant section of this document.
 6. Add the daily digest (with watchlist alerts), then Gardener, then the weekly digest.
 7. ✅ Write `CLAUDE.md`. Added during scaffolding to provide cross-device continuity while
    explicitly separating owner-directed build work from the pipeline rules in
-   `meta/agent-instructions.md`.
+   `meta/agent-instructions/`.
 8. Migrate the stable pipeline to cloud routines + a GitHub remote.
 
 ---
