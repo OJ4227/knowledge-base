@@ -474,7 +474,7 @@ rationale are incorporated into the relevant section of this document.
 ## 12. Build order
 
 1. ✅ Scaffold the vault: folders, `templates/`, `meta/schema.md`, `meta/taxonomy.md`,
-   `meta/agent-instructions.md`, `meta/sources.md`, starter dashboards, README, `.obsidian/`.
+   `meta/agent-instructions/`, `meta/sources.md`, starter dashboards, README, `.obsidian/`.
 2. 🚧 Seed by hand: concept notes, ~20–40 companies, core threads. **Vertical slice done**
    (3 concepts, 3 companies, 2 threads, 1 person, 1 source) and validated in Obsidian —
    still to scale up to the full set.
