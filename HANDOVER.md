@@ -442,7 +442,10 @@ Built, in 4 commits (`git log` has the full reasoning per commit):
    hand-written captures): `figure-series-c-existing-note` (routes to existing
    company+person, frontmatter rollup backed by the ledger entry), `apptronik-second-
    mention-new-note` (creates a note once the ≥2-mentions bar clears), `xpeng-first-
-   mention-pending` (nothing created yet for a genuine first mention),
+   mention-pending` (a genuine first mention must produce a `pending_fact` for XPeng, cited
+   — not nothing, and not a premature `new_note`/`timeline_entry`; strengthened this session
+   once `pending_fact` existed to assert, not just the absence of the wrong actions — this is
+   the case currently failing, see the unresolved bug above),
    `opinion-never-gets-timeline` (hard rule only — revised from an earlier draft that
    assumed the sole existing robotics thread, `Humanoid manipulation`, was a topical fit
    for a business-consolidation thesis; on inspection its curated scope is dexterous
@@ -450,7 +453,11 @@ Built, in 4 commits (`git log` has the full reasoning per commit):
    debatable routing call), `incidental-mention-skipped` (no spurious Figure AI entry for
    an item about a different company's round). The eval scores the model's output *after*
    the same `validate_actions()` pass `--apply` runs — a rejected action never counts
-   toward a case's score.
+   toward a case's score. The scorer's `_action_matches` gained an `entity` check this
+   session (needed for the `pending_fact` assertion above) — `skip` deliberately has no
+   equivalent entity-level check: skip has zero downstream effect (nothing reads `reason`),
+   and the prompt now asks the model to consolidate same-reason entities into one `skip`
+   rather than one per entity, so an entity-targeted skip check would conflict with that.
 
 **A real scoring bug was caught and fixed before any live run**, same discipline as the
 Triage build: an early version of the eval's `target_note_stem` check only read
@@ -461,26 +468,37 @@ fixtures, at zero cost.
 
 **Verified this session, all free:** `--dry-run` against the real vault + real
 `inbox/_triage/2026-10-27.json` (88 items) correctly resolved `Figure AI`/`Brett Adcock` as
-matched and `Apptronik` as pending-second-mention; 19 new mocked tests for `enrich.py` +
-12 for `enrich_resolve.py` (91/91 total with Triage's suite); lint holds at 0 errors
-throughout; every eval check type verified against hand-built fixtures offline.
+matched and `Apptronik` as pending-second-mention; 100/100 tests pass (up from 91: 9 new
+`pending_fact` tests in `test_enrich_script.py` + 1 default-path regression test in
+`test_enrich_resolve.py`); lint holds at 0 errors throughout; every eval check type verified
+against hand-built fixtures offline.
+
+**Live-verified this session (real cost, ~$0.50 total across ~7 calls):** the schema fix
+clears the gateway on both models; a full 5-case run on the *pre-`pending_fact`* schema
+scored 9/9 on both `claude-sonnet-5` ($0.1496, 13,214 output tokens, one `skip` action per
+incidental entity) and `claude-opus-5` ($0.1240, 3,211 output tokens, consolidated skips,
+one invalid `concept_link` attempt correctly rejected) — **this comparison is now stale**
+since it predates `pending_fact`; re-run once that bug is fixed before trusting any
+model-choice conclusion from it.
 
 ### Resume here — next concrete action
 
-1. **Run `tools/evals/run_enrich_eval.py` for the first time.** Costs real money (expect a
-   similar order of magnitude to Triage's ~$0.35–0.40/run, scaled to the eval's 5 cases
-   covering ~4 items — likely cheaper than that). `source tools/.env && set -a` first.
-   Default model is `claude-opus-5` (same as Triage settled on) — no model sweep has been
-   done for Enrich yet; consider one if the Opus baseline isn't clean, following the same
-   method as Triage's (`DESIGN.md` §2): compare scores, not just cost, before switching.
-2. Iterate the prompt/cases against whatever the first run shows — per the Triage
-   experience, a failing case is often a hand-label that's too strict, not a model error;
-   check the actual proposed action before rewriting the prompt.
-3. Once the eval score is solid, run `tools/enrich.py --input inbox/_triage/2026-10-27.json`
+1. **Fix the `pending_fact` empty-`timeline_entry` bug** (see above) — inspect raw model
+   JSON for a failing case first to confirm omission vs. explicit-empty, then apply whichever
+   of the two candidate fixes that evidence points to. Re-run `xpeng-first-mention-pending`
+   until it passes before anything else.
+2. **Re-run the full 5-case, 2-model (`claude-sonnet-5` / `claude-opus-5`) comparison** once
+   `pending_fact` is reliable — the prior 9/9-both comparison above doesn't cover it and is
+   not a valid basis for a model decision. Compare cost *and* completeness (e.g. Opus's
+   `last_round` frontmatter fill in the stale run was more complete than Sonnet's — check
+   whether that holds up).
+3. The eval suite is thin (5 cases / 4 items) — before trusting a model decision, consider
+   whether to expand it, and whether to do that before or after step 2.
+4. Once the eval score is solid, run `tools/enrich.py --input inbox/_triage/2026-10-27.json`
    (preview mode, the default) against the real 88-item backlog and **hand-review the
    printed diff** before ever passing `--apply` — this writes to permanent vault content,
    a materially higher-risk operation than Triage's disposable JSON output.
-4. Only after a real `--apply` run has been reviewed: build the daily digest (Stage 4),
+5. Only after a real `--apply` run has been reviewed: build the daily digest (Stage 4),
    which consumes Enrich's output and didn't exist to depend on before now.
 
 Other options, lower priority:
