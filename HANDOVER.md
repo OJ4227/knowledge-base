@@ -335,6 +335,19 @@ Known, non-blocking items carried forward from Triage (unrelated to the Enrich w
   captures before Triage ever sees them — a plausible source of future fan-out/dedup
   misses on long newsletters. Flagged, not acted on (owner chose current excerpts,
   revisit only if it causes real misses).
+- **The Triage eval suite's 10 golden cases are currently broken** — each references raw
+  `inbox/*.md` capture files by path (e.g.
+  `inbox/2026-10-12-oxide-series-d-...--capture.md`), and all of them were deleted by the
+  real Triage run above (captures are consumed and removed once Triage processes them, by
+  design). Running `tools/evals/run_eval.py` today would fail outright on missing inputs.
+  **Not permanently lost** — confirmed recoverable: `git log --diff-filter=D --name-only --
+  'inbox/*.md'` shows they were all deleted in one commit (`825febb`), so
+  `git show 825febb^:<path>` (or checking out that parent commit) restores any of them
+  verbatim. Not yet restored or fixed — no action taken beyond confirming recoverability.
+  Before expanding Triage's eval suite or re-running it, either restore these as frozen
+  fixtures (e.g. a dedicated `tools/evals/fixtures/triage/` copied from `825febb^`, decoupled
+  from the live `inbox/` so future real Triage runs can't delete them again) or rewrite the
+  cases to reference something else.
 
 ## Enrich (Stage 3) — built and committed this session (2026-10-28), eval NOT yet run
 
