@@ -361,19 +361,82 @@ Built, in 4 commits (`git log` has the full reasoning per commit):
    `meta/agent-instructions/enrich.md`, `hard-rules.md`, and relevant `meta/schema.md`
    excerpts at runtime (same discipline as Triage: never restate rules in the prompt).
    Output is a **flat** Pydantic schema (`EnrichAction`, not a discriminated union) covering
-   6 action types — `timeline_entry`, `frontmatter_patch`, `new_note`, `concept_link`,
-   `key_link`, `skip` — with action-type-specific required fields enforced in Python
-   (`validate_actions()`), not the JSON schema, because a discriminated union's `oneOf`
-   shape is untested against this session's gateway and `extra="forbid"` was already a
-   gateway-compatibility lesson learned the hard way during Triage. A Python hard-guard
-   layer rejects anything violating a rule that must never break regardless of model
-   output: no uncited timeline entry, **no opinion item ever gets a `timeline_entry`**
-   (checked for both standalone and inside a `new_note`), no new-note name/alias collision,
-   nothing in `meta/rejected-links.md`. Applying an action is a targeted text edit
-   (timeline bullets inserted newest-first under the right `### YYYY` heading, frontmatter
-   patched via a YAML round-trip) — **the model never writes a full file verbatim.**
-   Defaults to preview-only; `--apply` is required for real writes and runs `tools/lint.py`
-   on touched files before declaring success.
+   7 action types — `timeline_entry`, `frontmatter_patch`, `new_note`, `concept_link`,
+   `key_link`, `pending_fact`, `skip` — with action-type-specific required fields enforced
+   in Python (`validate_actions()`), not the JSON schema. A Python hard-guard layer rejects
+   anything violating a rule that must never break regardless of model output: no uncited
+   timeline entry, **no opinion item ever gets a `timeline_entry`** (checked for both
+   standalone and inside a `new_note`), no new-note name/alias collision, nothing in
+   `meta/rejected-links.md`. Applying an action is a targeted text edit (timeline bullets
+   inserted newest-first under the right `### YYYY` heading, frontmatter patched via a YAML
+   round-trip) — **the model never writes a full file verbatim.** Defaults to preview-only;
+   `--apply` is required for real writes and runs `tools/lint.py` on touched files before
+   declaring success.
+
+   **The original flat schema (15 fields, 13 `Optional[X] | None`) was rejected outright by
+   this session's gateway** with `litellm.BadRequestError: Vertex_aiException ... "Schema is
+   too complex."` (a 400, before any inference ran — confirmed identical on both
+   `claude-sonnet-5` and `claude-opus-5`, so it was a schema problem, not a model problem).
+   Measured against Triage's schema (151 lines, passes) vs. Enrich's (269 lines, 14 `anyOf`
+   branches, fails): byte size didn't predict pass/fail as cleanly as `anyOf` branch count
+   did (a discriminated-union alternative was *larger* in bytes but had far fewer `anyOf`
+   branches — never live-tested, since the fix below worked). **Fixed** (owner-directed,
+   "Option E") by: (1) sentinel (`""` / `[]`) defaults instead of `None` on every optional
+   field, eliminating all 14 `anyOf` branches; (2) grouping each action type's own fields
+   into a nested sub-object (`timeline_entry`, `frontmatter_patch`, `new_note`, `key_link`)
+   instead of flattening 13 fields onto `EnrichAction`, cutting top-level properties from 15
+   to 10; (3) merging `target_note` / `new_note_path` / `target_thread` into one
+   `target_note` field — `action_type` already disambiguates what it points at, so three
+   names carried no extra information. Verified live: the exact same request that failed
+   with the old schema now succeeds on both models.
+
+   **A second, independent bug surfaced while building the fix's test coverage**:
+   `enrich_resolve.py`'s `load_pending_store`/`save_pending_store` defaulted their `path`
+   argument to the module-level `PENDING_ENTITIES_PATH` *at function-definition time*
+   (classic Python late-binding gotcha) — any caller relying on the default after a test
+   fixture monkeypatches that attribute silently still hit the **real** repo file. This is
+   not hypothetical: it actually happened once this session — a test run wrote bogus
+   `### XPeng` test data into the real, committed `meta/pending-entities.md` before the fix
+   landed (caught via `tools/lint.py`'s `broken-source-link` check, reverted via
+   `git checkout`, no actual damage persisted). Fixed at the root: both functions now
+   resolve `path = path or PENDING_ENTITIES_PATH` inside the function body, re-reading the
+   attribute at call time. Regression-tested in `test_enrich_resolve.py`.
+
+   **A third, more serious bug found by actually tracing the data flow** (prompted by
+   "would merging skip reasons lose data?" — answer: no, but checking that surfaced this):
+   `enrich.py`'s `run()` called `er.load_pending_store()` to *read* pending facts for entity
+   resolution, but **never called `er.save_pending_store()`** to write new ones back. Every
+   first-mention fact the model wrote about in a `skip` action's free-text `reason` — e.g.
+   "Nvidia — first mention. Fact to store: ..." — was discarded the moment the script
+   finished; nothing ever parsed `reason` text or persisted it. This directly contradicts
+   the hard guarantee in this file's "pending-entities.md" decision below ("the only copy of
+   a first-mention fact... losing it would be a real, permanent data loss"). **Fixed**
+   (owner-directed) by adding a new, structured `pending_fact` action type: fields `entity`
+   (exact name) + the existing `timeline_entry` nested object (reused, not duplicated) for
+   the fact content. `validate_actions()` hard-guards it (no entity, zero sources, already-
+   matched entity, or opinion item → rejected); `run()` now calls `er.save_pending_store()`
+   after `--apply` whenever any `pending_fact` actions were accepted. 9 new tests.
+
+   **Known, unresolved bug in `pending_fact` (blocks the Sonnet/Opus decision below):**
+   live-tested 3 times against `claude-opus-5` on the `xpeng-first-mention-pending` case —
+   every time, the model correctly identifies `pending_fact` is the right action and sets
+   `entity` correctly, but leaves the nested `timeline_entry` object **empty** (all sentinel
+   defaults), so the Python hard guard correctly rejects it for "zero sources." Net effect:
+   the fact is still lost, just now as a *visible* rejection in the console instead of a
+   *silent* one (real progress, not a fix). A worked JSON example was added to the prompt
+   between attempts 2 and 3 — no effect, reproduced identically. Leading hypothesis,
+   **unconfirmed** (haven't inspected the model's raw JSON text, only the parsed/defaulted
+   Python object, so can't yet tell "model omitted the key" from "model wrote explicit empty
+   strings"): the model associates the shared `timeline_entry` field with the *action type of
+   the same name*, not with `pending_fact`, and/or trusts the field's schema-level
+   optionality over prose telling it the field is mandatory in this one case. Candidate
+   fixes discussed, not yet tried: (a) make `timeline_entry` required across *all* action
+   types (forces presence, but taxes every action with a 5-field object it mostly doesn't
+   need, re-inflating the exact verbosity this session separately worked to reduce); (b)
+   give `pending_fact` its own dedicated required field, not shared with the `timeline_entry`
+   action — narrower blast radius (+1 top-level field, 11 total), addresses both candidate
+   causes. **Next step: inspect raw model JSON for a failing case before choosing — a one-
+   line debug change, costs nothing extra since the call is already being paid for.**
 4. **`tools/evals/run_enrich_eval.py` + 5 golden cases** in `tools/evals/cases/enrich/`,
    built from real items in `inbox/_triage/2026-10-27.json` (selected by `item_ids`, not
    hand-written captures): `figure-series-c-existing-note` (routes to existing
