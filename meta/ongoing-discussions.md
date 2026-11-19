@@ -83,3 +83,25 @@ The vertical slice exists, but the full starter set of concepts, threads, and se
 companies remains open.
 
 **Next step:** Expand in reviewable batches while exercising the Enrich conventions.
+
+## Enrich structured-action schema
+
+**Status:** Unresolved; the current flat `EnrichAction` schema permits `pending_fact` to
+omit its nested `timeline_entry`, after which Pydantic fills the empty defaults and the
+hard guard rejects the fact.
+
+The leading long-term design is to replace the polymorphic action list with required,
+typed action buckets on `EnrichResult` (for example `pending_facts`,
+`timeline_entries`, `new_notes`, and `skips`). Each bucket's item schema would contain
+only fields relevant to that action, with required timeline fields and no nullable or
+sentinel payloads. This makes the invalid empty-pending-fact state unrepresentable while
+avoiding the gateway complexity of a multi-branch discriminated union. Python validation
+would remain for cross-action and vault-state invariants.
+
+Fallback if a live gateway probe rejects that schema: retain the compact routing schema
+and repair incomplete pending facts in one focused second call using a small fully
+required schema.
+
+**Next step:** Build and live-test the typed-bucket schema against the single XPeng eval
+case before changing the production runner. This is a recommendation, not an accepted
+design decision.
