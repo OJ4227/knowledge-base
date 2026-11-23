@@ -30,7 +30,7 @@ Build order is in `DESIGN.md` §12. Status:
 | 1. Scaffold vault | ✅ done |
 | 2. Seed by hand (concepts, ~20–40 companies, threads) | 🚧 **vertical slice only** — validated in Obsidian; needs scaling up |
 | 3. `tools/lint.py` + tests | ✅ done — 47 tests pass (38 lint + 9 `collect_readwise`), 0 errors on the vault |
-| 4. Prototype Triage + Enrich prompts | 🚧 **Both built and evaluated. Triage ran for real (88 items). Enrich typed buckets + bounded batching passed live eval and completed an 88-item preview (263 actions, 0 rejected); exact preview-plan persistence is required before apply.** |
+| 4. Prototype Triage + Enrich prompts | 🚧 **Both built and evaluated. Triage ran for real (88 items). Enrich typed buckets + bounded batching passed live eval; deterministic preview-plan persistence is implemented and tested. A fresh persisted preview must be reviewed before apply.** |
 | 5. Resolve source-delivery decision; build collectors | 🚧 **`collect-readwise` built, tested, run against the live account** (38 sources written). `collect-tavily` and `collect-youtube` not started. |
 | 6. Daily digest (watchlist alerts), then Gardener, then weekly Digest | ⬜ |
 | 7. Write lean `CLAUDE.md` | ✅ done early for cross-session continuity |
@@ -535,16 +535,21 @@ The preview surfaced and fixed one guard bug first: an opinion may trigger note 
 when it is a second mention, but the new note may contain only verbatim facts stored before
 the opinion; it may never add an opinion-derived timeline entry.
 
-Do **not** run `--apply` yet. The current CLI would call the model again, so it would not
-apply the exact 263-action plan that was reviewed.
+The original 263-action result was console-only and cannot be applied. The CLI now writes
+a git-ignored JSON plan for every clean preview and has no direct `--apply` path:
+`--apply-plan` verifies the Triage input hash, action checksum, output-schema hash, and a
+per-file fingerprint covering every vault, prompt, rule, pending-state, and template input.
+It fails closed before any write if one differs, makes no API call, applies the serialized
+actions exactly, and lints touched files. Plans with any hard-guard rejection are not
+written. Full offline verification after this change: 121 tests pass; vault lint has 0
+errors and 90 existing/expected warnings.
 
 ### Resume here — next concrete action
 
-1. **Persist the validated preview as a deterministic action-plan artifact, then make
-   `--apply` consume that exact artifact without another model call.** Include the input
-   Triage file hash and vault-state fingerprint so stale plans fail closed.
-2. Review the 14 proposed new notes and representative pending facts in that persisted
-   plan; then apply once and run lint on every touched file.
+1. **Run a fresh 88-item preview to create the first persisted plan.** The prior 263-action
+   preview cannot be recovered exactly from console output and must not be applied.
+2. Review all proposed new notes and representative pending facts in that persisted plan;
+   then apply once with `--apply-plan` (no model call) and inspect the touched-file lint.
 3. Only after the real apply result has been reviewed: build the daily digest (Stage 4),
    which consumes Enrich's output and didn't exist to depend on before now.
 
