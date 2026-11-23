@@ -547,7 +547,7 @@ verification after this change: 124 tests pass; vault lint has 0 errors and 90
 existing/expected warnings.
 
 The current owner-reviewed plan is
-`meta/review/enrich-plans/2026-10-27--20261123T142648Z--rerouted-v3.json` (git-ignored):
+`meta/review/enrich-plans/2026-10-27--20261123T142648Z--rerouted-v4.json` (git-ignored):
 **258 actions and 0 rejected** — 11 new notes, 25 existing-note timeline entries, 2
 frontmatter patches, 133 pending facts, and 87 skips. It supersedes the original
 `2026-10-27--20261123T142648Z.json`. Per the owner's decision, ChatGPT and Codex product
@@ -556,6 +556,11 @@ owner-level facts are not duplicated, and the three product/unit pending facts w
 removed so they cannot later trigger standalone notes. The amendment is recorded inside
 the plan and its action checksum/state fingerprint were regenerated. Future Enrich prompts
 now enforce the same rule: products and business units do not receive standalone notes.
+The policy lives only in `meta/agent-instructions/enrich.md`; `tools/prompts/enrich.md`
+interpolates that authoritative file rather than duplicating it. Two golden model evals
+cover product→owner and business-unit→owner routing, including negative checks against both
+`new_note` and `pending_fact` for ChatGPT, Codex, and Google Cloud. Opus passed 8/8 in one
+live call (30.2s, 2,701 output tokens, ~$0.12), with 0 rejected actions.
 
 The preview review also caught and fixed
 three deterministic gaps before this plan was generated: repository metadata could resolve
@@ -573,7 +578,7 @@ existing/expected warnings.
    representative pending facts have been reviewed; controlled sectors and entity
    resolution now pass deterministic guards.
 2. Apply once with `--apply-plan
-   meta/review/enrich-plans/2026-10-27--20261123T142648Z--rerouted-v3.json` (no model call),
+   meta/review/enrich-plans/2026-10-27--20261123T142648Z--rerouted-v4.json` (no model call),
    then inspect touched-file lint and the resulting diff.
 3. Only after the real apply result has been reviewed: build the daily digest (Stage 4),
    which consumes Enrich's output and didn't exist to depend on before now.
