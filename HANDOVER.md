@@ -510,20 +510,28 @@ Offline verification: 106 tests pass; generated schema has no nullable `anyOf`; 
 invalid JSON after 7.6m (Sonnet) and 10.5m (Opus), so typed buckets materially improve
 correctness and normal-case latency.
 
-The adoption gate nevertheless fired: Sonnet's third full typed run did not finish after
-more than an hour and was terminated. Do not run the 88-item preview or `--apply` yet.
-This is broader than the original pending-fact bug: a single large Enrich call is not
-operationally bounded, and 88 production items greatly exceed the four-item eval.
+The apparent hour-long Sonnet hang was diagnosed conclusively as local machine sleep, not
+model/gateway behavior: `pmset` shows clamshell sleep at 08:40:54 immediately after run 2,
+then lid wake at 09:38:34. Stream instrumentation plus a five-minute eval timeout were
+added; the replacement run completed normally. Final full five-case result: both models
+passed 10/10 three times. Sonnet: 99.6–138.4s, 10,185–14,282 output tokens,
+$0.1231–$0.1641. Opus: 66.0–67.4s, 6,001–6,303 output tokens, $0.2031–$0.2107. Opus is
+faster, much more concise, and more consistent, at ~50% higher absolute cost; retaining
+Opus as Enrich's default is the current recommendation, not yet an accepted decision.
+
+Do not run the 88-item preview or `--apply` yet. The remaining issue is capacity: four
+entity-rich eval items already produce 6k–14k output tokens, so 88 items cannot fit safely
+in one bounded response. Production Enrich needs deterministic batching with correct
+pending-store/entity-resolution behavior between batches.
 
 ### Resume here — next concrete action
 
-1. **Bound Enrich execution before further paid testing.** Review small deterministic
-   batches plus explicit request timeout/token limits; preserve entity-resolution and
-   pending-store semantics across batches.
-2. Re-run the full 5-case, 2-model comparison three times only after calls are bounded.
-   Treat any hang, truncation, or correctness regression as a failed adoption gate.
-3. The eval suite is thin (5 cases / 4 items) — expand it before making a final model
-   decision, especially for cross-batch entity behavior.
+1. **Design deterministic Enrich batching** before the 88-item preview. Preserve
+   pending-store/entity-resolution semantics between batches and retain explicit request
+   timeout/token limits.
+2. Add cross-batch eval cases, especially two mentions of the same previously unknown
+   entity landing in different batches.
+3. Confirm or reject the recommendation to retain Opus as Enrich's default.
 4. Once the bounded eval score is solid, run `tools/enrich.py --input inbox/_triage/2026-10-27.json`
    (preview mode, the default) against the real 88-item backlog and **hand-review the
    printed diff** before ever passing `--apply` — this writes to permanent vault content,
