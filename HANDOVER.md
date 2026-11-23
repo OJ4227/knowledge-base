@@ -30,7 +30,7 @@ Build order is in `DESIGN.md` §12. Status:
 | 1. Scaffold vault | ✅ done |
 | 2. Seed by hand (concepts, ~20–40 companies, threads) | 🚧 **vertical slice only** — validated in Obsidian; needs scaling up |
 | 3. `tools/lint.py` + tests | ✅ done — 47 tests pass (38 lint + 9 `collect_readwise`), 0 errors on the vault |
-| 4. Prototype Triage + Enrich prompts | 🚧 **Both built and evaluated. Triage ran for real (88 items). Enrich typed buckets + bounded batching passed live eval; deterministic preview-plan persistence is implemented and tested. A fresh persisted preview must be reviewed before apply.** |
+| 4. Prototype Triage + Enrich prompts | ✅ **Both built, evaluated, and run for real against 88 items. The reviewed Enrich plan was applied successfully.** |
 | 5. Resolve source-delivery decision; build collectors | 🚧 **`collect-readwise` built, tested, run against the live account** (38 sources written). `collect-tavily` and `collect-youtube` not started. |
 | 6. Daily digest (watchlist alerts), then Gardener, then weekly Digest | ⬜ |
 | 7. Write lean `CLAUDE.md` | ✅ done early for cross-session continuity |
@@ -546,7 +546,7 @@ valid full run because defense-in-depth correctly rejected one proposal. Full of
 verification after this change: 124 tests pass; vault lint has 0 errors and 90
 existing/expected warnings.
 
-The current owner-reviewed plan is
+The owner-reviewed plan was
 `meta/review/enrich-plans/2026-10-27--20261123T142648Z--rerouted-v4.json` (git-ignored):
 **258 actions and 0 rejected** — 11 new notes, 25 existing-note timeline entries, 2
 frontmatter patches, 133 pending facts, and 87 skips. It supersedes the original
@@ -572,16 +572,21 @@ and system `created`/`updated` dates are set at apply time. No vault content has
 applied yet. Full offline verification: 126 tests pass; vault lint has 0 errors and 90
 existing/expected warnings.
 
+**Applied 2026-11-23.** The exact persisted plan applied without another model call:
+258 actions across 14 files, including 11 new tracked notes. Inspection caught a
+deterministic template-finalization bug that left `<note name>`, `### YYYY`, and the blank
+placeholder bullet in generated notes. `create_new_note()` now replaces/removes those
+placeholders, the 11 notes were regenerated from the reviewed actions, and a regression
+test covers the output. Final verification: 126 tests pass, full-vault lint has 0 errors
+and 64 warnings (expected unresolved-link, orphan, stub, and missing-archive warnings),
+and `git diff --check` passes. The Enrich code and applied vault changes remain uncommitted
+in the working tree.
+
 ### Resume here — next concrete action
 
-1. **Await owner approval of the rerouted persisted plan.** The 11 proposed notes and
-   representative pending facts have been reviewed; controlled sectors and entity
-   resolution now pass deterministic guards.
-2. Apply once with `--apply-plan
-   meta/review/enrich-plans/2026-10-27--20261123T142648Z--rerouted-v4.json` (no model call),
-   then inspect touched-file lint and the resulting diff.
-3. Only after the real apply result has been reviewed: build the daily digest (Stage 4),
-   which consumes Enrich's output and didn't exist to depend on before now.
+1. Review and commit the outstanding Enrich implementation plus the applied vault changes
+   in small logical commits; do not stage unrelated files.
+2. Build the daily digest (Stage 4), which can now consume the real Enrich output.
 
 Other options, lower priority:
 
