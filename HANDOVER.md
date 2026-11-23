@@ -574,12 +574,14 @@ was 126 passing tests with 0 vault-lint errors.
 **Applied 2026-11-23.** The exact persisted plan applied without another model call:
 258 actions across 14 files, including 11 new tracked notes. Inspection caught a
 deterministic template-finalization bug that left `<note name>`, `### YYYY`, and the blank
-placeholder bullet in generated notes. `create_new_note()` now replaces/removes those
-placeholders, the 11 notes were regenerated from the reviewed actions, and a regression
-test covers the output. Final verification: 126 tests pass, full-vault lint has 0 errors
-and 64 warnings (expected unresolved-link, orphan, stub, and missing-archive warnings),
-and `git diff --check` passes. The Enrich code and applied vault changes remain uncommitted
-in the working tree.
+placeholder bullet in generated notes, plus timeline insertion ordering actions by arrival
+rather than date within a year. Template finalization now replaces/removes placeholders,
+and the shared timeline insertion routine orders entries newest-first by date. The 11 notes
+were reconstructed by replaying all 29 ordered actions targeting them. Final verification:
+127 tests pass; all 11 new notes pass an explicit placeholder/chronology check; full-vault
+lint has 0 errors and 64 warnings (expected unresolved-link, orphan, stub, and
+missing-archive warnings); and `git diff --check` passes. The Enrich code and applied vault
+changes remain uncommitted in the working tree.
 
 ### Resume here — next concrete action
 
