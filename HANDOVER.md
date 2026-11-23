@@ -540,9 +540,11 @@ a git-ignored JSON plan for every clean preview and has no direct `--apply` path
 `--apply-plan` verifies the Triage input hash, action checksum, output-schema hash, and a
 per-file fingerprint covering every vault, prompt, rule, pending-state, and template input.
 It fails closed before any write if one differs, makes no API call, applies the serialized
-actions exactly, and lints touched files. Plans with any hard-guard rejection are not
-written. Full offline verification after this change: 121 tests pass; vault lint has 0
-errors and 90 existing/expected warnings.
+accepted actions exactly, and lints touched files. Rejected proposals are stored in a
+separate checksummed audit list and are never applied; this avoids discarding an otherwise
+valid full run because defense-in-depth correctly rejected one proposal. Full offline
+verification after this change: 121 tests pass; vault lint has 0 errors and 90
+existing/expected warnings.
 
 ### Resume here — next concrete action
 
