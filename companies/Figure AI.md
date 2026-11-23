@@ -1,20 +1,29 @@
 ---
 type: company
-name: "Figure AI"
-aliases: [Figure]
+name: Figure AI
+aliases:
+- Figure
 status: active
 founded: 2022
-hq: "Sunnyvale, CA"
-sectors: [robotics, humanoid, robot-learning]
-stage:
-total_funding_usd:
+hq: Sunnyvale, CA
+sectors:
+- robotics
+- humanoid
+- robot-learning
+stage: series-c
+total_funding_usd: null
 last_round:
-people: ["[[Brett Adcock]]"]
+  type: series-c
+  date: 2025-09-25
+  lead:
+  - Parkway Venture Capital
+people:
+- '[[Brett Adcock]]'
 watchlist: true
 priority: high
 seed: true
 created: 2026-08-30
-updated: 2026-08-30
+updated: '2026-11-23'
 ---
 
 # Figure AI
@@ -49,6 +58,9 @@ run commercial pilots with BMW.
 ### 2026
 
 -
+### 2025
+- 2025-09-25 — Closed a Series C led by Parkway Venture Capital at a roughly $39 billion valuation, with participation from Nvidia, Intel Capital, LG Technology Ventures, Salesforce, T-Mobile Ventures and Qualcomm Ventures, earmarked for the Helix embodied intelligence platform and the BotQ production facility and a plan to ship 100,000 humanoids over four years ([[sources/2025-09-25-figure-ai-values-itself-at-39-billion]]) #milestone
+
 
 ## Funding history
 
