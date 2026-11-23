@@ -84,29 +84,22 @@ companies remains open.
 
 **Next step:** Expand in reviewable batches while exercising the Enrich conventions.
 
-## Enrich structured-action schema
+## Enrich preview/apply artifact
 
-**Status:** Typed buckets are implemented locally and fix the original correctness bug;
-the live eval is complete, but production batching remains unresolved.
+**Status:** Unresolved safety gap after typed buckets and bounded batching were accepted
+and live-verified (see `DESIGN.md` and `HANDOVER.md`).
 
-The model-facing result now has seven required, action-specific arrays with required
-payload fields; the editing pipeline consumes a normalized internal action list. Offline:
-106 tests pass, the generated schema has no nullable `anyOf` branches, and vault lint has
-0 errors. Live XPeng eval: Sonnet and Opus each passed 3/3 runs with complete cited
-`pending_fact` records. Full five-case eval: Sonnet passed 10/10 twice (103.5s and 138.4s);
-Opus passed 10/10 once (67.4s). The legacy schema failed to return valid JSON for both
-models (truncated output after 7.6m/10.5m), so typed buckets are clearly better on
-correctness.
+The corrected 88-item preview completed with 263 accepted actions and zero hard-guard
+rejections, but the result exists only in console output. Running `enrich.py --apply`
+would call the model again and could produce a different action set from the one reviewed.
+Preview and apply must refer to the same immutable plan.
 
-The apparent hour-long Sonnet hang was not a model or gateway failure: macOS power logs
-show the laptop entered clamshell sleep at 08:40:54, immediately after run 2, and woke at
-09:38:34. An instrumented replacement run completed normally. Final full-eval result:
-both models passed 10/10 three times. Sonnet averaged ~114s and ~11.9k output tokens at
-~$0.14/run; Opus averaged ~67s and ~6.1k output tokens at ~$0.21/run. Opus is more concise
-and faster but costs more; it remains the leading default, not yet an accepted decision.
+**Leading design:** preview writes a structured action-plan JSON under a dedicated
+git-ignored review directory. The artifact includes the source Triage path/content hash,
+the model/schema version, and a fingerprint of every vault/pending-state input used for
+resolution. A separate apply mode reads that artifact, fails closed if any fingerprint is
+stale, performs no API call, applies the exact actions, then lints every touched file.
 
-The real unresolved issue is capacity, not hanging: four entity-rich eval items already
-produce 6k–14k output tokens, so 88 items cannot safely fit one 20k/64k-token response.
-
-**Next step:** Design deterministic batching (including pending-store/entity-resolution
-semantics across batches), then preview the 88-item backlog without applying writes.
+**Next step:** Specify the artifact schema and stale-plan fingerprint, then implement and
+test preview→review→apply without writing real vault content until the owner approves the
+persisted plan.
