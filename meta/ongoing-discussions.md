@@ -84,22 +84,3 @@ companies remains open.
 
 **Next step:** Expand in reviewable batches while exercising the Enrich conventions.
 
-## Enrich preview/apply artifact
-
-**Status:** Unresolved safety gap after typed buckets and bounded batching were accepted
-and live-verified (see `DESIGN.md` and `HANDOVER.md`).
-
-The corrected 88-item preview completed with 263 accepted actions and zero hard-guard
-rejections, but the result exists only in console output. Running `enrich.py --apply`
-would call the model again and could produce a different action set from the one reviewed.
-Preview and apply must refer to the same immutable plan.
-
-**Leading design:** preview writes a structured action-plan JSON under a dedicated
-git-ignored review directory. The artifact includes the source Triage path/content hash,
-the model/schema version, and a fingerprint of every vault/pending-state input used for
-resolution. A separate apply mode reads that artifact, fails closed if any fingerprint is
-stale, performs no API call, applies the exact actions, then lints every touched file.
-
-**Next step:** Specify the artifact schema and stale-plan fingerprint, then implement and
-test preview→review→apply without writing real vault content until the owner approves the
-persisted plan.
