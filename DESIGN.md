@@ -106,8 +106,9 @@ recorded here.
   Static rules and changing item data are separate prompt blocks so the former can be
   cached. Preview performs every model call and validates all actions before writing
   anything, then persists the accepted actions in a git-ignored review artifact. The plan
-  includes input, action, schema, and per-file vault-state hashes; apply fails closed if any
-  hash is stale and consumes the exact plan without another model call. The 88-item live
+  includes input, accepted-action, rejected-proposal, schema, and per-file vault-state
+  hashes; rejected proposals remain reviewable but are never applied. Apply fails closed
+  if any hash is stale and consumes the exact accepted plan without another model call. The 88-item live
   preview completed in 14 batches with 263 accepted actions and zero hard-guard rejections.
   Opus passed the representative 12-item/37-entity capacity case; Sonnet returned truncated
   JSON, so Opus is required for this backlog shape unless a future eval demonstrates
