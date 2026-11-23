@@ -108,8 +108,12 @@ recorded here.
   anything, then persists the accepted actions in a git-ignored review artifact. The plan
   includes input, accepted-action, rejected-proposal, schema, and per-file vault-state
   hashes; rejected proposals remain reviewable but are never applied. Apply fails closed
-  if any hash is stale and consumes the exact accepted plan without another model call. The 88-item live
-  preview completed in 14 batches with 263 accepted actions and zero hard-guard rejections.
+  if any hash is stale and consumes the exact accepted plan without another model call.
+  Entity resolution and its fingerprint cover content notes only (concepts, companies,
+  people, technologies, topics), not repository metadata such as `CLAUDE.md`; prompt,
+  rule, schema, taxonomy, template, pending-state, and rejected-link inputs are fingerprinted
+  separately. The 88-item live preview completed in 14 batches with 263 accepted actions
+  and zero hard-guard rejections.
   Opus passed the representative 12-item/37-entity capacity case; Sonnet returned truncated
   JSON, so Opus is required for this backlog shape unless a future eval demonstrates
   otherwise.
