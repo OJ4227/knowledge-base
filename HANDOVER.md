@@ -543,15 +543,29 @@ It fails closed before any write if one differs, makes no API call, applies the 
 accepted actions exactly, and lints touched files. Rejected proposals are stored in a
 separate checksummed audit list and are never applied; this avoids discarding an otherwise
 valid full run because defense-in-depth correctly rejected one proposal. Full offline
-verification after this change: 121 tests pass; vault lint has 0 errors and 90
+verification after this change: 124 tests pass; vault lint has 0 errors and 90
 existing/expected warnings.
+
+The final corrected persisted preview is
+`meta/review/enrich-plans/2026-10-27--20261123T142648Z.json` (git-ignored): 88 items in 14
+calls, **263 accepted actions and 0 rejected** — 14 new notes, 24 existing-note timeline
+entries, 2 frontmatter patches, 136 pending facts, and 87 skips. Review caught and fixed
+three deterministic gaps before this plan was generated: repository metadata could resolve
+as an entity (`Claude` matched `CLAUDE.md`); the prompt omitted the controlled company-sector
+vocabulary; and structured frontmatter patch values such as `last_round` would have been
+written as strings. Resolution now indexes content-note directories only, new-note
+frontmatter is schema/sector-checked before acceptance, structured patch values are parsed,
+and system `created`/`updated` dates are set at apply time. No vault content has been
+applied yet.
 
 ### Resume here — next concrete action
 
-1. **Run a fresh 88-item preview to create the first persisted plan.** The prior 263-action
-   preview cannot be recovered exactly from console output and must not be applied.
-2. Review all proposed new notes and representative pending facts in that persisted plan;
-   then apply once with `--apply-plan` (no model call) and inspect the touched-file lint.
+1. **Await owner approval of the persisted plan.** The 14 proposed notes and representative
+   pending facts have been reviewed; controlled sectors and entity resolution now pass
+   deterministic guards.
+2. Apply once with `--apply-plan
+   meta/review/enrich-plans/2026-10-27--20261123T142648Z.json` (no model call), then inspect
+   touched-file lint and the resulting diff.
 3. Only after the real apply result has been reviewed: build the daily digest (Stage 4),
    which consumes Enrich's output and didn't exist to depend on before now.
 
