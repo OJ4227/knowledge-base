@@ -95,6 +95,21 @@ recorded here.
   intermittently dropped in `fanout-oxide-hardware`) — noted as a likely prompt-level
   issue to revisit, not a reason the model choice is wrong.
 
+- **Enrich emits typed action buckets and runs in bounded, stateful batches.** Decided
+  2026-11-23 after the original polymorphic action schema allowed `pending_fact` to omit
+  its payload and both models later produced truncated JSON under the expanded sentinel
+  schema. The model-facing result has one required array per action type, with required
+  action-specific fields; Python normalizes those buckets for validation/application.
+  Production calls are bounded to 12 items, 40 entity mentions, and 20,000 output tokens.
+  A repeated unresolved entity forces a batch boundary so accepted pending facts and
+  previewed new notes update the in-memory resolution state before its next mention.
+  Static rules and changing item data are separate prompt blocks so the former can be
+  cached. Preview performs every model call and validates all actions before writing
+  anything. The 88-item live preview completed in 14 batches with 263 accepted actions and
+  zero hard-guard rejections. Opus passed the representative 12-item/37-entity capacity
+  case; Sonnet returned truncated JSON, so Opus is required for this backlog shape unless
+  a future eval demonstrates otherwise.
+
 - **Immutable timeline.** Timeline entries are never rewritten or silently deleted. They may
   be *moved* to a linked archive note (log rotation — see §9). Corrections are new entries,
   not edits.
