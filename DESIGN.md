@@ -137,6 +137,14 @@ recorded here.
 - **Grow by relevance, not by target.** A tracked entity gets its own note only when it has
   ≥2 independent mentions or the owner flags it. This is the main defense against bloat.
 
+- **Products and business units do not get tracked notes.** Product-surface events (for
+  example ChatGPT or Codex) and business-unit events (for example Google Cloud) are
+  ledgered on the owning company's page. Do not add `product` or `business-unit` note
+  types: doing so would turn every named organizational/product surface into a candidate
+  entity and defeat the anti-bloat rule. `technology` remains for independently useful
+  tracked artefacts — notable models, hardware, robots, frameworks, and benchmarks — while
+  reusable methods and effective ways of using AI belong in `concepts/` and threads.
+
 ---
 
 ## 3. Repo / vault structure
@@ -199,6 +207,8 @@ cited) · `## Funding history` · `## People` · `## Competitors` · `## Open qu
 first_seen, key_orgs[], related[], concepts[], maturity, updated`.
 Body: `## What it is` (curated) · `## Why it matters` (curated) ·
 `## State of the art` (gardener-maintained) · `## Timeline` · `## Key links`.
+Product surfaces and business units are explicitly excluded; their events live on the
+owning company note.
 
 **topic / MOC / thread** — `type: moc`. Curated intro + `## Current state`
 (gardener-maintained) + running `## Timeline` of linked developments + embedded Dataview.
