@@ -494,20 +494,37 @@ one invalid `concept_link` attempt correctly rejected) — **this comparison is 
 since it predates `pending_fact`; re-run once that bug is fixed before trusting any
 model-choice conclusion from it.
 
+**Update 2026-11-23 — typed buckets implemented; adoption paused on reliability.**
+`EnrichResult` now exposes seven required action-specific arrays, each with required
+payload fields, then normalizes them into the existing internal edit pipeline. This makes
+an empty `pending_fact.timeline_entry` structurally impossible. Cross-action guards now
+also reject duplicates, unsupported entity-lifecycle actions, and frontmatter patches
+without an accepted supporting timeline entry. The prompt and eval harness use the new
+format; eval output now reports latency and action counts.
+
+Offline verification: 106 tests pass; generated schema has no nullable `anyOf`; lint has
+0 errors (90 existing/expected warnings). Live XPeng case: Sonnet and Opus each passed
+3/3 with complete cited facts. Full five-case typed eval: Sonnet passed 10/10 twice
+(103.5s/11,118 output tokens/$0.1324; 138.4s/14,282/$0.1641); Opus passed 10/10 once
+(67.4s/6,303/$0.2107). The legacy schema baseline failed for both models with truncated,
+invalid JSON after 7.6m (Sonnet) and 10.5m (Opus), so typed buckets materially improve
+correctness and normal-case latency.
+
+The adoption gate nevertheless fired: Sonnet's third full typed run did not finish after
+more than an hour and was terminated. Do not run the 88-item preview or `--apply` yet.
+This is broader than the original pending-fact bug: a single large Enrich call is not
+operationally bounded, and 88 production items greatly exceed the four-item eval.
+
 ### Resume here — next concrete action
 
-1. **Fix the `pending_fact` empty-`timeline_entry` bug** (see above) — inspect raw model
-   JSON for a failing case first to confirm omission vs. explicit-empty, then apply whichever
-   of the two candidate fixes that evidence points to. Re-run `xpeng-first-mention-pending`
-   until it passes before anything else.
-2. **Re-run the full 5-case, 2-model (`claude-sonnet-5` / `claude-opus-5`) comparison** once
-   `pending_fact` is reliable — the prior 9/9-both comparison above doesn't cover it and is
-   not a valid basis for a model decision. Compare cost *and* completeness (e.g. Opus's
-   `last_round` frontmatter fill in the stale run was more complete than Sonnet's — check
-   whether that holds up).
-3. The eval suite is thin (5 cases / 4 items) — before trusting a model decision, consider
-   whether to expand it, and whether to do that before or after step 2.
-4. Once the eval score is solid, run `tools/enrich.py --input inbox/_triage/2026-10-27.json`
+1. **Bound Enrich execution before further paid testing.** Review small deterministic
+   batches plus explicit request timeout/token limits; preserve entity-resolution and
+   pending-store semantics across batches.
+2. Re-run the full 5-case, 2-model comparison three times only after calls are bounded.
+   Treat any hang, truncation, or correctness regression as a failed adoption gate.
+3. The eval suite is thin (5 cases / 4 items) — expand it before making a final model
+   decision, especially for cross-batch entity behavior.
+4. Once the bounded eval score is solid, run `tools/enrich.py --input inbox/_triage/2026-10-27.json`
    (preview mode, the default) against the real 88-item backlog and **hand-review the
    printed diff** before ever passing `--apply` — this writes to permanent vault content,
    a materially higher-risk operation than Triage's disposable JSON output.
