@@ -86,22 +86,23 @@ companies remains open.
 
 ## Enrich structured-action schema
 
-**Status:** Unresolved; the current flat `EnrichAction` schema permits `pending_fact` to
-omit its nested `timeline_entry`, after which Pydantic fills the empty defaults and the
-hard guard rejects the fact.
+**Status:** Typed buckets are implemented locally and fix the original correctness bug,
+but adoption is paused pending a performance/reliability review.
 
-The leading long-term design is to replace the polymorphic action list with required,
-typed action buckets on `EnrichResult` (for example `pending_facts`,
-`timeline_entries`, `new_notes`, and `skips`). Each bucket's item schema would contain
-only fields relevant to that action, with required timeline fields and no nullable or
-sentinel payloads. This makes the invalid empty-pending-fact state unrepresentable while
-avoiding the gateway complexity of a multi-branch discriminated union. Python validation
-would remain for cross-action and vault-state invariants.
+The model-facing result now has seven required, action-specific arrays with required
+payload fields; the editing pipeline consumes a normalized internal action list. Offline:
+106 tests pass, the generated schema has no nullable `anyOf` branches, and vault lint has
+0 errors. Live XPeng eval: Sonnet and Opus each passed 3/3 runs with complete cited
+`pending_fact` records. Full five-case eval: Sonnet passed 10/10 twice (103.5s and 138.4s);
+Opus passed 10/10 once (67.4s). The legacy schema failed to return valid JSON for both
+models (truncated output after 7.6m/10.5m), so typed buckets are clearly better on
+correctness.
 
-Fallback if a live gateway probe rejects that schema: retain the compact routing schema
-and repair incomplete pending facts in one focused second call using a small fully
-required schema.
+However, Sonnet's third full typed run did not finish after more than an hour and was
+terminated. This exposes a broader production risk: one Enrich call over many items can
+generate unbounded output or hang at the gateway; the real backlog has 88 items, far more
+than the four-item eval.
 
-**Next step:** Build and live-test the typed-bucket schema against the single XPeng eval
-case before changing the production runner. This is a recommendation, not an accepted
-design decision.
+**Next step:** Before adoption or any 88-item preview, decide how to bound Enrich calls
+(likely small deterministic batches plus explicit timeout/token limits), then repeat the
+full comparison. Typed buckets remain unaccepted until that reliability gate passes.
