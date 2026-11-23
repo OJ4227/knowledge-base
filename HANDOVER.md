@@ -349,10 +349,10 @@ Known, non-blocking items carried forward from Triage (unrelated to the Enrich w
   from the live `inbox/` so future real Triage runs can't delete them again) or rewrite the
   cases to reference something else.
 
-## Enrich (Stage 3) — built and committed this session (2026-10-28), eval NOT yet run
+## Enrich (Stage 3) — built, evaluated, and previewed against the live backlog
 
-**Everything below is free/committed work. The eval costs real money and is the next
-concrete action — see "Resume here" at the end of this section.**
+The historical build/debug narrative below is retained because it explains the schema
+constraints and regressions; the current status is in the 2026-11-23 update near the end.
 
 Built, in 4 commits (`git log` has the full reasoning per commit):
 
