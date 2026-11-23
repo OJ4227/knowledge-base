@@ -580,21 +580,20 @@ and the shared timeline insertion routine orders entries newest-first by date. T
 were reconstructed by replaying all 29 ordered actions targeting them. Final verification:
 127 tests pass; all 11 new notes pass an explicit placeholder/chronology check; full-vault
 lint has 0 errors and 64 warnings (expected unresolved-link, orphan, stub, and
-missing-archive warnings); and `git diff --check` passes. The Enrich code and applied vault
-changes remain uncommitted in the working tree.
+missing-archive warnings); and `git diff --check` passes. Packaged as two logical commits:
+`89d2639` (`enrich: add batched review-plan workflow`) and `39b15d4`
+(`enrich: apply reviewed triage backlog`).
 
 ### Resume here — next concrete action
 
-1. Review and commit the outstanding Enrich implementation plus the applied vault changes
-   in small logical commits; do not stage unrelated files.
-2. Build the daily digest (Stage 4), which can now consume the real Enrich output.
+1. Build the daily digest (Stage 4), which can now consume the real Enrich output.
 
 Other options, lower priority:
 
 - **(a) Bulk-seed (finish step 2)** — ~10–15 more evergreen concepts, ~20–40 companies,
   ~6–10 threads. Large review load; draft in batches into a scratch file for review before
-  writing to the vault. Note: `technologies/` is currently **empty** (zero notes), which
-  will make Enrich's "≥2 mentions" new-note rule fire constantly once it's built.
+  writing to the vault. `technologies/` now contains one Enrich-created note
+  (`Claude Opus 5.5`) but remains thin.
 - **(c) Build `collect-tavily`** — needs a query list decided first (see
   `meta/ongoing-discussions.md`), then follow `collect_readwise.py`'s pattern (same
   `meta/collector-state.json`, same `type: capture` inbox output).
