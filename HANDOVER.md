@@ -494,7 +494,7 @@ one invalid `concept_link` attempt correctly rejected) — **this comparison is 
 since it predates `pending_fact`; re-run once that bug is fixed before trusting any
 model-choice conclusion from it.
 
-**Update 2026-11-23 — typed buckets implemented; adoption paused on reliability.**
+**Update 2026-11-23 — typed buckets and bounded batching implemented and live-verified.**
 `EnrichResult` now exposes seven required action-specific arrays, each with required
 payload fields, then normalizes them into the existing internal edit pipeline. This makes
 an empty `pending_fact.timeline_entry` structurally impossible. Cross-action guards now
@@ -502,7 +502,7 @@ also reject duplicates, unsupported entity-lifecycle actions, and frontmatter pa
 without an accepted supporting timeline entry. The prompt and eval harness use the new
 format; eval output now reports latency and action counts.
 
-Offline verification: 106 tests pass; generated schema has no nullable `anyOf`; lint has
+Offline verification: 113 tests pass; generated schema has no nullable `anyOf`; lint has
 0 errors (90 existing/expected warnings). Live XPeng case: Sonnet and Opus each passed
 3/3 with complete cited facts. Full five-case typed eval: Sonnet passed 10/10 twice
 (103.5s/11,118 output tokens/$0.1324; 138.4s/14,282/$0.1641); Opus passed 10/10 once
@@ -517,26 +517,35 @@ added; the replacement run completed normally. Final full five-case result: both
 passed 10/10 three times. Sonnet: 99.6–138.4s, 10,185–14,282 output tokens,
 $0.1231–$0.1641. Opus: 66.0–67.4s, 6,001–6,303 output tokens, $0.2031–$0.2107. Opus is
 faster, much more concise, and more consistent, at ~50% higher absolute cost; retaining
-Opus as Enrich's default is the current recommendation, not yet an accepted decision.
+Opus as Enrich's default was subsequently confirmed by the capacity eval below.
 
-Do not run the 88-item preview or `--apply` yet. The remaining issue is capacity: four
-entity-rich eval items already produce 6k–14k output tokens, so 88 items cannot fit safely
-in one bounded response. Production Enrich needs deterministic batching with correct
-pending-store/entity-resolution behavior between batches.
+Production Enrich now batches at 12 items / 40 entity mentions / 20k output tokens. A
+repeated unresolved entity forces a boundary; accepted pending facts and previewed new
+notes update an in-memory resolution state between calls. Static rules are a separate
+cacheable prompt block. Cross-batch evals passed for ordinary second-mention promotion and
+for an opinion that clears the mention threshold using only prior cited facts. A
+representative 12-item/37-entity capacity case: Opus passed 12/12 in 112.9s (10,619 output
+tokens, ~$0.33); Sonnet returned truncated invalid JSON. Opus is therefore the Enrich
+default for this backlog shape.
+
+The corrected real-backlog preview completed: 88 items in 14 calls, ~13 minutes, **263
+accepted actions and 0 hard-guard rejections**, with no writes. Breakdown: 14 new notes,
+24 existing-note timeline entries, 2 frontmatter patches, 128 pending facts, 95 skips.
+The preview surfaced and fixed one guard bug first: an opinion may trigger note creation
+when it is a second mention, but the new note may contain only verbatim facts stored before
+the opinion; it may never add an opinion-derived timeline entry.
+
+Do **not** run `--apply` yet. The current CLI would call the model again, so it would not
+apply the exact 263-action plan that was reviewed.
 
 ### Resume here — next concrete action
 
-1. **Design deterministic Enrich batching** before the 88-item preview. Preserve
-   pending-store/entity-resolution semantics between batches and retain explicit request
-   timeout/token limits.
-2. Add cross-batch eval cases, especially two mentions of the same previously unknown
-   entity landing in different batches.
-3. Confirm or reject the recommendation to retain Opus as Enrich's default.
-4. Once the bounded eval score is solid, run `tools/enrich.py --input inbox/_triage/2026-10-27.json`
-   (preview mode, the default) against the real 88-item backlog and **hand-review the
-   printed diff** before ever passing `--apply` — this writes to permanent vault content,
-   a materially higher-risk operation than Triage's disposable JSON output.
-5. Only after a real `--apply` run has been reviewed: build the daily digest (Stage 4),
+1. **Persist the validated preview as a deterministic action-plan artifact, then make
+   `--apply` consume that exact artifact without another model call.** Include the input
+   Triage file hash and vault-state fingerprint so stale plans fail closed.
+2. Review the 14 proposed new notes and representative pending facts in that persisted
+   plan; then apply once and run lint on every touched file.
+3. Only after the real apply result has been reviewed: build the daily digest (Stage 4),
    which consumes Enrich's output and didn't exist to depend on before now.
 
 Other options, lower priority:
