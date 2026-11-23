@@ -86,8 +86,8 @@ companies remains open.
 
 ## Enrich structured-action schema
 
-**Status:** Typed buckets are implemented locally and fix the original correctness bug,
-but adoption is paused pending a performance/reliability review.
+**Status:** Typed buckets are implemented locally and fix the original correctness bug;
+the live eval is complete, but production batching remains unresolved.
 
 The model-facing result now has seven required, action-specific arrays with required
 payload fields; the editing pipeline consumes a normalized internal action list. Offline:
@@ -98,11 +98,15 @@ Opus passed 10/10 once (67.4s). The legacy schema failed to return valid JSON fo
 models (truncated output after 7.6m/10.5m), so typed buckets are clearly better on
 correctness.
 
-However, Sonnet's third full typed run did not finish after more than an hour and was
-terminated. This exposes a broader production risk: one Enrich call over many items can
-generate unbounded output or hang at the gateway; the real backlog has 88 items, far more
-than the four-item eval.
+The apparent hour-long Sonnet hang was not a model or gateway failure: macOS power logs
+show the laptop entered clamshell sleep at 08:40:54, immediately after run 2, and woke at
+09:38:34. An instrumented replacement run completed normally. Final full-eval result:
+both models passed 10/10 three times. Sonnet averaged ~114s and ~11.9k output tokens at
+~$0.14/run; Opus averaged ~67s and ~6.1k output tokens at ~$0.21/run. Opus is more concise
+and faster but costs more; it remains the leading default, not yet an accepted decision.
 
-**Next step:** Before adoption or any 88-item preview, decide how to bound Enrich calls
-(likely small deterministic batches plus explicit timeout/token limits), then repeat the
-full comparison. Typed buckets remain unaccepted until that reliability gate passes.
+The real unresolved issue is capacity, not hanging: four entity-rich eval items already
+produce 6k–14k output tokens, so 88 items cannot safely fit one 20k/64k-token response.
+
+**Next step:** Design deterministic batching (including pending-store/entity-resolution
+semantics across batches), then preview the 88-item backlog without applying writes.
