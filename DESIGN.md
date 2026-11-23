@@ -143,7 +143,10 @@ recorded here.
   types: doing so would turn every named organizational/product surface into a candidate
   entity and defeat the anti-bloat rule. `technology` remains for independently useful
   tracked artefacts — notable models, hardware, robots, frameworks, and benchmarks — while
-  reusable methods and effective ways of using AI belong in `concepts/` and threads.
+  reusable methods and effective ways of using AI belong in `concepts/` and threads. Two
+  Enrich golden cases enforce product→owner and business-unit→owner routing and forbid
+  both standalone-note and pending-entity actions for the child entity; Opus passed the
+  initial live run 8/8.
 
 ---
 
