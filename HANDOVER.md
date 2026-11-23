@@ -568,9 +568,8 @@ as an entity (`Claude` matched `CLAUDE.md`); the prompt omitted the controlled c
 vocabulary; and structured frontmatter patch values such as `last_round` would have been
 written as strings. Resolution now indexes content-note directories only, new-note
 frontmatter is schema/sector-checked before acceptance, structured patch values are parsed,
-and system `created`/`updated` dates are set at apply time. No vault content has been
-applied yet. Full offline verification: 126 tests pass; vault lint has 0 errors and 90
-existing/expected warnings.
+and system `created`/`updated` dates are set at apply time. Pre-apply offline verification
+was 126 passing tests with 0 vault-lint errors.
 
 **Applied 2026-11-23.** The exact persisted plan applied without another model call:
 258 actions across 14 files, including 11 new tracked notes. Inspection caught a
