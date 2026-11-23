@@ -76,3 +76,41 @@ off (see `meta/ongoing-discussions.md` → "Production scheduling / collector ho
 
 No web.archive.org submission yet (needs separate archive.org credentials) — `archive_url`
 is left blank, which lint reports as a non-blocking `missing-archive` warning.
+
+## `enrich.py`
+
+Stage 3 consumes a Triage run and proposes typed, validated vault edits. Preview writes a
+local, git-ignored action plan; applying that plan makes no model call.
+
+```bash
+set -a; source tools/.env; set +a
+
+# bounded preview (default: Opus, 12 items / 40 entity mentions per call)
+.venv/bin/python tools/enrich.py --input inbox/_triage/2026-10-27.json
+
+# apply the exact reviewed plan; fails closed if the Triage input or vault state changed
+.venv/bin/python tools/enrich.py \
+  --apply-plan meta/review/enrich-plans/2026-10-27--<timestamp>.json
+
+# print assembled batch prompts without API calls
+.venv/bin/python tools/enrich.py --input inbox/_triage/2026-10-27.json --dry-run
+```
+
+Repeated unresolved entities force a batch boundary so first-mention facts affect later
+resolution. The runner completes and validates all model calls before writing any files.
+Each plan separates accepted actions from a checksummed rejection audit; rejected
+proposals remain visible for review and can never be applied. It also records the Triage
+content hash, output-schema hash, and a per-file fingerprint of every vault, prompt, rule,
+pending-state, and template input. `--apply-plan` verifies those fingerprints before
+writing and then applies the serialized accepted actions exactly, without constructing an
+API client.
+
+Paid evals:
+
+```bash
+.venv/bin/python tools/evals/run_enrich_eval.py
+.venv/bin/python tools/evals/run_enrich_eval.py \
+  --case google-cross-batch-promotion --batch-size 1
+.venv/bin/python tools/evals/run_enrich_eval.py \
+  --case capacity-batch-12 --batch-size 12 --max-entities 40
+```

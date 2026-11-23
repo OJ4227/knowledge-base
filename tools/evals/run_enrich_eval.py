@@ -6,8 +6,8 @@ invocation. Never invoked by pytest or the pre-commit hook.
 
 Runs Enrich once over the union of every golden case's items (selected from a real Triage
 output file by item id), scores each case's deterministic structural checks against the
-model's *accepted* actions (after the same hard-guard validation `enrich.py --apply` would
-run — rejected actions never count toward a case), and prints a per-case pass/fail table
+model's *accepted* actions (after the same hard-guard validation an Enrich preview runs —
+rejected actions never count toward a case), and prints a per-case pass/fail table
 plus token counts and estimated cost. Runs against the real vault index, read-only — no
 file is ever written by this script, regardless of what the model proposes.
 
@@ -25,8 +25,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import signal
 import sys
+import time
+from contextlib import contextmanager
 from pathlib import Path
+from types import SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -36,6 +40,7 @@ import lint
 
 CASES_DIR = Path(__file__).resolve().parent / "cases" / "enrich"
 DEFAULT_INPUT = en.ROOT / "inbox" / "_triage" / "2026-10-27.json"
+EVAL_MAX_TOKENS = 20_000  # enough for successful full runs; bounds pathological output loops
 
 MODEL_PRICES = {
     "claude-haiku-4-5": (1.00, 5.00),
@@ -68,8 +73,57 @@ def union_item_ids(cases: list[dict]) -> list[str]:
 
 # --------------------------------------------------------------------------- running enrich
 
+
+class EvaluationTimeout(TimeoutError):
+    pass
+
+
+@contextmanager
+def wall_clock_timeout(seconds: int):
+    """Bound a paid eval even if a gateway keeps a streaming response alive forever."""
+    if seconds <= 0:
+        yield
+        return
+
+    def raise_timeout(_signum, _frame):
+        raise EvaluationTimeout(f"evaluation exceeded {seconds}s wall-clock limit")
+
+    previous = signal.signal(signal.SIGALRM, raise_timeout)
+    signal.setitimer(signal.ITIMER_REAL, seconds)
+    try:
+        yield
+    finally:
+        signal.setitimer(signal.ITIMER_REAL, 0)
+        signal.signal(signal.SIGALRM, previous)
+
+
+def consume_with_progress(stream, report_every_seconds: float = 15.0):
+    """Consume without logging content; report whether a slow call is still emitting."""
+    started = time.perf_counter()
+    last_report = started
+    event_count = 0
+    generated_characters = 0
+    for event in stream:
+        event_count += 1
+        delta = getattr(event, "delta", None)
+        for field in ("text", "thinking", "partial_json"):
+            value = getattr(delta, field, "") if delta is not None else ""
+            if isinstance(value, str):
+                generated_characters += len(value)
+        now = time.perf_counter()
+        if now - last_report >= report_every_seconds:
+            print(f"stream progress: elapsed={now - started:.1f}s events={event_count} "
+                  f"generated_chars={generated_characters}", flush=True)
+            last_report = now
+    return stream.get_final_message()
+
+
 def run_enrich_over(item_ids: list[str], input_path: Path, model: str,
-                     effort: str = en.tg.DEFAULT_EFFORT):
+                     effort: str = en.tg.DEFAULT_EFFORT,
+                     max_tokens: int = EVAL_MAX_TOKENS,
+                     wall_timeout_seconds: int = 300,
+                     batch_size: int = 0,
+                     max_entities: int = en.DEFAULT_MAX_ENTITIES_PER_BATCH):
     all_items = en.load_triage_items(input_path)
     by_id = {i.id: i for i in all_items}
     missing = [i for i in item_ids if i not in by_id]
@@ -80,7 +134,8 @@ def run_enrich_over(item_ids: list[str], input_path: Path, model: str,
 
     index = er.build_vault_index(en.ROOT)
     pending = er.load_pending_store()
-    prompt = en.build_prompt(items, index, pending)
+    batches = (en.make_batches(items, batch_size, index, max_entities)
+               if batch_size else [items])
 
     client = en.tg.build_client()
     if client is None:
@@ -89,30 +144,61 @@ def run_enrich_over(item_ids: list[str], input_path: Path, model: str,
               file=sys.stderr)
         raise SystemExit(1)
 
-    with client.messages.stream(
-        model=model,
-        max_tokens=64000,
-        thinking={"type": "adaptive"},
-        messages=[{
-            "role": "user",
-            "content": [{"type": "text", "text": prompt,
-                         "cache_control": {"type": "ephemeral"}}],
-        }],
-        output_config={
-            "effort": effort,
-            "format": {"type": "json_schema", "schema": en.EnrichResult.model_json_schema()},
-        },
-    ) as stream:
-        response = stream.get_final_message()
-
-    text = next(b.text for b in response.content if b.type == "text")
-    result = en.EnrichResult.model_validate_json(text)
-
+    started = time.perf_counter()
     rejected_pairs = en.load_rejected_pairs()
-    opinion_ids = {i.id for i in items if i.development_type == "opinion"}
-    accepted, rejected = en.validate_actions(result.actions, index, rejected_pairs, opinion_ids)
+    accepted: list[en.EnrichAction] = []
+    rejected: list[en.Rejection] = []
+    usage_totals = SimpleNamespace(
+        input_tokens=0, output_tokens=0,
+        cache_read_input_tokens=0, cache_creation_input_tokens=0,
+    )
+    for number, batch in enumerate(batches, 1):
+        print(f"eval batch {number}/{len(batches)}: {len(batch)} item(s)", flush=True)
+        static_prompt, items_prompt = en.build_prompt_parts(batch, index, pending)
+        with wall_clock_timeout(wall_timeout_seconds):
+            with client.messages.stream(
+                model=model,
+                max_tokens=max_tokens,
+                timeout=120.0,
+                thinking={"type": "adaptive"},
+                messages=[{
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": static_prompt,
+                         "cache_control": {"type": "ephemeral"}},
+                        {"type": "text", "text": items_prompt},
+                    ],
+                }],
+                output_config={
+                    "effort": effort,
+                    "format": {
+                        "type": "json_schema",
+                        "schema": en.EnrichResult.model_json_schema(),
+                    },
+                },
+            ) as stream:
+                response = consume_with_progress(stream)
 
-    return accepted, rejected, response.usage
+        for field in vars(usage_totals):
+            setattr(usage_totals, field, getattr(usage_totals, field)
+                    + getattr(response.usage, field, 0))
+
+        text = next(block.text for block in response.content if block.type == "text")
+        print(f"batch response: stop_reason={response.stop_reason} "
+              f"output_tokens={response.usage.output_tokens} chars={len(text)}",
+              flush=True)
+        actions = en.normalize_actions(en.EnrichResult.model_validate_json(text))
+        batch_accepted, batch_rejected = en.validate_actions(
+            actions, index, rejected_pairs,
+            {item.id for item in batch if item.development_type == "opinion"},
+            resolution_map=en.build_resolution_map(batch, index, pending),
+            expected_item_ids={item.id for item in batch},
+        )
+        accepted.extend(batch_accepted)
+        rejected.extend(batch_rejected)
+        en.advance_planning_state(batch_accepted, index, pending)
+
+    return accepted, rejected, usage_totals, time.perf_counter() - started
 
 
 # --------------------------------------------------------------------------- scoring
@@ -126,20 +212,21 @@ def _action_matches(a: en.EnrichAction, check: dict) -> bool:
         return False
     if "target_note" in check and a.target_note != check["target_note"]:
         return False
-    if "target_note_stem" in check:
-        # "the note this action is about" — target_note for most action types, but
-        # new_note_path for a new_note action (it has no target_note at all)
-        stem = _note_stem(a.target_note) or _note_stem(a.new_note_path)
-        if stem != check["target_note_stem"]:
-            return False
-    if "new_note_type" in check and a.new_note_type != check["new_note_type"]:
+    # target_note is one unified field now (existing note, new note's intended path, or
+    # thread, depending on action_type) — target_note_stem and the legacy new_note_path_stem
+    # name both just read it.
+    if "target_note_stem" in check and _note_stem(a.target_note) != check["target_note_stem"]:
         return False
-    if "new_note_path_stem" in check and _note_stem(a.new_note_path) != check["new_note_path_stem"]:
+    if "new_note_type" in check and a.new_note.type != check["new_note_type"]:
         return False
-    if "frontmatter_field" in check and a.frontmatter_field != check["frontmatter_field"]:
+    if "new_note_path_stem" in check and _note_stem(a.target_note) != check["new_note_path_stem"]:
+        return False
+    if "frontmatter_field" in check and a.frontmatter_patch.field != check["frontmatter_field"]:
+        return False
+    if "entity" in check and a.entity != check["entity"]:
         return False
     if "sources_include" in check:
-        sources = a.timeline_entry.sources if a.timeline_entry else []
+        sources = a.timeline_entry.sources
         if not all(s in sources for s in check["sources_include"]):
             return False
     return True
@@ -195,6 +282,14 @@ def main(argv: list[str] | None = None) -> int:
                         choices=["low", "medium", "high", "xhigh", "max"])
     parser.add_argument("--case", action="append", dest="cases",
                         help="run only this case (repeatable); default: all cases")
+    parser.add_argument("--max-tokens", type=int, default=EVAL_MAX_TOKENS,
+                        help=f"maximum output tokens (default: {EVAL_MAX_TOKENS})")
+    parser.add_argument("--wall-timeout", type=int, default=300,
+                        help="hard wall-clock limit in seconds (default: 300; 0 disables)")
+    parser.add_argument("--batch-size", type=int, default=0,
+                        help="maximum items per call; 0 keeps the eval in one call")
+    parser.add_argument("--max-entities", type=int, default=en.DEFAULT_MAX_ENTITIES_PER_BATCH,
+                        help="maximum entity mentions per batched call")
     args = parser.parse_args(argv)
 
     cases = load_cases(args.cases)
@@ -206,7 +301,17 @@ def main(argv: list[str] | None = None) -> int:
     print(f"running enrich over {len(item_ids)} item(s) from {len(cases)} case(s), "
           f"model={args.model}, effort={args.effort}, input={args.input}\n")
 
-    accepted, rejected, usage = run_enrich_over(item_ids, args.input, args.model, args.effort)
+    try:
+        accepted, rejected, usage, elapsed_seconds = run_enrich_over(
+            item_ids, args.input, args.model, args.effort,
+            max_tokens=args.max_tokens,
+            wall_timeout_seconds=args.wall_timeout,
+            batch_size=args.batch_size,
+            max_entities=args.max_entities,
+        )
+    except EvaluationTimeout as exc:
+        print(f"EVAL TIMEOUT: {exc}", file=sys.stderr)
+        return 2
 
     if rejected:
         print(f"{len(rejected)} action(s) rejected by hard guards (never count toward scoring):")
@@ -232,6 +337,8 @@ def main(argv: list[str] | None = None) -> int:
     print(f"score: {total_passed}/{total_checks}")
     print(f"tokens: input={usage.input_tokens} output={usage.output_tokens} "
           f"cache_read={getattr(usage, 'cache_read_input_tokens', 0)}")
+    print(f"latency: {elapsed_seconds:.1f}s")
+    print(f"actions: accepted={len(accepted)} rejected={len(rejected)}")
     cost = estimate_cost(args.model, usage)
     if cost is not None:
         print(f"estimated cost: ${cost:.4f}")

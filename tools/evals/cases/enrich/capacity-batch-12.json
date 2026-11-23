@@ -1,0 +1,31 @@
+{
+  "description": "Capacity benchmark for the production batching limit: 12 real Triage items with 37 entity mentions must fit one typed-bucket response and return at least one accepted action for every item.",
+  "item_ids": [
+    "figure-series-c-39b",
+    "apple-ternus-design-chief",
+    "neuralink-pretraining-brain-data",
+    "nasa-moon-nuclear-reactor",
+    "nuclear-cancer-studies-methodology",
+    "prime-inference-launch",
+    "aleph-alpha-kolibri",
+    "anthropic-claude-frontier-academy",
+    "agent-population-2027-estimate",
+    "ai21-kueue-gpu-fleet",
+    "small-models-sovereignty-australia",
+    "openai-eu-text-watermarks"
+  ],
+  "checks": [
+    {"type": "item_has_action", "item_id": "figure-series-c-39b"},
+    {"type": "item_has_action", "item_id": "apple-ternus-design-chief"},
+    {"type": "item_has_action", "item_id": "neuralink-pretraining-brain-data"},
+    {"type": "item_has_action", "item_id": "nasa-moon-nuclear-reactor"},
+    {"type": "item_has_action", "item_id": "nuclear-cancer-studies-methodology"},
+    {"type": "item_has_action", "item_id": "prime-inference-launch"},
+    {"type": "item_has_action", "item_id": "aleph-alpha-kolibri"},
+    {"type": "item_has_action", "item_id": "anthropic-claude-frontier-academy"},
+    {"type": "item_has_action", "item_id": "agent-population-2027-estimate"},
+    {"type": "item_has_action", "item_id": "ai21-kueue-gpu-fleet"},
+    {"type": "item_has_action", "item_id": "small-models-sovereignty-australia"},
+    {"type": "item_has_action", "item_id": "openai-eu-text-watermarks"}
+  ]
+}

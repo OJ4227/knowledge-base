@@ -34,5 +34,8 @@ tools/.env
 meta/health/lint-report.md
 meta/health/report.md
 
+# Enrich preview plans — local review artifacts, regenerated from committed inputs
+meta/review/enrich-plans/
+
 # Note: sources/_snapshots/ IS committed on purpose — archived source content is
 # part of the provenance guarantee and must survive link rot.

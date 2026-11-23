@@ -1,0 +1,38 @@
+{
+  "description": "OpenAI announced EU text watermarking for outputs from its ChatGPT and Codex product surfaces. Products never get tracked notes or pending-entity facts: the event belongs on OpenAI. OpenAI clears the company-note threshold through an existing unresolved [[OpenAI]] link, so the model must create companies/OpenAI.md while avoiding both new_note and pending_fact actions for ChatGPT and Codex.",
+  "item_ids": ["openai-eu-text-watermarks"],
+  "checks": [
+    {
+      "type": "item_has_action",
+      "item_id": "openai-eu-text-watermarks",
+      "action_type": "new_note",
+      "entity": "OpenAI",
+      "new_note_type": "company",
+      "new_note_path_stem": "OpenAI"
+    },
+    {
+      "type": "item_lacks_action",
+      "item_id": "openai-eu-text-watermarks",
+      "action_type": "new_note",
+      "entity": "ChatGPT"
+    },
+    {
+      "type": "item_lacks_action",
+      "item_id": "openai-eu-text-watermarks",
+      "action_type": "pending_fact",
+      "entity": "ChatGPT"
+    },
+    {
+      "type": "item_lacks_action",
+      "item_id": "openai-eu-text-watermarks",
+      "action_type": "new_note",
+      "entity": "Codex"
+    },
+    {
+      "type": "item_lacks_action",
+      "item_id": "openai-eu-text-watermarks",
+      "action_type": "pending_fact",
+      "entity": "Codex"
+    }
+  ]
+}

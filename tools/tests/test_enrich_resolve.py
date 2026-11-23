@@ -44,6 +44,16 @@ def test_resolved_link_not_in_unresolved_set(tmp_path):
     assert "brett adcock" not in idx.unresolved_link_targets
 
 
+def test_repository_metadata_is_not_an_entity_or_prior_mention(tmp_path):
+    write_note(tmp_path, "CLAUDE.md", "type: meta\nname: Claude",
+               body="\n[[Apptronik]]\n")
+
+    idx = er.build_vault_index(tmp_path)
+
+    assert "claude" not in idx.by_name
+    assert "apptronik" not in idx.unresolved_link_targets
+
+
 # --------------------------------------------------------------------------- pending store
 
 def test_pending_store_round_trips_fact_text_exactly(tmp_path):
@@ -62,6 +72,24 @@ def test_pending_store_round_trips_fact_text_exactly(tmp_path):
 def test_pending_store_missing_file_is_empty(tmp_path):
     store = er.load_pending_store(tmp_path / "does-not-exist.md")
     assert store.facts == {}
+
+
+def test_load_and_save_pending_store_respect_monkeypatched_default_path(tmp_path, monkeypatch):
+    """Regression test: load_pending_store()/save_pending_store() must re-read
+    er.PENDING_ENTITIES_PATH at call time when no explicit path is given, not capture it once
+    at function-definition time — otherwise a caller relying on the default (as enrich.py's
+    run() does) would silently hit the real repo file under any monkeypatched test fixture."""
+    fake_path = tmp_path / "meta" / "pending-entities.md"
+    fake_path.parent.mkdir(parents=True, exist_ok=True)
+    monkeypatch.setattr(er, "PENDING_ENTITIES_PATH", fake_path)
+
+    store = er.PendingStore()
+    store.facts["XPeng"] = [er.PendingFact(text="- 2025-03-12 — Fact. ([[sources/a]]) #routine")]
+    er.save_pending_store(store)  # no explicit path — must use the monkeypatched one
+
+    assert fake_path.exists()
+    loaded = er.load_pending_store()  # no explicit path
+    assert loaded.has_entity("XPeng")
 
 
 def test_pending_store_multiple_entities_and_facts(tmp_path):

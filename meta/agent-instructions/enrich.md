@@ -23,6 +23,11 @@ itself.
   independent mentions" bar counts an existing unresolved `[[EntityName]]` link anywhere in
   the vault as a prior mention, alongside a prior Enrich-recorded mention in
   `meta/pending-entities.md`.
+- Products and business units never get their own notes, even after two mentions. Route
+  their factual developments to the owning company's timeline instead. Do not create
+  `product` or `business-unit` types. A `technology` note is reserved for an independently
+  useful tracked artefact (model, hardware, robot, framework, or benchmark), not an app,
+  product surface, service, or organizational subdivision.
 - An entity that doesn't clear the ≥2-mentions bar is never silently dropped: its full
   cited fact is stored in `meta/pending-entities.md` (exact text, citation, tag) until a
   second mention arrives, at which point the note is created and every stored fact is moved

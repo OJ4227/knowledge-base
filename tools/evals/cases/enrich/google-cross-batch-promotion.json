@@ -1,0 +1,32 @@
+{
+  "description": "Cross-batch entity lifecycle: Google is a genuine first-mention participant in Apptronik's round, then appears independently as the releasing organization for Nano Banana 2.1. With --batch-size 1, the first batch must store a cited pending fact; the second must see that state, clear the two-mention threshold, and create companies/Google.md rather than emitting another pending fact.",
+  "item_ids": [
+    "apptronik-series-a-google",
+    "nano-banana-2-1"
+  ],
+  "checks": [
+    {
+      "type": "item_has_action",
+      "item_id": "apptronik-series-a-google",
+      "action_type": "pending_fact",
+      "entity": "Google",
+      "sources_include": [
+        "[[sources/2025-02-14-the-ai-robot-race-is-going-to-be-next-level]]"
+      ]
+    },
+    {
+      "type": "item_has_action",
+      "item_id": "nano-banana-2-1",
+      "action_type": "new_note",
+      "entity": "Google",
+      "new_note_type": "company",
+      "new_note_path_stem": "Google"
+    },
+    {
+      "type": "item_lacks_action",
+      "item_id": "nano-banana-2-1",
+      "action_type": "pending_fact",
+      "entity": "Google"
+    }
+  ]
+}

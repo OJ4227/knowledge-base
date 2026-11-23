@@ -1,0 +1,29 @@
+{
+  "description": "Google launched a universal Gemini agent through its Google Cloud business unit. Business units never get tracked notes or pending-entity facts: the event belongs to the parent company. Google is a genuine first mention in this isolated case, so the model must preserve the cited fact as a pending_fact for Google while avoiding both new_note and pending_fact actions for Google Cloud.",
+  "item_ids": ["gemini-universal-agent"],
+  "checks": [
+    {
+      "type": "item_has_action",
+      "item_id": "gemini-universal-agent",
+      "action_type": "pending_fact",
+      "entity": "Google",
+      "sources_include": [
+        "[[sources/2026-10-09-gpt-6-1-ultrafast-gemini-universal-agent-speculative-decoding]]",
+        "[[sources/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race]]",
+        "[[sources/2026-10-12-gemini-4-carbon-nvidia-weighs-reflection-acquihire-decision-model-race-2]]"
+      ]
+    },
+    {
+      "type": "item_lacks_action",
+      "item_id": "gemini-universal-agent",
+      "action_type": "new_note",
+      "entity": "Google Cloud"
+    },
+    {
+      "type": "item_lacks_action",
+      "item_id": "gemini-universal-agent",
+      "action_type": "pending_fact",
+      "entity": "Google Cloud"
+    }
+  ]
+}

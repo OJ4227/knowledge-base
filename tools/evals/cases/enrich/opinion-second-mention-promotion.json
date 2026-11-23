@@ -1,0 +1,28 @@
+{
+  "description": "An opinion may clear the mention-count threshold without contributing a ledger fact. Google first gets a cited pending fact from Apptronik's funding event; the later hyperscaler opinion is a second independent mention and may trigger companies/Google.md only by moving that prior fact verbatim, never by adding an opinion timeline entry.",
+  "item_ids": [
+    "apptronik-series-a-google",
+    "hyperscalers-will-win-robotics-thesis"
+  ],
+  "checks": [
+    {
+      "type": "item_has_action",
+      "item_id": "apptronik-series-a-google",
+      "action_type": "pending_fact",
+      "entity": "Google"
+    },
+    {
+      "type": "item_has_action",
+      "item_id": "hyperscalers-will-win-robotics-thesis",
+      "action_type": "new_note",
+      "entity": "Google",
+      "new_note_type": "company",
+      "new_note_path_stem": "Google"
+    },
+    {
+      "type": "item_lacks_action",
+      "item_id": "hyperscalers-will-win-robotics-thesis",
+      "action_type": "timeline_entry"
+    }
+  ]
+}

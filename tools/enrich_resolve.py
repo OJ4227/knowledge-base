@@ -16,6 +16,7 @@ from pathlib import Path
 import lint
 
 PENDING_ENTITIES_PATH = Path(__file__).resolve().parent.parent / "meta" / "pending-entities.md"
+RESOLUTION_DIRS = {"concepts", "companies", "people", "technologies", "topics"}
 
 _ENTITY_HEADING_RE = re.compile(r"^###\s+(.+)$", re.M)
 _TIMELINE_BULLET_RE = re.compile(r"^-\s+\d{4}-\d{2}-\d{2}\s+[—-]\s+.+$", re.M)
@@ -29,8 +30,15 @@ class VaultIndex:
     unresolved_link_targets: set[str]              # resolve_key(target) for dangling [[links]]
 
 
+def iter_resolution_paths(root: Path):
+    """Yield content notes that can establish an entity or prior mention."""
+    for path in lint.iter_markdown(root):
+        if path.relative_to(root).parts[0] in RESOLUTION_DIRS:
+            yield path
+
+
 def build_vault_index(root: Path) -> VaultIndex:
-    notes = [lint.load_note(p, root) for p in lint.iter_markdown(root)]
+    notes = [lint.load_note(path, root) for path in iter_resolution_paths(root)]
 
     by_name: dict[str, lint.Note] = {}
     for n in notes:
@@ -62,7 +70,12 @@ class PendingStore:
         return name in self.facts and len(self.facts[name]) > 0
 
 
-def load_pending_store(path: Path = PENDING_ENTITIES_PATH) -> PendingStore:
+def load_pending_store(path: Path | None = None) -> PendingStore:
+    # `path` can't default to the module-level PENDING_ENTITIES_PATH directly: a default
+    # argument value is bound once at function-definition time, so a caller that monkeypatches
+    # the module attribute (tests) and then calls this with no explicit path would silently
+    # still hit the real path. Re-reading the attribute here picks up the current value.
+    path = path or PENDING_ENTITIES_PATH
     if not path.exists():
         return PendingStore()
     text = path.read_text(encoding="utf-8")
@@ -122,7 +135,8 @@ pending entity, followed by its stored facts as ordinary timeline bullets (oldes
     return out.rstrip() + "\n"
 
 
-def save_pending_store(store: PendingStore, path: Path = PENDING_ENTITIES_PATH) -> None:
+def save_pending_store(store: PendingStore, path: Path | None = None) -> None:
+    path = path or PENDING_ENTITIES_PATH  # see load_pending_store's comment on late binding
     path.write_text(render_pending_store(store), encoding="utf-8")
 
 
